@@ -1,0 +1,164 @@
+<link rel="import" href="swiftui-karatext-import.html">
+
+<polymer-element name="swiftui-karatext" attributes="startTime endTime">
+	<template>
+		<span id="canvas">
+		</span>
+  </template>
+	
+	<script>
+		(function() {
+			var parentHeight;
+			var lineSpacing = 30, firstLineTop, secondLineTop; // TODO: lineSpacing
+			
+			function numberToPx(number) {
+				return number + "px"; 
+			}
+			
+			Polymer({
+				_getStyles: function() {
+					return window.getComputedStyle(this);
+				},
+				
+				_getGroundTextColorForSVG: function() {
+					return this._getStyles().backgroundColor;
+				},
+				
+				_getForegroundTextColorForSVG: function() {
+					return this._getStyles().color;
+				},
+				
+				_getFontSizeForSVG: function() {
+					return parseInt(this._getStyles().fontSize, 10);
+				},
+				
+				/* 3 conditions */
+				/* startTime[0] >= flyDuration */
+				/* realStartTime[i+1] - loadTime[i+1] = realStartTime[i+1] - realStartTime[i] = startTime[i+1] - startTime[i] >= flyDuration */
+				/* endTime[i] <= startTime[i+1] */
+				
+				run: function(prevKaratextStartTime, flyDuration) {
+					// In reality, realStartTime[i] = loadTime[i+1],
+					// which means when the i-th line plays and starts to fly to 1st line, the i+1-th line starts to fly to 2nd line
+					var loadTime =  prevKaratextStartTime;
+					var realStartTime = this.startTime;
+					var realEndTime = this.endTime;
+
+					/* Display */
+					this.async(function() {
+						this.style.display = "block";
+						this.style.position = "absolute";
+						this.style.width = "100%";
+						this.style.opacity = "0";
+						this.style.height = numberToPx(this._textHeight);
+					}, null, loadTime);
+					
+					/* Fly in to second line */
+					this.async(function() {
+						document.timeline.play(new Animation(this,
+							[
+								{opacity: 0, top: numberToPx(parentHeight)},
+								{opacity: 1, top: numberToPx(secondLineTop)}
+							],
+							{
+								duration: flyDuration,
+								easing: "ease-out",
+								fill: "both"
+							}));
+					}, null, loadTime);
+					
+					/* Fly to first line */
+					this.async(function() {
+						document.timeline.play(new Animation(this,
+							[
+								{top: numberToPx(secondLineTop)},
+								{top: numberToPx(firstLineTop)}
+							],
+							{
+								duration: flyDuration,
+								easing: "ease-in",
+								fill: "forwards"
+							}));
+					}, null, realStartTime);
+					
+					/* Run */
+					this._filledBackground
+						.animate({duration: this.duration, ease: "<>", delay: realStartTime})
+						.attr({"width": this._textWidth});
+					
+					/* Fly out */
+					this.async(function() {
+						document.timeline.play(new Animation(this,
+							[
+								{opacity: 1, top: numberToPx(firstLineTop)},
+								{opacity: 0, top: numberToPx(-this._textHeight)}
+							],
+							{
+								duration: flyDuration,
+								easing: "ease-in",
+								fill: "forwards"
+							}));
+					}, null, realEndTime);
+					
+					/* Hide */
+					this.async(function() {
+						this.style.display = "none";
+					}, null, realEndTime + flyDuration);
+				},
+				
+				publish: {
+					startTime: 0,
+					endTime: 0
+				},
+				
+				computed: {
+					duration: "endTime - startTime"
+				},
+				
+				domReady: function() {
+					this.async(function() {
+						var svgCanvas = SVG(this.$.canvas);
+						
+						var text = svgCanvas.text(this.textContent);
+						text.attr("font-family", null); // A hack to remove SVG.js default font value
+						text.attr("fill", this._getGroundTextColorForSVG()); // Set ground text by using background-color CSS
+						var textLeading = this._getFontSizeForSVG() / 16.0 - 0.3;
+						text.leading(textLeading);
+						
+						var clippingText = svgCanvas.text(this.textContent);
+						clippingText.attr("font-family", null);
+						clippingText.attr("fill", this._getGroundTextColorForSVG());
+						clippingText.leading(textLeading);
+						
+						this.style.backgroundColor = "transparent"; // Reset background-color
+						
+						/* Calculate the real bounding size */
+						var textBoundingRect = text.node.getBoundingClientRect();
+						this._textWidth = Math.round(textBoundingRect.width);
+						this._textHeight = Math.round(textBoundingRect.height);
+						
+						/* Set size for the svgCanvas */
+						svgCanvas.size(this._textWidth, this._textHeight);
+						
+						/* Color and clip */
+						this._filledBackground = svgCanvas.rect(0, this._textHeight).fill(this._getForegroundTextColorForSVG());
+						this._filledBackground.clipWith(clippingText);
+						
+						/* Hide this before made shown again when playing */
+						this.style.display = "none";
+						
+						/* Calculate some global vars, only once */
+						if (firstLineTop === undefined && this._textHeight > 0) {
+							var parentStyle = window.getComputedStyle(this.parentNode);
+							parentHeight = parseInt(parentStyle.height, 10);
+							firstLineTop = (parentHeight - lineSpacing) / 2 - this._textHeight;
+							secondLineTop = firstLineTop + this._textHeight + lineSpacing;
+						}
+						
+						this.parentNode.registerKaratext(this);
+					});
+				}
+			});
+		})();
+	</script>
+</polymer-element>

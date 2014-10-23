@@ -1,0 +1,60 @@
+<link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="swiftui-karatext.html">
+
+<polymer-element name="swiftui-kara" attributes="flyDuration">
+	<template>
+		<style>
+			:host {
+				position: relative;
+				overflow: hidden;
+				text-align: center;
+			}
+		</style>
+		<content></content>
+  </template>
+	
+	<script>
+		(function() {
+			Polymer({
+				play: function() {
+					for (var i = 0; i < this._numberOfKaratext; i++) {
+						var childKaratext = this._childrenKaratext[i];
+						
+						var prevKaratextStartTime;
+						if (i == 0)
+							prevKaratextStartTime = 0;
+						else
+							prevKaratextStartTime = this._childrenKaratext[i - 1].startTime;
+						
+						childKaratext.run(prevKaratextStartTime, this.flyDuration);
+					}
+				},
+				
+				registerKaratext: function(childKaratext) {
+					this._childrenKaratext.push(childKaratext);
+					if (this._childrenKaratext.length == this._numberOfKaratext) {
+						/* Set parent to center center flex layout */
+						this.parentNode.setAttribute("horizontal", "");
+						this.parentNode.setAttribute("layout", "");
+						this.parentNode.setAttribute("center", "");
+						this.parentNode.setAttribute("center-justified", "");
+						
+						this.play();
+					}
+				},
+				
+				publish: {
+					flyDuration: 400
+				},
+				
+				created: function() {
+					this._childrenKaratext = [];
+				},
+				
+				domReady: function() {
+					this._numberOfKaratext = this.querySelectorAll("swiftui-karatext").length;
+				}
+			});
+		})();
+	</script>
+</polymer-element>
