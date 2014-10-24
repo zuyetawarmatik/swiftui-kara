@@ -43,21 +43,13 @@
 					return parseInt(this._getStyles().fontSize, 10);
 				},
 				
-				registerTimes: function(currentPlayTime, prevKaratextStartTime) {
+				registerTimes: function(currentTime) {
 					// In reality, realStartTime[i] = loadTime[i+1],
 					// which means when the i-th line plays and starts to fly to 1st line, the i+1-th line starts to fly to 2nd line
 					
-					if (currentPlayTime == 0) {
-						/* Used for starting to play from 0, prevKaratextStartTime is required */					
-						this.loadTime =  prevKaratextStartTime;
-						this.realStartTime = this.startTime;
-						this.realEndTime = this.endTime;
-					} else if (currentPlayTime > 0) {
-						/* Used for pausing and resuming */
-						this.loadTime -= currentPlayTime;
-						this.realStartTime -= currentPlayTime;
-						this.realEndTime -= currentPlayTime;
-					}
+					this.loadTime = 0;
+					this.realStartTime = this.startTime - currentTime;
+					this.realEndTime = this.endTime - currentTime;
 				},
 				
 				/* 3 conditions */
@@ -159,9 +151,8 @@
 						this.style.backgroundColor = "transparent"; // Reset background-color
 
 						/* Calculate the real bounding size */
-						var textBoundingRect = text.node.getBoundingClientRect();
-						this._textWidth = Math.round(textBoundingRect.width);
-						this._textHeight = Math.round(textBoundingRect.height);
+						this._textWidth = text.node.clientWidth;
+						this._textHeight = text.node.clientHeight;
 
 						/* Set size for the svgCanvas */
 						svgCanvas.size(this._textWidth, this._textHeight);
@@ -175,7 +166,7 @@
 
 						/* Calculate some global vars, only once */
 						if (firstLineTop === undefined && this._textHeight > 0) {
-							parentHeight = Math.round(this.parentNode.getBoundingClientRect().height);
+							parentHeight = this.parentNode.clientHeight;
 
 							firstLineTop = (parentHeight - lineSpacing) / 2 - this._textHeight;
 							secondLineTop = firstLineTop + this._textHeight + lineSpacing;
