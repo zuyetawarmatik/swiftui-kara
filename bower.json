@@ -18,7 +18,8 @@
     "polymer": "Polymer/polymer#~0.4.2",
     "core-elements": "Polymer/core-elements#~0.4.2",
     "paper-elements": "Polymer/paper-elements#~0.4.2",
-    "svg.js": "~1.0.1"
+    "svg.js": "~1.0.1",
+    "google-youtube": "~0.0.9"
   },
   "dependencies": {
     "normalize.css": "~3.0.2"
