@@ -43,18 +43,29 @@
 					return parseInt(this._getStyles().fontSize, 10);
 				},
 				
+				registerTimes: function(currentPlayTime, prevKaratextStartTime) {
+					// In reality, realStartTime[i] = loadTime[i+1],
+					// which means when the i-th line plays and starts to fly to 1st line, the i+1-th line starts to fly to 2nd line
+					
+					if (currentPlayTime == 0) {
+						/* Used for starting to play from 0, prevKaratextStartTime is required */					
+						this.loadTime =  prevKaratextStartTime;
+						this.realStartTime = this.startTime;
+						this.realEndTime = this.endTime;
+					} else if (currentPlayTime > 0) {
+						/* Used for pausing and resuming */
+						this.loadTime -= currentPlayTime;
+						this.realStartTime -= currentPlayTime;
+						this.realEndTime -= currentPlayTime;
+					}
+				},
+				
 				/* 3 conditions */
 				/* startTime[0] >= flyDuration */
 				/* realStartTime[i+1] - loadTime[i+1] = realStartTime[i+1] - realStartTime[i] = startTime[i+1] - startTime[i] >= flyDuration */
 				/* endTime[i] <= startTime[i+1] */
 				
-				run: function(prevKaratextStartTime, flyDuration) {
-					// In reality, realStartTime[i] = loadTime[i+1],
-					// which means when the i-th line plays and starts to fly to 1st line, the i+1-th line starts to fly to 2nd line
-					var loadTime =  prevKaratextStartTime;
-					var realStartTime = this.startTime;
-					var realEndTime = this.endTime;
-
+				run: function(flyDuration) {
 					/* Display */
 					this.async(function() {
 						this.style.display = "block";
@@ -62,7 +73,7 @@
 						this.style.width = "100%";
 						this.style.opacity = "0";
 						this.style.height = numberToPx(this._textHeight);
-					}, null, loadTime);
+					}, null, this.loadTime);
 					
 					/* Fly in to second line */
 					this.async(function() {
@@ -76,7 +87,7 @@
 								easing: "ease-out",
 								fill: "both"
 							}));
-					}, null, loadTime);
+					}, null, this.loadTime);
 					
 					/* Fly to first line */
 					this.async(function() {
@@ -90,11 +101,11 @@
 								easing: "ease",
 								fill: "forwards"
 							}));
-					}, null, realStartTime);
+					}, null, this.realStartTime);
 					
-					/* Run */
+					/* Run text */
 					this._filledBackground
-						.animate({duration: this.duration, ease: "<>", delay: realStartTime})
+						.animate({duration: this.duration, ease: "<>", delay: this.realStartTime})
 						.attr({"width": this._textWidth});
 					
 					/* Fly out */
@@ -109,12 +120,12 @@
 								easing: "ease-in",
 								fill: "forwards"
 							}));
-					}, null, realEndTime);
+					}, null, this.realEndTime);
 					
 					/* Hide */
 					this.async(function() {
 						this.style.display = "none";
-					}, null, realEndTime + flyDuration);
+					}, null, this.realEndTime + flyDuration);
 				},
 				
 				publish: {

@@ -27,7 +27,9 @@
 						else
 							prevKaratextStartTime = this._childrenKaratext[i - 1].startTime;
 						
-						childKaratext.run(prevKaratextStartTime, this.flyDuration);
+						childKaratext.registerTimes(0, prevKaratextStartTime);
+						
+						childKaratext.run(this.flyDuration);
 					}
 				},
 				
