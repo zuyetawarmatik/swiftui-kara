@@ -17,6 +17,15 @@
 				return number + "px"; 
 			}
 			
+			function getMilliseconds(timestampStr) {
+				var timestampStrSplit = timestampStr.split(".");
+				var milli = Date.parse("January 1, 1970 " + timestampStrSplit[0] + " UTC");
+				if (timestampStrSplit.length == 1)
+					return milli;
+				else (timestampStrSplit.length == 2)
+					return milli + parseInt(timestampStrSplit[1]);
+			}
+			
 			Polymer({
 				_getStyles: function() {
 					return window.getComputedStyle(this);
@@ -115,8 +124,9 @@
 				
 				ready: function() {
 					var prefixDateStr = "January 1, 1970 ";
-					this.startTime = Date.parse(prefixDateStr + this.start + " UTC");
-					this.endTime = Date.parse(prefixDateStr + this.end + " UTC");
+
+					this.startTime = getMilliseconds(this.start);
+					this.endTime = getMilliseconds(this.end);
 					this.duration = this.endTime - this.startTime;
 				},
 				
