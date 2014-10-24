@@ -76,7 +76,7 @@
 							],
 							{
 								duration: flyDuration,
-								easing: "ease-in",
+								easing: "ease",
 								fill: "forwards"
 							}));
 					}, null, realStartTime);
@@ -149,12 +149,12 @@
 						
 						/* Calculate some global vars, only once */
 						if (firstLineTop === undefined && this._textHeight > 0) {
-							var parentStyle = window.getComputedStyle(this.parentNode);
-							parentHeight = parseInt(parentStyle.height, 10);
+							parentHeight = Math.round(this.parentNode.getBoundingClientRect().height);
+							
 							firstLineTop = (parentHeight - lineSpacing) / 2 - this._textHeight;
 							secondLineTop = firstLineTop + this._textHeight + lineSpacing;
 						}
-						
+
 						this.parentNode.registerKaratext(this);
 					});
 				}
