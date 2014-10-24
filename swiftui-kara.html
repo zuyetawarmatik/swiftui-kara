@@ -1,4 +1,5 @@
 <link rel="import" href="../components/polymer/polymer.html">
+<link rel="import" href="../components/google-youtube/google-youtube.html">
 <link rel="import" href="swiftui-karatext.html">
 
 <polymer-element name="swiftui-kara" attributes="flyDuration">
@@ -11,11 +12,21 @@
 				text-align: center;
 			}
 		</style>
+		<google-youtube id="youtube" videoid="m2-kJau6dVs" height="0px" width="0px" chromeless="true"></google-youtube>
 		<content></content>
   </template>
 	
 	<script>
 		(function() {
+			window.addEventListener("polymer-ready", function() {
+				window.addEventListener("google-youtube-ready", function(e) {
+					var kara = e.srcElement;
+					var youtube = kara.$.youtube;
+					youtube.play();
+					kara.play();
+				});
+			});
+			
 			Polymer({
 				play: function() {
 					this._timer = window.setInterval(function() {
@@ -42,8 +53,6 @@
 						this.parentNode.setAttribute("layout", "");
 						this.parentNode.setAttribute("center", "");
 						this.parentNode.setAttribute("center-justified", "");
-						
-						this.play();
 					}
 				},
 				
