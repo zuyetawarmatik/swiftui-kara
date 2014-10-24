@@ -1,6 +1,6 @@
 <link rel="import" href="swiftui-karatext-import.html">
 
-<polymer-element name="swiftui-karatext" attributes="startTime endTime">
+<polymer-element name="swiftui-karatext" attributes="start end">
 	<template>
 		<span id="canvas">
 		</span>
@@ -107,12 +107,15 @@
 				},
 				
 				publish: {
-					startTime: 0,
-					endTime: 0
+					start: "0:0:0",
+					end: "0:0:0"
 				},
 				
-				computed: {
-					duration: "endTime - startTime"
+				ready: function() {
+					var prefixDateStr = "January 1, 1970 ";
+					this.startTime = Date.parse(prefixDateStr + this.start + " UTC");
+					this.endTime = Date.parse(prefixDateStr + this.end + " UTC");
+					this.duration = this.endTime - this.startTime;
 				},
 				
 				domReady: function() {
