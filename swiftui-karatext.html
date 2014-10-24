@@ -43,11 +43,12 @@
 					return parseInt(this._getStyles().fontSize, 10);
 				},
 				
-				registerTimes: function(currentTime) {
+				registerTimes: function(currentTime, prevEndTime) {
 					// In reality, realStartTime[i] = loadTime[i+1],
 					// which means when the i-th line plays and starts to fly to 1st line, the i+1-th line starts to fly to 2nd line
 					
-					this.loadTime = 0;
+					this.loadTo2LineTime = 0;
+					this.loadTo1LineTime = prevEndTime - currentTime;
 					this.realStartTime = this.startTime - currentTime;
 					this.realEndTime = this.endTime - currentTime;
 				},
@@ -65,7 +66,7 @@
 						this.style.width = "100%";
 						this.style.opacity = "0";
 						this.style.height = numberToPx(this._textHeight);
-					}, null, this.loadTime);
+					}, null, this.loadTo2LineTime);
 					
 					/* Fly in to second line */
 					this.async(function() {
@@ -79,7 +80,7 @@
 								easing: "ease-out",
 								fill: "both"
 							}));
-					}, null, this.loadTime);
+					}, null, this.loadTo2LineTime);
 					
 					/* Fly to first line */
 					this.async(function() {
@@ -93,7 +94,7 @@
 								easing: "ease",
 								fill: "forwards"
 							}));
-					}, null, this.realStartTime);
+					}, null, this.loadTo1LineTime);
 					
 					/* Run text */
 					this._filledBackground
