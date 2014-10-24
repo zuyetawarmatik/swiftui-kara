@@ -121,45 +121,47 @@
 				},
 				
 				domReady: function() {
-					var svgCanvas = SVG(this.$.canvas);
+					this.async(function() {
+						var svgCanvas = SVG(this.$.canvas);
 
-					var text = svgCanvas.text(this.textContent);
-					text.attr("font-family", null); // A hack to remove SVG.js default font value
-					text.attr("fill", this._getGroundTextColorForSVG()); // Set ground text by using background-color CSS
-					var textLeading = this._getFontSizeForSVG() / 16.0 - 0.3;
-					text.leading(textLeading);
+						var text = svgCanvas.text(this.textContent);
+						text.attr("font-family", null); // A hack to remove SVG.js default font value
+						text.attr("fill", this._getGroundTextColorForSVG()); // Set ground text by using background-color CSS
+						var textLeading = this._getFontSizeForSVG() / 16.0 - 0.3;
+						text.leading(textLeading);
 
-					var clippingText = svgCanvas.text(this.textContent);
-					clippingText.attr("font-family", null);
-					clippingText.attr("fill", this._getGroundTextColorForSVG());
-					clippingText.leading(textLeading);
+						var clippingText = svgCanvas.text(this.textContent);
+						clippingText.attr("font-family", null);
+						clippingText.attr("fill", this._getGroundTextColorForSVG());
+						clippingText.leading(textLeading);
 
-					this.style.backgroundColor = "transparent"; // Reset background-color
+						this.style.backgroundColor = "transparent"; // Reset background-color
 
-					/* Calculate the real bounding size */
-					var textBoundingRect = text.node.getBoundingClientRect();
-					this._textWidth = Math.round(textBoundingRect.width);
-					this._textHeight = Math.round(textBoundingRect.height);
+						/* Calculate the real bounding size */
+						var textBoundingRect = text.node.getBoundingClientRect();
+						this._textWidth = Math.round(textBoundingRect.width);
+						this._textHeight = Math.round(textBoundingRect.height);
 
-					/* Set size for the svgCanvas */
-					svgCanvas.size(this._textWidth, this._textHeight);
+						/* Set size for the svgCanvas */
+						svgCanvas.size(this._textWidth, this._textHeight);
 
-					/* Color and clip */
-					this._filledBackground = svgCanvas.rect(0, this._textHeight).fill(this._getForegroundTextColorForSVG());
-					this._filledBackground.clipWith(clippingText);
+						/* Color and clip */
+						this._filledBackground = svgCanvas.rect(0, this._textHeight).fill(this._getForegroundTextColorForSVG());
+						this._filledBackground.clipWith(clippingText);
 
-					/* Hide this before made shown again when playing */
-					this.style.display = "none";
+						/* Hide this before made shown again when playing */
+						this.style.display = "none";
 
-					/* Calculate some global vars, only once */
-					if (firstLineTop === undefined && this._textHeight > 0) {
-						parentHeight = Math.round(this.parentNode.getBoundingClientRect().height);
+						/* Calculate some global vars, only once */
+						if (firstLineTop === undefined && this._textHeight > 0) {
+							parentHeight = Math.round(this.parentNode.getBoundingClientRect().height);
 
-						firstLineTop = (parentHeight - lineSpacing) / 2 - this._textHeight;
-						secondLineTop = firstLineTop + this._textHeight + lineSpacing;
-					}
+							firstLineTop = (parentHeight - lineSpacing) / 2 - this._textHeight;
+							secondLineTop = firstLineTop + this._textHeight + lineSpacing;
+						}
 
-					this.parentNode.registerKaratext(this);
+						this.parentNode.registerKaratext(this);
+					});
 				}
 			});
 		})();
