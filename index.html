@@ -11,11 +11,11 @@
 		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
 		<meta http-equiv="pragma" content="no-cache" />
 
-		<script src="../bower_components/platform/platform.js"></script>
-
 		<link rel="stylesheet" type="text/css" href="../bower_components/normalize.css/normalize.css">
 		<link href="http://fonts.googleapis.com/css?family=Raleway:700" rel="stylesheet" type="text/css">
 
+		<script src="../bower_components/platform/platform.js"></script>
+		<link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
 		<link rel="import" href="swiftui-kara.html">
 
 		<style>
@@ -29,6 +29,12 @@
 				background: #222;
 			}
 
+			#swiftui-kara-wrapper {
+				display: absolute;
+				top: 0; bottom: 80px;
+				width: 100%;
+			}
+			
 			swiftui-kara {
 				height: 400px;
 				width: 100%;
@@ -41,61 +47,72 @@
 				color: #FFEFB9; /* Clipping text color */
 				background-color: #444; /* Ground text color */
 			}
+			
+			#player-wrapper {
+				display: absolute;
+				height: 80px; bottom: 0;
+				width: 100%;
+			}
 		</style>
 	</head>
 	<body unresolved>
-		<swiftui-kara videoId="m2-kJau6dVs">
-			<swiftui-karatext start="0:0:8" end="0:0:15">.....................</swiftui-karatext>
-			<swiftui-karatext start="0:0:15" end="0:0:16.5">You'd better watch out!</swiftui-karatext>
-			<swiftui-karatext start="0:0:16.5" end="0:0:18">You'd better not cry!</swiftui-karatext>
-			<swiftui-karatext start="0:0:18" end="0:0:22">You'd better not pout I'm telling you why,</swiftui-karatext>
-			<swiftui-karatext start="0:0:22" end="0:0:26">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:0:26.5" end="0:0:28.5">(Santa Claus is comin' to town)</swiftui-karatext>
-			<swiftui-karatext start="0:0:28.5" end="0:0:30">He's making a list</swiftui-karatext>
-			<swiftui-karatext start="0:0:30" end="0:0:32">and checking it twice.</swiftui-karatext>
-			<swiftui-karatext start="0:0:32" end="0:0:36">He's going to find out who's naughty and nice.</swiftui-karatext>
-			<swiftui-karatext start="0:0:36" end="0:0:41">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:0:41.2" end="0:0:43">(Santa Claus is comin' to town)</swiftui-karatext>
+		<section id="swiftui-kara-wrapper">
+			<swiftui-kara videoId="m2-kJau6dVs">
+				<swiftui-karatext start="0:0:8" end="0:0:15">.....................</swiftui-karatext>
+				<swiftui-karatext start="0:0:15" end="0:0:16.5">You'd better watch out!</swiftui-karatext>
+				<swiftui-karatext start="0:0:16.5" end="0:0:18">You'd better not cry!</swiftui-karatext>
+				<swiftui-karatext start="0:0:18" end="0:0:22">You'd better not pout I'm telling you why,</swiftui-karatext>
+				<swiftui-karatext start="0:0:22" end="0:0:26">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:0:26.5" end="0:0:28.5">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:0:28.5" end="0:0:30">He's making a list</swiftui-karatext>
+				<swiftui-karatext start="0:0:30" end="0:0:32">and checking it twice.</swiftui-karatext>
+				<swiftui-karatext start="0:0:32" end="0:0:36">He's going to find out who's naughty and nice.</swiftui-karatext>
+				<swiftui-karatext start="0:0:36" end="0:0:41">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:0:41.2" end="0:0:43">(Santa Claus is comin' to town)</swiftui-karatext>
 
-			<swiftui-karatext start="0:0:43" end="0:0:46.5">He sees when you are sleeping.</swiftui-karatext>
-			<swiftui-karatext start="0:0:46.5" end="0:0:50">He knows when you're awake.</swiftui-karatext>
-			<swiftui-karatext start="0:0:50" end="0:0:54">He knows if you've been bad or good.</swiftui-karatext>
-			<swiftui-karatext start="0:0:54" end="0:0:57">So be good for goodness sake!</swiftui-karatext>
-			<swiftui-karatext start="0:0:57.5" end="0:0:59.5">You'd better watch out!</swiftui-karatext>
-			<swiftui-karatext start="0:0:59.5" end="0:1:2">You'd better not cry!</swiftui-karatext>
-			<swiftui-karatext start="0:1:2" end="0:1:5">You'd better not pout I'm telling you why,</swiftui-karatext>
-			<swiftui-karatext start="0:1:5" end="0:1:10">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:1:13" end="0:1:16">(Santa Claus is comin' to town)</swiftui-karatext>
-			<swiftui-karatext start="0:1:16.5" end="0:1:19">(Santa Claus is comin' to town)</swiftui-karatext>
-			<swiftui-karatext start="0:1:20.2" end="0:1:23">(Santa Claus is comin' to town)</swiftui-karatext>
-			<swiftui-karatext start="0:1:23.5" end="0:1:26">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:0:43" end="0:0:46.5">He sees when you are sleeping.</swiftui-karatext>
+				<swiftui-karatext start="0:0:46.5" end="0:0:50">He knows when you're awake.</swiftui-karatext>
+				<swiftui-karatext start="0:0:50" end="0:0:54">He knows if you've been bad or good.</swiftui-karatext>
+				<swiftui-karatext start="0:0:54" end="0:0:57">So be good for goodness sake!</swiftui-karatext>
+				<swiftui-karatext start="0:0:57.5" end="0:0:59.5">You'd better watch out!</swiftui-karatext>
+				<swiftui-karatext start="0:0:59.5" end="0:1:2">You'd better not cry!</swiftui-karatext>
+				<swiftui-karatext start="0:1:2" end="0:1:5">You'd better not pout I'm telling you why,</swiftui-karatext>
+				<swiftui-karatext start="0:1:5" end="0:1:10">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:1:13" end="0:1:16">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:1:16.5" end="0:1:19">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:1:20.2" end="0:1:23">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:1:23.5" end="0:1:26">(Santa Claus is comin' to town)</swiftui-karatext>
 
-			<swiftui-karatext start="0:1:26" end="0:1:28">You'd better watch out!</swiftui-karatext>
-			<swiftui-karatext start="0:1:28" end="0:1:30">You'd better not cry!</swiftui-karatext>
-			<swiftui-karatext start="0:1:30" end="0:1:34">You'd better not pout I'm telling you why,</swiftui-karatext>
-			<swiftui-karatext start="0:1:34" end="0:1:39">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:1:39" end="0:1:41">He is coming to town.</swiftui-karatext>
-			<swiftui-karatext start="0:1:41" end="0:1:43">He's making a list</swiftui-karatext>
-			<swiftui-karatext start="0:1:43" end="0:1:45">and checking it twice.</swiftui-karatext>
-			<swiftui-karatext start="0:1:45" end="0:1:48.5">He's going to find out who's naughty and nice.</swiftui-karatext>
-			<swiftui-karatext start="0:1:48.5" end="0:1:54">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:1:54" end="0:1:55.5">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:1:26" end="0:1:28">You'd better watch out!</swiftui-karatext>
+				<swiftui-karatext start="0:1:28" end="0:1:30">You'd better not cry!</swiftui-karatext>
+				<swiftui-karatext start="0:1:30" end="0:1:34">You'd better not pout I'm telling you why,</swiftui-karatext>
+				<swiftui-karatext start="0:1:34" end="0:1:39">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:1:39" end="0:1:41">He is coming to town.</swiftui-karatext>
+				<swiftui-karatext start="0:1:41" end="0:1:43">He's making a list</swiftui-karatext>
+				<swiftui-karatext start="0:1:43" end="0:1:45">and checking it twice.</swiftui-karatext>
+				<swiftui-karatext start="0:1:45" end="0:1:48.5">He's going to find out who's naughty and nice.</swiftui-karatext>
+				<swiftui-karatext start="0:1:48.5" end="0:1:54">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:1:54" end="0:1:55.5">(Santa Claus is comin' to town)</swiftui-karatext>
 
-			<swiftui-karatext start="0:1:55.5" end="0:1:59">He sees you when you are sleeping.</swiftui-karatext>
-			<swiftui-karatext start="0:1:59" end="0:2:2.5">He knows when you're awake.</swiftui-karatext>
-			<swiftui-karatext start="0:2:2.5" end="0:2:6.5">He knows if you've been bad or good.</swiftui-karatext>
-			<swiftui-karatext start="0:2:6.5" end="0:2:10">So be good for goodness sake!</swiftui-karatext>
-			<swiftui-karatext start="0:2:10" end="0:2:12">You'd better watch out!</swiftui-karatext>
-			<swiftui-karatext start="0:2:12" end="0:2:14">You'd better not cry!</swiftui-karatext>
-			<swiftui-karatext start="0:2:14" end="0:2:18">You'd better not pout I'm telling you why,</swiftui-karatext>
-			<swiftui-karatext start="0:2:18" end="0:2:22">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:2:22" end="0:2:25">(Santa Claus is comin' to town)</swiftui-karatext>
-			<swiftui-karatext start="0:2:25" end="0:2:28.5">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:2:28.5" end="0:2:32">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:2:32.5" end="0:2:35.5">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:2:36" end="0:2:39">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:2:39" end="0:2:44">Santa Claus is comin' to town.</swiftui-karatext>
-			<swiftui-karatext start="0:2:46:5" end="0:2:52">Santa Claus is comin' to town.</swiftui-karatext>
-		</swiftui-kara>
+				<swiftui-karatext start="0:1:55.5" end="0:1:59">He sees you when you are sleeping.</swiftui-karatext>
+				<swiftui-karatext start="0:1:59" end="0:2:2.5">He knows when you're awake.</swiftui-karatext>
+				<swiftui-karatext start="0:2:2.5" end="0:2:6.5">He knows if you've been bad or good.</swiftui-karatext>
+				<swiftui-karatext start="0:2:6.5" end="0:2:10">So be good for goodness sake!</swiftui-karatext>
+				<swiftui-karatext start="0:2:10" end="0:2:12">You'd better watch out!</swiftui-karatext>
+				<swiftui-karatext start="0:2:12" end="0:2:14">You'd better not cry!</swiftui-karatext>
+				<swiftui-karatext start="0:2:14" end="0:2:18">You'd better not pout I'm telling you why,</swiftui-karatext>
+				<swiftui-karatext start="0:2:18" end="0:2:22">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:2:22" end="0:2:25">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:2:25" end="0:2:28.5">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:2:28.5" end="0:2:32">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:2:32.5" end="0:2:35.5">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:2:36" end="0:2:39">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:2:39" end="0:2:44">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:2:46:5" end="0:2:52">Santa Claus is comin' to town.</swiftui-karatext>
+			</swiftui-kara>
+		</section>
+		<section id="player-wrapper">
+			<core-icon-button icon="av:play-arrow"></core-icon-button>
+		</section>
 	</body>
 </html>
