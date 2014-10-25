@@ -13,6 +13,10 @@
 			var parentHeight;
 			var firstLineTop, secondLineTop;
 			
+			
+			/* Helper functions */
+			/* ====================== */
+			
 			function numberToPx(number) {
 				return number + "px"; 
 			}
@@ -25,6 +29,10 @@
 				else (timestampStrSplit.length == 2)
 					return milli + parseInt(timestampStrSplit[1] * 100);
 			}
+			
+			/* ====================== */
+			
+			
 			
 			Polymer({
 				_getStyles: function() {
@@ -140,9 +148,10 @@
 					this.async(function() {
 						var svgCanvas = SVG(this.$.canvas);
 
+						/* Drawing texts: ground and clipping text */
 						var text = svgCanvas.text(this.textContent);
 						text.attr("font-family", null); // A hack to remove SVG.js default font value
-						text.attr("fill", this._getGroundTextColorForSVG()); // Set ground text by using background-color CSS
+						text.attr("fill", this._getGroundTextColorForSVG()); // Set ground text color by using background-color CSS
 						var textLeading = this._getFontSizeForSVG() / 16.0 - 0.3;
 						text.leading(textLeading);
 
@@ -151,7 +160,8 @@
 						clippingText.attr("fill", this._getGroundTextColorForSVG());
 						clippingText.leading(textLeading);
 
-						this.style.backgroundColor = "transparent"; // Reset background-color
+						/* After using the background-color CSS to color ground text, reset the element background */
+						this.style.backgroundColor = "transparent";
 
 						/* Calculate the real bounding size */
 						this._textWidth = text.node.clientWidth;
@@ -180,6 +190,7 @@
 				}
 				
 				/* ====================== */
+				
 			});
 		})();
 	</script>
