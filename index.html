@@ -195,8 +195,7 @@
 						var timeProgressTimer = window.setInterval(
 							function() {
 								timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
-								if (timeProgress.getAttribute("max") == 0)
-									timeProgress.setAttribute("max", swiftUIKara.getDuration());
+								timeProgress.setAttribute("max", swiftUIKara.getDuration());
 								currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
 								durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
 							}, 1000);
