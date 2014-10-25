@@ -32,7 +32,7 @@
 
 			#swiftui-kara-wrapper {
 				position: absolute;
-				top: 0; bottom: 80px;
+				top: 0; bottom: 120px;
 				width: 100%;
 			}
 			
@@ -51,13 +51,24 @@
 			
 			#player-wrapper {
 				position: absolute;
-				height: 80px; bottom: 0;
+				height: 120px; bottom: 0;
 				width: 100%;
+				padding: 0 20px;
 			}
 			
 			#control-btn {
-				background: #333;
-				color: #FFEFB9;
+				background: #2d2d2d;
+				color: #FC5956;
+				min-width: 0;
+				width: 60px;
+				height: 60px;
+				padding: 0;
+				border-radius: 50%;
+				transition: background 0.25s ease;
+			}
+			
+			#control-btn:hover {
+				background: #fff;
 			}
 		</style>
 	</head>
@@ -117,25 +128,46 @@
 				<swiftui-karatext start="0:2:46:5" end="0:2:52">Santa Claus is comin' to town.</swiftui-karatext>
 			</swiftui-kara>
 		</section>
-		<section id="player-wrapper">
-			<paper-button id="control-btn" icon="av:play-arrow" raised disabled>
+		<section id="player-wrapper" horizontal layout center>
+			<paper-button id="control-btn" icon="av:play-arrow" disabled horizontal layout center center-justified>
 				<core-icon icon="av:play-arrow"></core-icon>
 			</paper-button>
 		</section>
 		
 		<script>
-			var swiftUIKara, controlBtn;
+			var swiftUIKara, controlBtn, controlBtnIcon;
 			
 			window.addEventListener("kara-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
+				controlBtnIcon = controlBtn.querySelector("core-icon");
 				controlBtn.removeAttribute("disabled");
-				controlBtn.onclick = playKara;
+				controlBtn.setAttribute("play", "");
+				controlBtn.onclick = controlKara;
 			});
 
-			function playKara() {
-				swiftUIKara = document.querySelector("swiftui-kara");
+			function controlKara() {
+				if (swiftUIKara === undefined)
+					swiftUIKara = document.querySelector("swiftui-kara");
+				
+				controlBtn.switchState = function(from, to) {
+					this.removeAttribute(from);
+					this.setAttribute(to, "");
+					
+					switch (to) {
+						case "play":
+							controlBtnIcon.setAttribute("icon", "av:play-arrow"); break;
+						case "pause":
+							controlBtnIcon.setAttribute("icon", "av:pause"); break;
+					}
+				};
+				
 				if (!controlBtn.hasAttribute("disabled")) {
-					swiftUIKara.play();
+					if (controlBtn.hasAttribute("play")) {
+						controlBtn.switchState("play", "pause");
+						swiftUIKara.play();
+					} else if (controlBtn.hasAttribute("pause")) {
+						controlBtn.switchState("pause", "play");
+					}
 				}
 			}
 		</script>
