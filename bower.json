@@ -19,6 +19,8 @@
 		"web-animations-js": "web-animations/web-animations-js"
 	},
 	"dependencies": {
-		"normalize.css": "~3.0.2"
+		"normalize.css": "~3.0.2",
+		"core-icons": "Polymer/core-icons#~0.4.2",
+		"paper-button": "Polymer/paper-button#~0.4.2"
 	}
 }

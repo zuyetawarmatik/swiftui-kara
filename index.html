@@ -15,7 +15,8 @@
 		<link href="http://fonts.googleapis.com/css?family=Raleway:700" rel="stylesheet" type="text/css">
 
 		<script src="../bower_components/platform/platform.js"></script>
-		<link rel="import" href="../bower_components/core-icon-button/core-icon-button.html">
+		<link rel="import" href="../bower_components/paper-button/paper-button.html">
+		<link rel="import" href="../bower_components/core-icons/av-icons.html">
 		<link rel="import" href="swiftui-kara.html">
 
 		<style>
@@ -30,7 +31,7 @@
 			}
 
 			#swiftui-kara-wrapper {
-				display: absolute;
+				position: absolute;
 				top: 0; bottom: 80px;
 				width: 100%;
 			}
@@ -49,9 +50,14 @@
 			}
 			
 			#player-wrapper {
-				display: absolute;
+				position: absolute;
 				height: 80px; bottom: 0;
 				width: 100%;
+			}
+			
+			#control-btn {
+				background: #333;
+				color: #FFEFB9;
 			}
 		</style>
 	</head>
@@ -112,7 +118,13 @@
 			</swiftui-kara>
 		</section>
 		<section id="player-wrapper">
-			<core-icon-button icon="av:play-arrow"></core-icon-button>
+			<paper-button id="control-btn" icon="av:play-arrow" raised>
+				<core-icon icon="av:play-arrow"></core-icon>
+			</paper-button>
 		</section>
+		
+		<script>
+			
+		</script>
 	</body>
 </html>
