@@ -70,13 +70,13 @@
 				<swiftui-karatext start="0:0:18.3" end="0:0:22">You'd better not pout I'm telling you why,</swiftui-karatext>
 				<swiftui-karatext start="0:0:22" end="0:0:26">Santa Claus is comin' to town.</swiftui-karatext>
 				<swiftui-karatext start="0:0:26.5" end="0:0:28.5">(Santa Claus is comin' to town)</swiftui-karatext>
-				<swiftui-karatext start="0:0:28.5" end="0:0:30">He's making a list</swiftui-karatext>
+				<swiftui-karatext start="0:0:29" end="0:0:30.5">He's making a list</swiftui-karatext>
 				<swiftui-karatext start="0:0:30.5" end="0:0:32">and checking it twice.</swiftui-karatext>
-				<swiftui-karatext start="0:0:32" end="0:0:36">He's going to find out who's naughty and nice.</swiftui-karatext>
+				<swiftui-karatext start="0:0:33" end="0:0:36">He's going to find out who's naughty or nice.</swiftui-karatext>
 				<swiftui-karatext start="0:0:36" end="0:0:41">Santa Claus is comin' to town.</swiftui-karatext>
 				<swiftui-karatext start="0:0:41.2" end="0:0:43">(Santa Claus is comin' to town)</swiftui-karatext>
 
-				<swiftui-karatext start="0:0:43" end="0:0:46.5">He sees when you are sleeping.</swiftui-karatext>
+				<swiftui-karatext start="0:0:43.5" end="0:0:46.5">He sees you when you are sleeping.</swiftui-karatext>
 				<swiftui-karatext start="0:0:46.5" end="0:0:50">He knows when you're awake.</swiftui-karatext>
 				<swiftui-karatext start="0:0:50" end="0:0:54">He knows if you've been bad or good.</swiftui-karatext>
 				<swiftui-karatext start="0:0:54" end="0:0:57">So be good for goodness sake!</swiftui-karatext>
@@ -93,18 +93,18 @@
 				<swiftui-karatext start="0:1:28" end="0:1:30">You'd better not cry!</swiftui-karatext>
 				<swiftui-karatext start="0:1:30" end="0:1:34">You'd better not pout I'm telling you why,</swiftui-karatext>
 				<swiftui-karatext start="0:1:34" end="0:1:39">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:1:39" end="0:1:41">He is coming to town.</swiftui-karatext>
-				<swiftui-karatext start="0:1:41" end="0:1:43">He's making a list</swiftui-karatext>
+				<swiftui-karatext start="0:1:39" end="0:1:40.7">He is coming to town.</swiftui-karatext>
+				<swiftui-karatext start="0:1:40.7" end="0:1:43">He's making a list</swiftui-karatext>
 				<swiftui-karatext start="0:1:43" end="0:1:45">and checking it twice.</swiftui-karatext>
-				<swiftui-karatext start="0:1:45" end="0:1:48.5">He's going to find out who's naughty and nice.</swiftui-karatext>
+				<swiftui-karatext start="0:1:45" end="0:1:48.5">He's going to find out who's naughty or nice.</swiftui-karatext>
 				<swiftui-karatext start="0:1:48.5" end="0:1:54">Santa Claus is comin' to town.</swiftui-karatext>
 				<swiftui-karatext start="0:1:54" end="0:1:55.5">(Santa Claus is comin' to town)</swiftui-karatext>
 
 				<swiftui-karatext start="0:1:55.5" end="0:1:59">He sees you when you are sleeping.</swiftui-karatext>
 				<swiftui-karatext start="0:1:59" end="0:2:2.5">He knows when you're awake.</swiftui-karatext>
-				<swiftui-karatext start="0:2:2.5" end="0:2:6.5">He knows if you've been bad or good.</swiftui-karatext>
-				<swiftui-karatext start="0:2:6.5" end="0:2:10">So be good for goodness sake!</swiftui-karatext>
-				<swiftui-karatext start="0:2:10" end="0:2:12">You'd better watch out!</swiftui-karatext>
+				<swiftui-karatext start="0:2:2.5" end="0:2:6.2">He knows if you've been bad or good.</swiftui-karatext>
+				<swiftui-karatext start="0:2:6.2" end="0:2:9.5">So be good for goodness sake!</swiftui-karatext>
+				<swiftui-karatext start="0:2:9.5" end="0:2:12">You'd better watch out!</swiftui-karatext>
 				<swiftui-karatext start="0:2:12" end="0:2:14">You'd better not cry!</swiftui-karatext>
 				<swiftui-karatext start="0:2:14" end="0:2:18">You'd better not pout I'm telling you why,</swiftui-karatext>
 				<swiftui-karatext start="0:2:18" end="0:2:22">Santa Claus is comin' to town.</swiftui-karatext>
@@ -126,18 +126,14 @@
 		<script>
 			var swiftUIKara, controlBtn;
 			
-			window.onload = function() {
-				controlBtn = document.querySelector("#control-btn");
-				swiftUIKara = document.querySelector("swiftui-kara");
-				
-				controlBtn.onclick = playKara;
-			}
-			
 			window.addEventListener("kara-ready", function() {
+				controlBtn = document.querySelector("#control-btn");
 				controlBtn.removeAttribute("disabled");
+				controlBtn.onclick = playKara;
 			});
 
 			function playKara() {
+				swiftUIKara = document.querySelector("swiftui-kara");
 				if (!controlBtn.hasAttribute("disabled")) {
 					swiftUIKara.play();
 				}
