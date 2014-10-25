@@ -173,9 +173,9 @@
 						this.style.backgroundColor = "transparent";
 
 						/* Calculate the real bounding size */
-						this._textWidth = text.node.clientWidth;
-						this._textHeight = text.node.clientHeight;
-
+						this._textWidth = Math.round(text.node.getBBox().width);
+						this._textHeight = Math.round(text.node.getBBox().height);
+						
 						/* Set size for the svgCanvas */
 						svgCanvas.size(this._textWidth, this._textHeight);
 
