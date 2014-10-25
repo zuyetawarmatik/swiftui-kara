@@ -15,7 +15,8 @@
 	"devDependencies": {
 		"polymer": "Polymer/polymer#~0.4.2",
 		"svg.js": "~1.0.1",
-		"google-youtube": "~0.0.9"
+		"google-youtube": "~0.0.9",
+		"web-animations-js": "web-animations/web-animations-js"
 	},
 	"dependencies": {
 		"normalize.css": "~3.0.2"
