@@ -135,11 +135,11 @@
 		</section>
 		
 		<script>
-			var swiftUIKara, controlBtn, controlBtnIcon;
+			var swiftUIKara, controlBtn;
 			
 			window.addEventListener("kara-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
-				controlBtnIcon = controlBtn.querySelector("core-icon");
+				controlBtn.controlBtnIcon = controlBtn.querySelector("core-icon");
 				controlBtn.removeAttribute("disabled");
 				controlBtn.setAttribute("play", "");
 				controlBtn.onclick = controlKara;
@@ -155,9 +155,9 @@
 					
 					switch (to) {
 						case "play":
-							controlBtnIcon.setAttribute("icon", "av:play-arrow"); break;
+							this.controlBtnIcon.setAttribute("icon", "av:play-arrow"); break;
 						case "pause":
-							controlBtnIcon.setAttribute("icon", "av:pause"); break;
+							this.controlBtnIcon.setAttribute("icon", "av:pause"); break;
 					}
 				};
 				
