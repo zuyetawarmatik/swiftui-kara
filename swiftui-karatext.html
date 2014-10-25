@@ -121,14 +121,16 @@
 					}, null, this.realEndTime + flyDuration);
 				},
 				
+				
+				/* Polymer lifecycle functions */
+				/* ====================== */
+				
 				publish: {
 					start: "0:0:0",
 					end: "0:0:0"
 				},
 				
 				ready: function() {
-					var prefixDateStr = "January 1, 1970 ";
-
 					this.startTime = getMilliseconds(this.start);
 					this.endTime = getMilliseconds(this.end);
 					this.duration = this.endTime - this.startTime;
@@ -176,6 +178,8 @@
 						this.parentNode.registerKaratext(this);
 					});
 				}
+				
+				/* ====================== */
 			});
 		})();
 	</script>
