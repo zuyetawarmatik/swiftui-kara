@@ -147,7 +147,7 @@
 				<core-icon icon="av:play-arrow"></core-icon>
 			</paper-button>
 			<div id="informations">
-				<div id="time-informations">
+				<div id="time-informations" horizontal layout center>
 					<paper-progress id="timeProgress"></paper-progress>
 					<span id="current-time">0:00</span>
 					<span>&nbsp;/&nbsp;</span>
@@ -194,10 +194,12 @@
 						
 						var timeProgressTimer = window.setInterval(
 							function() {
-								timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
-								timeProgress.setAttribute("max", swiftUIKara.getDuration());
-								currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
-								durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
+								if (swiftUIKara.state == 1) { // If it is playing
+									timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
+									timeProgress.setAttribute("max", swiftUIKara.getDuration());
+									currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
+									durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
+								}
 							}, 1000);
 							
 					} else if (controlBtn.hasAttribute("pause")) {

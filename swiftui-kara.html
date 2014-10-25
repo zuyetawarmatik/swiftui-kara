@@ -21,15 +21,25 @@
 			
 			var KARA_FULL_READY = 2;
 			
+			var STATE_KARA_NOT_READY = -1;
+			var STATE_KARA_READY = 0;
+			var STATE_KARA_PLAYING = 1;
+			var STATE_KARA_PAUSED = 2;
+			var STATE_KARA_ENDED = 3;
+			
 			Polymer({
+				state: STATE_KARA_NOT_READY,
+				
 				_karaReadyLevel: 0,
 				
 				/* Registering and event functions */
 				/* ====================== */
 				
 				_karaReadyLevelChanged: function() {
-					if (this._karaReadyLevel == KARA_FULL_READY)
+					if (this._karaReadyLevel == KARA_FULL_READY) {
+						this.state = STATE_KARA_READY;
 						this.fire("kara-ready");
+					}
 				},
 				
 				registerKaratext: function(childKaratext) {
@@ -81,18 +91,24 @@
 					this._timer = window.setInterval(function() {
 						switch (this.$.youtube.state) {
 							case 1:
-								var currentKaratext = this._childrenKaratext[this._currentKaratextId];
-								var prevKaratextStartTime = (this._currentKaratextId == 0) ? 
-																						0 : this._childrenKaratext[this._currentKaratextId - 1].startTime;
-								var prevKaratextEndTime = (this._currentKaratextId == 0) ? 
-																						this.flyDuration : this._childrenKaratext[this._currentKaratextId - 1].endTime;
+								this.state = STATE_KARA_PLAYING;
+								
+								if (this._currentKaratextId == this._childrenKaratext.length && this.$.youtube.state == 0) {
+									this.state = STATE_KARA_ENDED;
+									window.clearInterval(this._timer);
+								} else if (this._currentKaratextId < this._childrenKaratext.length) {
+									var currentKaratext = this._childrenKaratext[this._currentKaratextId];
+									var prevKaratextStartTime = (this._currentKaratextId == 0) ? 
+																							0 : this._childrenKaratext[this._currentKaratextId - 1].startTime;
+									var prevKaratextEndTime = (this._currentKaratextId == 0) ? 
+																							this.flyDuration : this._childrenKaratext[this._currentKaratextId - 1].endTime;
 
-								if (prevKaratextStartTime - this._currentTime <= 0) { // currentKaratext's loadTo2LineTime - currentTime
-									currentKaratext.registerTimes(this._currentTime, prevKaratextEndTime);
-									currentKaratext.run(this.flyDuration);
-									
-									if (++this._currentKaratextId == this._childrenKaratext.length)
-										window.clearInterval(this._timer);
+									if (prevKaratextStartTime - this._currentTime <= 0) { // currentKaratext's loadTo2LineTime - currentTime
+										currentKaratext.registerTimes(this._currentTime, prevKaratextEndTime);
+										currentKaratext.run(this.flyDuration);
+
+										this._currentKaratextId++;
+									}
 								}
 
 								this._currentTime += this._timerInterval;
