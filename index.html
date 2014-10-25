@@ -198,6 +198,18 @@
 				controlBtn.setAttribute("play", "");
 				controlBtn.onclick = controlKara;
 			});
+			
+			/* Control the progress bar */
+			window.addEventListener("kara-playing", function() {
+				timeProgress.setAttribute("max", swiftUIKara.getDuration());
+				
+				var timeProgressTimer = window.setInterval(
+					function() {
+						timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
+						currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
+						durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
+					}, 1000);
+			});
 
 			function controlKara() {
 				controlBtn.switchState = function(from, to) {
@@ -215,20 +227,10 @@
 				if (!controlBtn.hasAttribute("disabled")) {
 					if (controlBtn.hasAttribute("play")) {
 						controlBtn.switchState("play", "pause");	
-						swiftUIKara.play();
-						
-						var timeProgressTimer = window.setInterval(
-							function() {
-								if (swiftUIKara.state == 1) { // If it is playing
-									timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
-									timeProgress.setAttribute("max", swiftUIKara.getDuration());
-									currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
-									durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
-								}
-							}, 1000);
-							
+						swiftUIKara.play();		
 					} else if (controlBtn.hasAttribute("pause")) {
 						controlBtn.switchState("pause", "play");
+						swiftUIKara.pause();
 					}
 				}
 			}
