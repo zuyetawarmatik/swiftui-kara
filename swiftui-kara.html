@@ -12,22 +12,57 @@
 				text-align: center;
 			}
 		</style>
-		<google-youtube id="youtube" videoid="{{videoId}}" height="0px" width="0px" chromeless="true"></google-youtube>
+		<google-youtube id="youtube" kara-youtube videoid="{{videoId}}" height="0px" width="0px" chromeless="true"></google-youtube>
 		<content></content>
   </template>
 	
 	<script>
 		(function() {
+			
+			var KARA_FULL_READY = 2;
+			
 			window.addEventListener("polymer-ready", function() {
 				window.addEventListener("google-youtube-ready", function(e) {
 					var kara = e.srcElement;
-					var youtube = kara.$.youtube;
-					youtube.play();
-					kara.play();
+					kara.async(function() {
+						kara._karaReadyLevel++;
+					});
 				});
 			});
 			
 			Polymer({
+				_karaReadyLevel: 0,
+				
+				/* Registering and event functions */
+				/* ====================== */
+				
+				_karaReadyLevelChanged: function() {
+					if (this._karaReadyLevel == KARA_FULL_READY)
+						this.fire("kara-ready");
+				},
+				
+				registerKaratext: function(childKaratext) {
+					this._childrenKaratext.push(childKaratext);
+					if (this._childrenKaratext.length == this._numberOfKaratext) {
+						/* Set parent to center center flex layout */
+						this.parentNode.setAttribute("horizontal", "");
+						this.parentNode.setAttribute("layout", "");
+						this.parentNode.setAttribute("center", "");
+						this.parentNode.setAttribute("center-justified", "");
+						
+						this.async(function() {
+							this._karaReadyLevel++;
+						});
+					}
+				},
+				
+				/* ====================== */
+				
+				
+				
+				/* Controlling functions */
+				/* ====================== */
+				
 				play: function() {
 					this._timer = window.setInterval(function() {
 						var currentKaratext = this._childrenKaratext[this._currentKaratextId];
@@ -48,16 +83,12 @@
 					}.bind(this), 100);
 				},
 				
-				registerKaratext: function(childKaratext) {
-					this._childrenKaratext.push(childKaratext);
-					if (this._childrenKaratext.length == this._numberOfKaratext) {
-						/* Set parent to center center flex layout */
-						this.parentNode.setAttribute("horizontal", "");
-						this.parentNode.setAttribute("layout", "");
-						this.parentNode.setAttribute("center", "");
-						this.parentNode.setAttribute("center-justified", "");
-					}
-				},
+				/* ====================== */
+				
+				
+				
+				/* Polymer lifecycle functions */
+				/* ====================== */
 				
 				publish: {
 					flyDuration: 400
@@ -74,6 +105,9 @@
 				domReady: function() {
 					this._numberOfKaratext = this.querySelectorAll("swiftui-karatext").length;
 				}
+				
+				/* ====================== */
+				
 			});
 		})();
 	</script>
