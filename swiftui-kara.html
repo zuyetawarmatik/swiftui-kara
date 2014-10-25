@@ -21,15 +21,6 @@
 			
 			var KARA_FULL_READY = 2;
 			
-			window.addEventListener("polymer-ready", function() {
-				window.addEventListener("google-youtube-ready", function(e) {
-					var kara = e.srcElement;
-					kara.async(function() {
-						kara._karaReadyLevel++;
-					});
-				});
-			});
-			
 			Polymer({
 				_karaReadyLevel: 0,
 				
@@ -105,6 +96,12 @@
 				
 				domReady: function() {
 					this._numberOfKaratext = this.querySelectorAll("swiftui-karatext").length;
+					
+					this.addEventListener("google-youtube-ready", function() {
+						this.async(function() {
+							this._karaReadyLevel++;
+						});
+					});
 				}
 				
 				/* ====================== */
