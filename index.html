@@ -65,13 +65,13 @@
 		<section id="swiftui-kara-wrapper">
 			<swiftui-kara videoId="m2-kJau6dVs">
 				<swiftui-karatext start="0:0:8" end="0:0:15">.....................</swiftui-karatext>
-				<swiftui-karatext start="0:0:15" end="0:0:16.5">You'd better watch out!</swiftui-karatext>
-				<swiftui-karatext start="0:0:16.5" end="0:0:18">You'd better not cry!</swiftui-karatext>
-				<swiftui-karatext start="0:0:18" end="0:0:22">You'd better not pout I'm telling you why,</swiftui-karatext>
+				<swiftui-karatext start="0:0:15" end="0:0:16.7">You'd better watch out!</swiftui-karatext>
+				<swiftui-karatext start="0:0:16.7" end="0:0:18.3">You'd better not cry!</swiftui-karatext>
+				<swiftui-karatext start="0:0:18.3" end="0:0:22">You'd better not pout I'm telling you why,</swiftui-karatext>
 				<swiftui-karatext start="0:0:22" end="0:0:26">Santa Claus is comin' to town.</swiftui-karatext>
 				<swiftui-karatext start="0:0:26.5" end="0:0:28.5">(Santa Claus is comin' to town)</swiftui-karatext>
 				<swiftui-karatext start="0:0:28.5" end="0:0:30">He's making a list</swiftui-karatext>
-				<swiftui-karatext start="0:0:30" end="0:0:32">and checking it twice.</swiftui-karatext>
+				<swiftui-karatext start="0:0:30.5" end="0:0:32">and checking it twice.</swiftui-karatext>
 				<swiftui-karatext start="0:0:32" end="0:0:36">He's going to find out who's naughty and nice.</swiftui-karatext>
 				<swiftui-karatext start="0:0:36" end="0:0:41">Santa Claus is comin' to town.</swiftui-karatext>
 				<swiftui-karatext start="0:0:41.2" end="0:0:43">(Santa Claus is comin' to town)</swiftui-karatext>
@@ -118,13 +118,30 @@
 			</swiftui-kara>
 		</section>
 		<section id="player-wrapper">
-			<paper-button id="control-btn" icon="av:play-arrow" raised>
+			<paper-button id="control-btn" icon="av:play-arrow" raised disabled>
 				<core-icon icon="av:play-arrow"></core-icon>
 			</paper-button>
 		</section>
 		
 		<script>
+			var swiftUIKara, controlBtn;
 			
+			window.onload = function() {
+				controlBtn = document.querySelector("#control-btn");
+				swiftUIKara = document.querySelector("swiftui-kara");
+				
+				controlBtn.onclick = playKara;
+			}
+			
+			window.addEventListener("kara-ready", function() {
+				controlBtn.removeAttribute("disabled");
+			});
+
+			function playKara() {
+				if (!controlBtn.hasAttribute("disabled")) {
+					swiftUIKara.play();
+				}
+			}
 		</script>
 	</body>
 </html>

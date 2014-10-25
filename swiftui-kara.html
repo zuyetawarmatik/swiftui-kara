@@ -12,7 +12,7 @@
 				text-align: center;
 			}
 		</style>
-		<google-youtube id="youtube" kara-youtube videoid="{{videoId}}" height="0px" width="0px" chromeless="true"></google-youtube>
+		<google-youtube id="youtube" videoid="{{videoId}}" height="0px" width="0px" chromeless="true"></google-youtube>
 		<content></content>
   </template>
 	
@@ -64,6 +64,7 @@
 				/* ====================== */
 				
 				play: function() {
+					this.$.youtube.play();
 					this._timer = window.setInterval(function() {
 						var currentKaratext = this._childrenKaratext[this._currentKaratextId];
 						var prevKaratextStartTime = (this._currentKaratextId == 0) ? 

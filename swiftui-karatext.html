@@ -52,8 +52,7 @@
 				},
 				
 				registerTimes: function(currentTime, prevEndTime) {
-					// In reality, realStartTime[i] = loadTime[i+1],
-					// which means when the i-th line plays and starts to fly to 1st line, the i+1-th line starts to fly to 2nd line
+				
 					
 					this.loadTo2LineTime = 0;
 					this.loadTo1LineTime = prevEndTime - currentTime;
@@ -61,12 +60,8 @@
 					this.realEndTime = this.endTime - currentTime;
 				},
 				
-				/* 3 conditions */
-				/* startTime[0] >= flyDuration */
-				/* realStartTime[i+1] - loadTime[i+1] = realStartTime[i+1] - realStartTime[i] = startTime[i+1] - startTime[i] >= flyDuration */
-				/* endTime[i] <= startTime[i+1] */
-				
 				run: function(flyDuration) {
+				
 					/* Display */
 					this.async(function() {
 						this.style.display = "block";
