@@ -12,7 +12,7 @@
 		<meta http-equiv="pragma" content="no-cache" />
 
 		<link rel="stylesheet" type="text/css" href="../bower_components/normalize.css/normalize.css">
-		<link href="http://fonts.googleapis.com/css?family=Raleway:700" rel="stylesheet" type="text/css">
+		<link href="http://fonts.googleapis.com/css?family=Raleway:500,700" rel="stylesheet" type="text/css">
 
 		<script src="../bower_components/platform/platform.js"></script>
 		<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
@@ -47,14 +47,14 @@
 				font-family: "Raleway", sans-serif;
 				font-size: 50px;
 				font-weight: bold;
-				color: #FFEFB9; /* Clipping text color */
+				color: #FC5956; /* Clipping text color */
 				background-color: #444; /* Ground text color */
 			}
 			
 			#player-wrapper {
 				position: absolute;
 				height: 120px; bottom: 0;
-				width: 100%;
+				width: 800px;
 				padding: 0 20px;
 			}
 			
@@ -77,11 +77,28 @@
 				margin-left: 20px;
 			}
 			
-			#timeProgress {
+			#song-informations {
+				width: 380px;
+			}
+			
+			#song-informations #names {
+				height: 80px;
+				margin-left: 20px;
+			}
+			
+			#song, #artist {
+				font-weight: bold;
+			}
+			
+			#artist, #album {
+				font-size: 12px;
+			}
+			
+			#time-progress {
 				margin-right: 10px;
 			}
 			
-			#timeProgress::shadow #activeProgress {
+			#time-progress::shadow #activeProgress {
 				background: #FC5956;
 			}
 		</style>
@@ -146,9 +163,17 @@
 			<paper-button id="control-btn" icon="av:play-arrow" disabled horizontal layout center center-justified>
 				<core-icon icon="av:play-arrow"></core-icon>
 			</paper-button>
-			<div id="informations">
+			<div id="informations" horizontal layout center>
+				<div id="song-informations" horizontal layout center>
+					<img src="cascada.jpg" width="80">
+					<div id="names" vertical layout around-justified>
+						<div id="song">Santa Claus Is Coming To Town</div>
+						<div id="album">It's Christmas Time</div>
+						<div id="artist">Cascada</div>
+					</div>
+				</div>
 				<div id="time-informations" horizontal layout center>
-					<paper-progress id="timeProgress"></paper-progress>
+					<paper-progress id="time-progress"></paper-progress>
 					<span id="current-time">0:00</span>
 					<span>&nbsp;/&nbsp;</span>
 					<span id="duration">0:00</span>
@@ -165,7 +190,7 @@
 				swiftUIKara = document.querySelector("swiftui-kara");
 				currentTimeSpan = document.querySelector("#current-time");
 				durationSpan = document.querySelector("#duration");
-				timeProgress = document.querySelector("#timeProgress");
+				timeProgress = document.querySelector("#time-progress");
 			});
 			
 			window.addEventListener("kara-ready", function() {
