@@ -15,6 +15,7 @@
 		<link href="http://fonts.googleapis.com/css?family=Raleway:700" rel="stylesheet" type="text/css">
 
 		<script src="../bower_components/platform/platform.js"></script>
+		<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
 		<link rel="import" href="../bower_components/paper-button/paper-button.html">
 		<link rel="import" href="../bower_components/core-icons/av-icons.html">
 		<link rel="import" href="swiftui-kara.html">
@@ -74,6 +75,14 @@
 			
 			#informations {
 				margin-left: 20px;
+			}
+			
+			#timeProgress {
+				margin-right: 10px;
+			}
+			
+			#timeProgress::shadow #activeProgress {
+				background: #FC5956;
 			}
 		</style>
 	</head>
@@ -139,6 +148,7 @@
 			</paper-button>
 			<div id="informations">
 				<div id="time-informations">
+					<paper-progress id="timeProgress"></paper-progress>
 					<span id="current-time">0:00</span>
 					<span>&nbsp;/&nbsp;</span>
 					<span id="duration">0:00</span>
@@ -147,7 +157,7 @@
 		</section>
 		
 		<script>
-			var swiftUIKara, controlBtn, currentTimeSpan, durationSpan;
+			var swiftUIKara, controlBtn, currentTimeSpan, durationSpan, timeProgress;
 			
 			window.addEventListener("polymer-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
@@ -155,10 +165,10 @@
 				swiftUIKara = document.querySelector("swiftui-kara");
 				currentTimeSpan = document.querySelector("#current-time");
 				durationSpan = document.querySelector("#duration");
+				timeProgress = document.querySelector("#timeProgress");
 			});
 			
 			window.addEventListener("kara-ready", function() {
-
 				controlBtn.removeAttribute("disabled");
 				controlBtn.setAttribute("play", "");
 				controlBtn.onclick = controlKara;
@@ -179,11 +189,14 @@
 				
 				if (!controlBtn.hasAttribute("disabled")) {
 					if (controlBtn.hasAttribute("play")) {
-						controlBtn.switchState("play", "pause");
+						controlBtn.switchState("play", "pause");	
 						swiftUIKara.play();
 						
-						var timeSliderTimer = window.setInterval(
+						var timeProgressTimer = window.setInterval(
 							function() {
+								timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
+								if (timeProgress.getAttribute("max") == 0)
+									timeProgress.setAttribute("max", swiftUIKara.getDuration());
 								currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
 								durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
 							}, 1000);
