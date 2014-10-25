@@ -1,24 +1,16 @@
-# &lt;my-repo&gt;
-
-> A bare minimum custom element starter-kit using [Polymer](http://www.polymer-project.org/).
->
-> Like [Yeoman](http://yeoman.io/)? Use the [generator-element](https://www.npmjs.org/package/generator-element) instead.
->
-> Looking for a working example? Check [hello-world-polymer](https://github.com/webcomponents/hello-world-polymer).
+# SwiftUI Kara and Karatext
 
 ## Demo
 
-[Check it live!](http://my-user.github.io/my-repo)
+[In my portfolio](http://my-user.github.io/my-repo), I'm using the song [Santa Claus Is Coming To Town](https://www.youtube.com/watch?v=m2-kJau6dVs) by Cascada.
 
 ## Install
 
 Install the component using [Bower](http://bower.io/):
 
 ```sh
-$ bower install my-repo --save
+$ bower install swiftui-kara --save
 ```
-
-Or [download as ZIP](https://github.com/my-user/my-repo/archive/master.zip).
 
 ## Usage
 
