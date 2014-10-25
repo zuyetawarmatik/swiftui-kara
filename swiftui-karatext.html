@@ -52,16 +52,30 @@
 				},
 				
 				registerTimes: function(currentTime, prevEndTime) {
-				
+					/* For type = 2 lines,
+					/* 1. i-th karatext will fly to 2nd line at the time its previous starts playing
+					/* 2. i-th karatext will fly to 1st line at the time its previous ends playing (or flies out)
+					/* == */
 					
-					this.loadTo2LineTime = 0;
+					/* Formulas:
+					/* 1. loadTo2[i] = start[i-1]
+					/* 2. loadTo1[i] = end[i-1]
+					/* == */
+					
+					/* Conditions:
+					/* 1. 1st formula must be to satisfy the criteria that no overlapping text occurs at 2nd line:
+					/* loadTo2[i] >= loadTo1[i-1] <=> start[i-1] >= end[i-2] <=> start[i] >= end[i-1],
+					/* which is obvious, a karatext's timestamp must not be overlapping with its neighbor's timestamp.
+					/* 2. 2nd formula always satisfies the criteria that no overlapping text occurs at 1st line.
+					/* == */
+					
+					this.loadTo2LineTime = 0; // = prevStartTime - currentTime
 					this.loadTo1LineTime = prevEndTime - currentTime;
 					this.realStartTime = this.startTime - currentTime;
 					this.realEndTime = this.endTime - currentTime;
 				},
 				
 				run: function(flyDuration) {
-				
 					/* Display */
 					this.async(function() {
 						this.style.display = "block";
