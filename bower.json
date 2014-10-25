@@ -1,27 +1,23 @@
 {
-  "name": "swiftui-karatext",
-  "version": "0.0.1",
-  "description": "SwiftUI Karatext",
-  "authors": [
-    "Zuyet Awarmatik <francesc.zuyet@gmail.com>"
-  ],
-  "license": "MIT",
-  "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "components",
-    "test",
-    "tests"
-  ],
-  "devDependencies": {
-    "polymer": "Polymer/polymer#~0.4.2",
-    "core-elements": "Polymer/core-elements#~0.4.2",
-    "paper-elements": "Polymer/paper-elements#~0.4.2",
-    "svg.js": "~1.0.1",
-    "google-youtube": "~0.0.9"
-  },
-  "dependencies": {
-    "normalize.css": "~3.0.2"
-  }
+	"name": "swiftui-karatext",
+	"version": "0.0.1",
+	"description": "SwiftUI Kara and Karatext",
+	"authors": [
+		"Zuyet Awarmatik <francesc.zuyet@gmail.com>"
+	],
+	"license": "MIT",
+	"private": true,
+	"ignore": [
+		"**/.*",
+		"node_modules",
+		"bower_components"
+	],
+	"devDependencies": {
+		"polymer": "Polymer/polymer#~0.4.2",
+		"svg.js": "~1.0.1",
+		"google-youtube": "~0.0.9"
+	},
+	"dependencies": {
+		"normalize.css": "~3.0.2"
+	}
 }
