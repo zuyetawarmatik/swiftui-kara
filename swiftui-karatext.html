@@ -58,35 +58,35 @@
 					/* == */
 					
 					/* Formulas:
-					/* 1. loadTo2[i] = start[i-1]
-					/* 2. loadTo1[i] = end[i-1]
+					/* 1. flyTo2[i] = start[i-1]
+					/* 2. flyTo1[i] = end[i-1]
 					/* == */
 					
 					/* Conditions:
 					/* 1. 1st formula must be to satisfy the criteria that no overlapping text occurs at 2nd line:
-					/* loadTo2[i] >= loadTo1[i-1] <=> start[i-1] >= end[i-2] <=> start[i] >= end[i-1],
+					/* flyTo2[i] >= flyTo1[i-1] <=> start[i-1] >= end[i-2] <=> start[i] >= end[i-1],
 					/* which is obvious, a karatext's timestamp must not be overlapping with its neighbor's timestamp.
 					/* 2. 2nd formula always satisfies the criteria that no overlapping text occurs at 1st line.
 					/* == */
 					
-					this.loadTo2LineTime = 0; // = prevStartTime - currentTime
-					this.loadTo1LineTime = prevEndTime - currentTime;
+					this.flyTo2LineTime = 0; // = prevStartTime - currentTime
+					this.flyTo1LineTime = prevEndTime - currentTime;
 					this.realStartTime = this.startTime - currentTime;
 					this.realEndTime = this.endTime - currentTime;
 				},
 				
 				run: function(flyDuration) {
-					/* Display */
-					this.async(function() {
+					/* Show */
+					this.showTimer = this.async(function() {
 						this.style.display = "block";
 						this.style.position = "absolute";
 						this.style.width = "100%";
 						this.style.opacity = "0";
 						this.style.height = numberToPx(this._textHeight);
-					}, null, this.loadTo2LineTime);
+					}, null, this.flyTo2LineTime);
 					
 					/* Fly in to second line */
-					this.async(function() {
+					this.flyTo2LineTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
 								{opacity: 0, top: numberToPx(parentHeight)},
@@ -97,10 +97,10 @@
 								easing: "ease-out",
 								fill: "both"
 							}));
-					}, null, this.loadTo2LineTime);
+					}, null, this.flyTo2LineTime);
 					
 					/* Fly to first line */
-					this.async(function() {
+					this.flyTo1LineTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
 								{top: numberToPx(secondLineTop)},
@@ -111,7 +111,7 @@
 								easing: "ease",
 								fill: "forwards"
 							}));
-					}, null, this.loadTo1LineTime);
+					}, null, this.flyTo1LineTime);
 					
 					/* Run text */
 					this._filledBackground
@@ -119,7 +119,7 @@
 						.attr({"width": this._textWidth});
 					
 					/* Fly out */
-					this.async(function() {
+					this.endTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
 								{opacity: 1, top: numberToPx(firstLineTop)},
@@ -133,7 +133,7 @@
 					}, null, this.realEndTime);
 					
 					/* Hide */
-					this.async(function() {
+					this.hideTimer = this.async(function() {
 						this.style.display = "none";
 					}, null, this.realEndTime + flyDuration);
 				},

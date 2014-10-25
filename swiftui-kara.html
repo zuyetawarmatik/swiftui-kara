@@ -114,7 +114,7 @@
 							var prevKaratextEndTime = (this._currentKaratextId == 0) ? 
 																					this.flyDuration : this._childrenKaratext[this._currentKaratextId - 1].endTime;
 
-							if (prevKaratextStartTime - this._currentTime <= 0) { // currentKaratext's loadTo2LineTime - currentTime
+							if (prevKaratextStartTime - this._currentTime <= 0) { // currentKaratext's flyTo2LineTime - currentTime
 								currentKaratext.registerTimes(this._currentTime, prevKaratextEndTime);
 								currentKaratext.run(this.flyDuration);
 								this._currentKaratextId++;
