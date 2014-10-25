@@ -69,28 +69,36 @@
 					return this.$.youtube.durationformatted;
 				},
 				
+				/* ====================== */
+				
+				
+				
 				/* Controlling functions */
 				/* ====================== */
 				
 				play: function() {
 					this.$.youtube.play();
 					this._timer = window.setInterval(function() {
-						if (this.$.youtube.state == 1) {
-							var currentKaratext = this._childrenKaratext[this._currentKaratextId];
-							var prevKaratextStartTime = (this._currentKaratextId == 0) ? 
-																					0 : this._childrenKaratext[this._currentKaratextId - 1].startTime;
-							var prevKaratextEndTime = (this._currentKaratextId == 0) ? 
-																					this.flyDuration : this._childrenKaratext[this._currentKaratextId - 1].endTime;
+						switch (this.$.youtube.state) {
+							case 1:
+								var currentKaratext = this._childrenKaratext[this._currentKaratextId];
+								var prevKaratextStartTime = (this._currentKaratextId == 0) ? 
+																						0 : this._childrenKaratext[this._currentKaratextId - 1].startTime;
+								var prevKaratextEndTime = (this._currentKaratextId == 0) ? 
+																						this.flyDuration : this._childrenKaratext[this._currentKaratextId - 1].endTime;
 
-							if (prevKaratextStartTime - this._currentTime <= 0) { // currentKaratext's loadTo2LineTime - currentTime
-								currentKaratext.registerTimes(this._currentTime, prevKaratextEndTime);
-								currentKaratext.run(this.flyDuration);
+								if (prevKaratextStartTime - this._currentTime <= 0) { // currentKaratext's loadTo2LineTime - currentTime
+									currentKaratext.registerTimes(this._currentTime, prevKaratextEndTime);
+									currentKaratext.run(this.flyDuration);
 
-								if (++this._currentKaratextId == this._childrenKaratext.length)
-									window.clearInterval(this._timer);
-							}
+									if (++this._currentKaratextId == this._childrenKaratext.length)
+										window.clearInterval(this._timer);
+								}
 
-							this._currentTime += this._timerInterval;
+								this._currentTime += this._timerInterval;
+								break;
+							case 0:
+								window.clearInterval(this._timer);
 						}
 					}.bind(this), 100);
 				},

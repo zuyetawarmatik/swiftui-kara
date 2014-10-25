@@ -25,14 +25,15 @@
 			}
 
 			body {
+				font-family: "Raleway", sans-serif;
+				color: #eee;
 				height: 100%;
 				overflow: hidden;
 				background: #222;
 			}
 
 			#swiftui-kara-wrapper {
-				position: absolute;
-				top: 0; bottom: 120px;
+				height: 100%;
 				width: 100%;
 			}
 			
@@ -70,6 +71,10 @@
 			#control-btn:hover {
 				background: #fff;
 			}
+			
+			#informations {
+				margin-left: 20px;
+			}
 		</style>
 	</head>
 	<body unresolved>
@@ -81,7 +86,7 @@
 				<swiftui-karatext start="0:0:18.3" end="0:0:22">You'd better not pout I'm telling you why,</swiftui-karatext>
 				<swiftui-karatext start="0:0:22" end="0:0:26">Santa Claus is comin' to town.</swiftui-karatext>
 				<swiftui-karatext start="0:0:26.5" end="0:0:28.5">(Santa Claus is comin' to town)</swiftui-karatext>
-				<swiftui-karatext start="0:0:29.5" end="0:0:30.5">He's making a list</swiftui-karatext>
+				<swiftui-karatext start="0:0:29" end="0:0:30.5">He's making a list</swiftui-karatext>
 				<swiftui-karatext start="0:0:30.7" end="0:0:32">and checking it twice.</swiftui-karatext>
 				<swiftui-karatext start="0:0:32.6" end="0:0:36">He's going to find out who's naughty or nice.</swiftui-karatext>
 				<swiftui-karatext start="0:0:36" end="0:0:41">Santa Claus is comin' to town.</swiftui-karatext>
@@ -132,23 +137,34 @@
 			<paper-button id="control-btn" icon="av:play-arrow" disabled horizontal layout center center-justified>
 				<core-icon icon="av:play-arrow"></core-icon>
 			</paper-button>
+			<div id="informations">
+				<div id="time-informations">
+					<span id="current-time">0:00</span>
+					<span>&nbsp;/&nbsp;</span>
+					<span id="duration">0:00</span>
+				</div>
+			</div>
 		</section>
 		
 		<script>
-			var swiftUIKara, controlBtn;
+			var swiftUIKara, controlBtn, currentTimeSpan, durationSpan;
 			
-			window.addEventListener("kara-ready", function() {
+			window.addEventListener("polymer-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
 				controlBtn.controlBtnIcon = controlBtn.querySelector("core-icon");
+				swiftUIKara = document.querySelector("swiftui-kara");
+				currentTimeSpan = document.querySelector("#current-time");
+				durationSpan = document.querySelector("#duration");
+			});
+			
+			window.addEventListener("kara-ready", function() {
+
 				controlBtn.removeAttribute("disabled");
 				controlBtn.setAttribute("play", "");
 				controlBtn.onclick = controlKara;
 			});
 
 			function controlKara() {
-				if (swiftUIKara === undefined)
-					swiftUIKara = document.querySelector("swiftui-kara");
-				
 				controlBtn.switchState = function(from, to) {
 					this.removeAttribute(from);
 					this.setAttribute(to, "");
@@ -165,6 +181,13 @@
 					if (controlBtn.hasAttribute("play")) {
 						controlBtn.switchState("play", "pause");
 						swiftUIKara.play();
+						
+						var timeSliderTimer = window.setInterval(
+							function() {
+								currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
+								durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
+							}, 1000);
+							
 					} else if (controlBtn.hasAttribute("pause")) {
 						controlBtn.switchState("pause", "play");
 					}
