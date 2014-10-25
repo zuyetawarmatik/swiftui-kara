@@ -187,6 +187,7 @@
 		
 		<script>
 			var swiftUIKara, controlBtn, currentTimeSpan, durationSpan, timeProgress;
+			var timeProgressTimer;
 			
 			window.addEventListener("polymer-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
@@ -206,13 +207,19 @@
 			/* Control the progress bar */
 			window.addEventListener("kara-playing", function() {
 				timeProgress.setAttribute("max", swiftUIKara.getDuration());
+				durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
 				
-				var timeProgressTimer = window.setInterval(
+				timeProgressTimer = window.setInterval(
 					function() {
 						timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
 						currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
-						durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
 					}, 1000);
+			});
+			
+			window.addEventListener("kara-ended", function() {
+				timeProgress.setAttribute("value", swiftUIKara.getDuration());
+				currentTimeSpan.innerHTML = swiftUIKara.getFormattedDuration();
+				window.clearInterval(timeProgressTimer);
 			});
 
 			function controlKara() {

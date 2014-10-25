@@ -45,7 +45,6 @@
 					} else if (this.state == STATE_KARA_PAUSED) {
 						window.clearInterval(this._timer);
 						this.fire("kara-paused");
-						console.log(this._currentTime, this._currentKaratextId, this.getFormattedCurrentPlayTime());
 					} else if (this.state == STATE_KARA_ENDED) {
 						window.clearInterval(this._timer);
 						this.fire("kara-ended");
@@ -108,9 +107,7 @@
 				
 				_playTimer: function() {
 					this._timer = window.setInterval(function() {
-						if (this._currentKaratextId == this._childrenKaratext.length && this.$.youtube.state == 0) {
-							this.state = STATE_KARA_ENDED;
-						} else if (this._currentKaratextId < this._childrenKaratext.length) {
+						if (this._currentKaratextId < this._childrenKaratext.length) {
 							var currentKaratext = this._childrenKaratext[this._currentKaratextId];
 							var prevKaratextStartTime = (this._currentKaratextId == 0) ? 
 																					0 : this._childrenKaratext[this._currentKaratextId - 1].startTime;
@@ -161,6 +158,8 @@
 							this.state = STATE_KARA_PLAYING;
 						} else if (this.$.youtube.state == 2) {
 							this.state = STATE_KARA_PAUSED;
+						} else if (this.$.youtube.state == 0) {
+							this.state = STATE_KARA_ENDED;
 						}
 					});
 				}
