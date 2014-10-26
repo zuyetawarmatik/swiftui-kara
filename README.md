@@ -6,9 +6,11 @@ Text rendering and highlighting effect is done by using [SVG.js](http://svgjs.co
 
 ## Demo
 
-[Here in my portfolio page](http://my-user.github.io/my-repo), I'm using the song [Santa Claus Is Coming To Town](https://www.youtube.com/watch?v=m2-kJau6dVs) by Cascada.
+[Here in my portfolio page](http://zuyetawarmatik.github.io/experiments/swiftui-kara), I'm using the song [Santa Claus Is Coming To Town](https://www.youtube.com/watch?v=m2-kJau6dVs) by Cascada.
 
 ## Install
+
+(Not updated yet)
 
 Install the component using [Bower](http://bower.io/):
 
