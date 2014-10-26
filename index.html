@@ -40,7 +40,8 @@
 			}
 
 			#swiftui-kara-wrapper {
-				height: calc(100% - 100px);
+				margin-top: 40px;
+				height: calc(100% - 80px);
 				width: 100%;
 			}
 
@@ -59,7 +60,7 @@
 
 			#player-wrapper {
 				position: absolute;
-				height: 120px; bottom: 40px;
+				height: 120px; bottom: 0;
 				width: 800px;
 				padding: 0 20px;
 			}
@@ -122,11 +123,10 @@
 			
 			#credit-wrapper {
 				position: absolute;
-				height: 40px; bottom: 0;
+				height: 40px; top: 0;
 				width: 100%;
-				padding: 0 20px;
 				font-size: 12px;
-				border-top: 1px solid #111;
+				border-bottom: 1px solid #111;
 			}
 			
 			#credit-wrapper a {
@@ -224,7 +224,7 @@
 			</div>
 		</section>
 		
-		<section id="credit-wrapper" horizontal layout center>
+		<section id="credit-wrapper" horizontal layout center center-justified>
 			<a href="https://github.com/zuyetawarmatik/swiftui-kara">
 				<core-icon icon="social:post-github"></core-icon>
 				SwiftUI Kara and Karatext @zuyetawarmatik
