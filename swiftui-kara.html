@@ -103,6 +103,7 @@
 				},
 				
 				play: function() {
+					this.$.youtube.seekTo(this._currentTime / 1000);
 					this.$.youtube.play();
 				},
 				
@@ -121,8 +122,6 @@
 
 					this._currentTime = currentId > 0 ? this._childrenKaratext[currentId - 1].startTime : 0;
 					this._currentKaratextId = currentId >= 0 ? currentId : 0;
-					
-					this.$.youtube.seekTo(this._currentTime / 1000);
 				},
 				
 				_playTimer: function() {
