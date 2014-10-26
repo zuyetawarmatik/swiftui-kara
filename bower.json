@@ -8,6 +8,7 @@
 	"license": "MIT",
 	"ignore": [
 		"**/.*",
+		"demo",
 		"node_modules",
 		"bower_components"
 	],
@@ -21,6 +22,7 @@
 		"normalize.css": "~3.0.2",
 		"core-icons": "Polymer/core-icons#~0.4.2",
 		"paper-button": "Polymer/paper-button#~0.4.2",
-		"paper-progress": "Polymer/paper-progress#~0.4.2"
+		"paper-progress": "Polymer/paper-progress#~0.4.2",
+		"swiftui-kara": "*"
 	}
 }
