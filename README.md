@@ -10,8 +10,6 @@ Text rendering and highlighting effect is done by using [SVG.js](http://svgjs.co
 
 ## Install
 
-(Not updated yet)
-
 Install the component using [Bower](http://bower.io/):
 
 ```sh
