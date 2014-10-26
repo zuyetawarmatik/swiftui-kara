@@ -37,7 +37,7 @@
 				height: 100%;
 				width: 100%;
 			}
-			
+
 			swiftui-kara {
 				height: 400px;
 				width: 100%;
@@ -50,14 +50,14 @@
 				color: #FC5956; /* Clipping text color */
 				background-color: #444; /* Ground text color */
 			}
-			
+
 			#player-wrapper {
 				position: absolute;
 				height: 120px; bottom: 0;
 				width: 800px;
 				padding: 0 20px;
 			}
-			
+
 			#control-btn {
 				background: #2d2d2d;
 				color: #FC5956;
@@ -68,40 +68,48 @@
 				border-radius: 50%;
 				transition: background 0.25s ease;
 			}
-			
+
 			#control-btn:hover {
 				background: #fff;
 			}
-			
+
 			#informations {
 				margin-left: 20px;
 			}
-			
+
 			#song-informations {
 				width: 380px;
 			}
-			
+
 			#song-informations #names {
 				height: 80px;
 				margin-left: 20px;
 			}
-			
+
 			#song, #artist {
 				font-weight: bold;
 			}
-			
+
 			#artist, #album {
 				font-size: 12px;
 			}
-			
+
 			#time-progress {
 				margin-right: 10px;
 			}
-			
+
+			#time-progress::shadow #progressContainer {
+				background: #2d2d2d;
+			}
+
+			#time-progress #progressContainer {
+				background: #2d2d2d;
+			}
+
 			#time-progress::shadow #activeProgress {
 				background: #FC5956;
 			}
-			
+
 			#time-progress #activeProgress { /* For Firefox */
 				background: #FC5956;
 			}
@@ -184,11 +192,11 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<script>
 			var swiftUIKara, controlBtn, currentTimeSpan, durationSpan, timeProgress;
 			var timeProgressTimer;
-			
+
 			window.addEventListener("polymer-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
 				controlBtn.controlBtnIcon = controlBtn.querySelector("core-icon");
@@ -197,25 +205,25 @@
 				durationSpan = document.querySelector("#duration");
 				timeProgress = document.querySelector("#time-progress");
 			});
-			
+
 			window.addEventListener("kara-ready", function() {
 				controlBtn.removeAttribute("disabled");
 				controlBtn.setAttribute("play", "");
 				controlBtn.onclick = controlKara;
 			});
-			
+
 			/* Control the progress bar */
 			window.addEventListener("kara-playing", function() {
 				timeProgress.setAttribute("max", swiftUIKara.getDuration());
 				durationSpan.innerHTML = swiftUIKara.getFormattedDuration();
-				
+
 				timeProgressTimer = window.setInterval(
 					function() {
 						timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
 						currentTimeSpan.innerHTML = swiftUIKara.getFormattedCurrentPlayTime();
 					}, 1000);
 			});
-			
+
 			window.addEventListener("kara-ended", function() {
 				timeProgress.setAttribute("value", swiftUIKara.getDuration());
 				currentTimeSpan.innerHTML = swiftUIKara.getFormattedDuration();
@@ -226,7 +234,7 @@
 				controlBtn.switchState = function(from, to) {
 					this.removeAttribute(from);
 					this.setAttribute(to, "");
-					
+
 					switch (to) {
 						case "play":
 							this.controlBtnIcon.setAttribute("icon", "av:play-arrow"); break;
@@ -234,7 +242,7 @@
 							this.controlBtnIcon.setAttribute("icon", "av:pause"); break;
 					}
 				};
-				
+
 				if (!controlBtn.hasAttribute("disabled")) {
 					if (controlBtn.hasAttribute("play")) {
 						controlBtn.switchState("play", "pause");	
