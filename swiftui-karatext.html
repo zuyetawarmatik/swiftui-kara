@@ -69,24 +69,55 @@
 					/* 2. 2nd formula always satisfies the criteria that no overlapping text occurs at 1st line.
 					/* == */
 					
-					this.flyTo2LineTime = 0; // = prevStartTime - currentTime
-					this.flyTo1LineTime = prevEndTime - currentTime;
-					this.realStartTime = this.startTime - currentTime;
-					this.realEndTime = this.endTime - currentTime;
+					this._flyTo2LineTime = 0; // = prevStartTime - currentTime
+					this._flyTo1LineTime = prevEndTime - currentTime;
+					this._realStartTime = this.startTime - currentTime;
+					this._realEndTime = this.endTime - currentTime;
+				},
+				
+				stop: function() {
+					this.cancelAsync(this._showTimer);
+					this.cancelAsync(this._flyTo2LineTimer);
+					this.cancelAsync(this._flyTo1LineTimer);
+					this._filledBackground.stop();
+					this._filledBackground.attr({"width": 0});
+					this.cancelAsync(this._endTimer);
+					this.cancelAsync(this._hideTimer);
+					
+					if (this.style.display != "none") {
+						this._cancelFallTimer = this.async(function() {
+							document.timeline.play(new Animation(this,
+								[
+									{opacity: 1, top: this._getStyles().top},
+									{opacity: 0, top: numberToPx(parentHeight)}
+								],
+								{
+									duration: 200,
+									easing: "ease-out",
+									fill: "both"
+								}));
+						});
+						this._cancelHideTimer = this.async(function() {
+							this.style.display = "none";
+						}, null, 200);
+					}
 				},
 				
 				run: function(flyDuration) {
+					this.cancelAsync(this._cancelFallTimer);
+					this.cancelAsync(this._cancelHideTimer);
+					
 					/* Show */
-					this.showTimer = this.async(function() {
+					this._showTimer = this.async(function() {
 						this.style.display = "block";
 						this.style.position = "absolute";
 						this.style.width = "100%";
 						this.style.opacity = "0";
 						this.style.height = numberToPx(this._textHeight);
-					}, null, this.flyTo2LineTime);
+					}, null, this._flyTo2LineTime);
 					
 					/* Fly in to second line */
-					this.flyTo2LineTimer = this.async(function() {
+					this._flyTo2LineTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
 								{opacity: 0, top: numberToPx(parentHeight)},
@@ -97,10 +128,10 @@
 								easing: "ease-out",
 								fill: "both"
 							}));
-					}, null, this.flyTo2LineTime);
+					}, null, this._flyTo2LineTime);
 					
 					/* Fly to first line */
-					this.flyTo1LineTimer = this.async(function() {
+					this._flyTo1LineTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
 								{top: numberToPx(secondLineTop)},
@@ -111,15 +142,15 @@
 								easing: "ease",
 								fill: "forwards"
 							}));
-					}, null, this.flyTo1LineTime);
+					}, null, this._flyTo1LineTime);
 					
 					/* Run text */
 					this._filledBackground
-						.animate({duration: this.duration, ease: "<>", delay: this.realStartTime})
+						.animate({duration: this.duration, ease: "<>", delay: this._realStartTime})
 						.attr({"width": this._textWidth});
 					
 					/* Fly out */
-					this.endTimer = this.async(function() {
+					this._endTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
 								{opacity: 1, top: numberToPx(firstLineTop)},
@@ -130,12 +161,12 @@
 								easing: "ease-in",
 								fill: "forwards"
 							}));
-					}, null, this.realEndTime);
+					}, null, this._realEndTime);
 					
 					/* Hide */
-					this.hideTimer = this.async(function() {
+					this._hideTimer = this.async(function() {
 						this.style.display = "none";
-					}, null, this.realEndTime + flyDuration);
+					}, null, this._realEndTime + flyDuration);
 				},
 				
 				
