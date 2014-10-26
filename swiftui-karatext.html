@@ -75,6 +75,12 @@
 					this._realEndTime = this.endTime - currentTime;
 				},
 				
+				/* This function is used for stopped */
+				reset: function() {
+					this._filledBackground.attr({"width": 0});
+				},
+				
+				/* This function is used for pausing */
 				stop: function() {
 					this.cancelAsync(this._showTimer);
 					this.cancelAsync(this._flyTo2LineTimer);
@@ -103,6 +109,7 @@
 					}
 				},
 				
+				/* This function is used for playing */
 				run: function(flyDuration) {
 					this.cancelAsync(this._cancelFallTimer);
 					this.cancelAsync(this._cancelHideTimer);

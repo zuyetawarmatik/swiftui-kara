@@ -26,6 +26,10 @@
 			var STATE_KARA_PAUSED = 2;
 			var STATE_KARA_ENDED = 3;
 			
+			/* User action and state:
+			/* User action (play, pause) -> kara's public function -> youtube's state changed ->
+			/* kara's state changed -> kara's private function -> kara fires event -> user agent listens event */
+			
 			Polymer({
 				state: STATE_KARA_NOT_READY,
 				
@@ -48,6 +52,7 @@
 						this.fire("kara-paused");
 					} else if (this.state == STATE_KARA_ENDED) {
 						window.clearInterval(this._timer);
+						this._endJobs();
 						this.fire("kara-ended");
 					} else if (this.state == STATE_KARA_PLAYING) {
 						this._playTimer();
@@ -102,9 +107,17 @@
 					this.$.youtube.pause();
 				},
 				
-				play: function() {
+				play: function() {				
 					this.$.youtube.seekTo(this._currentTime / 1000);
 					this.$.youtube.play();
+				},
+							
+				_endJobs: function() {
+					for (var i = 0; i < this._childrenKaratext.length; i++)
+						this._childrenKaratext[i].reset();
+					
+					this._currentTime = 0;
+					this._currentKaratextId = 0;
 				},
 				
 				_pauseJobs: function() {

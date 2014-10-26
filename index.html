@@ -210,6 +210,17 @@
 				controlBtn.removeAttribute("disabled");
 				controlBtn.setAttribute("play", "");
 				controlBtn.onclick = controlKara;
+				controlBtn.switchState = function(from, to) {
+					this.removeAttribute(from);
+					this.setAttribute(to, "");
+
+					switch (to) {
+						case "play":
+							this.controlBtnIcon.setAttribute("icon", "av:play-arrow"); break;
+						case "pause":
+							this.controlBtnIcon.setAttribute("icon", "av:pause"); break;
+					}
+				};
 			});
 
 			/* Control the progress bar */
@@ -227,25 +238,14 @@
 			window.addEventListener("kara-ended", function() {
 				timeProgress.setAttribute("value", swiftUIKara.getDuration());
 				currentTimeSpan.innerHTML = swiftUIKara.getFormattedDuration();
+				controlBtn.switchState("pause", "play");
 				window.clearInterval(timeProgressTimer);
 			});
 
 			function controlKara() {
-				controlBtn.switchState = function(from, to) {
-					this.removeAttribute(from);
-					this.setAttribute(to, "");
-
-					switch (to) {
-						case "play":
-							this.controlBtnIcon.setAttribute("icon", "av:play-arrow"); break;
-						case "pause":
-							this.controlBtnIcon.setAttribute("icon", "av:pause"); break;
-					}
-				};
-
 				if (!controlBtn.hasAttribute("disabled")) {
 					if (controlBtn.hasAttribute("play")) {
-						controlBtn.switchState("play", "pause");	
+						controlBtn.switchState("play", "pause");
 						swiftUIKara.play();		
 					} else if (controlBtn.hasAttribute("pause")) {
 						controlBtn.switchState("pause", "play");
