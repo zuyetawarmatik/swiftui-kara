@@ -18,6 +18,7 @@
 		<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
 		<link rel="import" href="../bower_components/paper-button/paper-button.html">
 		<link rel="import" href="../bower_components/core-icons/av-icons.html">
+		<link rel="import" href="../bower_components/core-icons/social-icons.html">
 		<link rel="import" href="swiftui-kara.html">
 
 		<style>
@@ -53,7 +54,7 @@
 
 			#player-wrapper {
 				position: absolute;
-				height: 120px; bottom: 0;
+				height: 120px; bottom: 40px;
 				width: 800px;
 				padding: 0 20px;
 			}
@@ -113,6 +114,30 @@
 			#time-progress #activeProgress { /* For Firefox */
 				background: #FC5956;
 			}
+			
+			#credit-wrapper {
+				position: absolute;
+				height: 40px; bottom: 0;
+				width: 100%;
+				padding: 0 20px;
+				font-size: 12px;
+				border-top: 1px solid #111;
+			}
+			
+			#credit-wrapper a {
+				text-decoration: none;
+				color: #FC5956;
+				transition: color 0.25s ease;
+			}
+			
+			#credit-wrapper a:hover {
+				color: #eee;
+			}
+			
+			#credit-wrapper a core-icon {
+				margin-right: 5px;
+			}
+			
 		</style>
 	</head>
 	<body unresolved>
@@ -171,6 +196,7 @@
 				<swiftui-karatext start="0:2:46.5" end="0:2:52">Santa Claus is comin' to town.</swiftui-karatext>
 			</swiftui-kara>
 		</section>
+		
 		<section id="player-wrapper" horizontal layout center>
 			<paper-button id="control-btn" icon="av:play-arrow" disabled horizontal layout center center-justified>
 				<core-icon icon="av:play-arrow"></core-icon>
@@ -191,6 +217,13 @@
 					<span id="duration">0:00</span>
 				</div>
 			</div>
+		</section>
+		
+		<section id="credit-wrapper" horizontal layout center>
+			<a href="https://github.com/zuyetawarmatik/swiftui-kara">
+				<core-icon icon="social:post-github"></core-icon>
+				SwiftUI Kara and Karatext @zuyetawarmatik
+			</a>
 		</section>
 
 		<script>
