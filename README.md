@@ -25,9 +25,18 @@ $ bower install swiftui-kara --save
 ## Methods
 
 
-
 ## Events
 
+
+## Current Issues
+
+* Not working in mobile browsers due to the fact that they do not allow playing YouTube by script (i.e. `play()`)
+
+## Feature in Next Versions
+
+* One-line style.
+* Word-highlighting mode.
+* Different effects.
 
 ## License
 
