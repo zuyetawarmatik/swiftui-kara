@@ -111,7 +111,7 @@
 					switch (this.audioSrcType) {
 						case "youtube":
 							Player = function() {
-								var youtube = this.audioElmt = thisEl.$.youtube;
+								var youtube = this.playerElmt = thisEl.$.youtube;
 
 								this.playerType = "youtube";
 
@@ -143,7 +143,7 @@
 							break;
 						case "audio":
 							Player = function() {
-								var audio = this.audioElmt = thisEl.$.audio;
+								var audio = this.playerElmt = thisEl.$.audio;
 
 								this.playerType = "audio";
 
@@ -165,10 +165,6 @@
 
 								this.getDuration = function() {
 									return audio.duration;
-								};
-
-								this.getState = function() {
-									return audio.state;
 								};
 							};
 							break;
@@ -259,24 +255,57 @@
 
 					this._player = this._getPlayer();
 
-					this.addEventListener("google-youtube-ready", function() {
-						this.async(function() {
-							this._karaReadyLevel++;
-						});
-					});
+					switch (this._player.playerType) {
+						
+						case "youtube":
+							
+							this.addEventListener("google-youtube-ready", function() {
+								this.async(function() {
+									this._karaReadyLevel++;
+								});
+							});
 
-					this.addEventListener("google-youtube-state-change", function() {
-						switch (this._player.getState()) {
-							case 1:
-								this.state = STATE_KARA_PLAYING; break;
-							case 2:
+							this.addEventListener("google-youtube-state-change", function() {
+								switch (this._player.getState()) {
+									case 1:
+										this.state = STATE_KARA_PLAYING;
+										break;
+									case 2:
+										if (Math.abs(this._player.getDuration() - this._player.getCurrentPlayTime()) > 1)
+											this.state = STATE_KARA_PAUSED;
+										break;
+									case 0:
+										this.state = STATE_KARA_ENDED;
+										break;
+								}
+							});
+							
+							break;
+							
+						case "audio":
+							
+							this.addEventListener("canplay", function() {
+								this.async(function() {
+									this._karaReadyLevel++;
+								});
+							});
+							
+							this.addEventListener("play", function() {
+								this.state = STATE_KARA_PLAYING;
+							});
+							
+							this.addEventListener("pause", function() {
 								if (Math.abs(this._player.getDuration() - this._player.getCurrentPlayTime()) > 1)
 									this.state = STATE_KARA_PAUSED;
-								break;
-							case 0:
+							});
+							
+							this.addEventListener("ended", function() {
 								this.state = STATE_KARA_ENDED;
-						}
-					});
+							});
+							
+							break;
+							
+					}
 				}
 
 				/* ====================== */
