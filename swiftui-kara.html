@@ -2,7 +2,7 @@
 <link rel="import" href="bower_components/google-youtube/google-youtube.html">
 <link rel="import" href="swiftui-karatext.html">
 
-<polymer-element name="swiftui-kara" attributes="flyDuration videoId">
+<polymer-element name="swiftui-kara" attributes="flyDuration audioSrcType audioSrc">
 	<template>
 		<style>
 			:host {
@@ -12,7 +12,9 @@
 				text-align: center;
 			}
 		</style>
-		<google-youtube id="youtube" videoid="{{videoId}}" height="0px" width="0px" chromeless="true"></google-youtube>
+		<template if="{{audioSrcType=='youtube'}}">
+			<google-youtube id="youtube" videoid="{{audioSrc}}" height="0px" width="0px" chromeless="true"></google-youtube>
+		</template>
 		<content></content>
   </template>
 	
