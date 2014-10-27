@@ -97,16 +97,6 @@
 					return this._player.getDuration();
 				},
 
-				/* HH:MM:SS */
-				getFormattedCurrentPlayTime: function() {
-					return this._player.getFormattedCurrentPlayTime();
-				},
-
-				/* HH:MM:SS */
-				getFormattedDuration: function() {
-					return this._player.getFormattedDuration();
-				},
-
 				/* ====================== */
 
 
@@ -145,14 +135,6 @@
 									return youtube.duration;
 								};
 
-								this.getFormattedCurrentPlayTime = function() {
-									return youtube.currenttimeformatted;
-								};
-
-								this.getFormattedDuration = function() {
-									return youtube.durationformatted;
-								};
-
 								this.getState = function() {
 									return youtube.state;
 								};
@@ -174,23 +156,15 @@
 								};
 
 								this.seekTo = function(s) {
-									audio.seekTo(s);
+									audio.currentTime = s;
 								};
 
 								this.getCurrentPlayTime = function() {
-									return audio.currenttime;
+									return audio.currentTime;
 								};
 
 								this.getDuration = function() {
 									return audio.duration;
-								};
-
-								this.getFormattedCurrentPlayTime = function() {
-									return audio.currenttimeformatted;
-								};
-
-								this.getFormattedDuration = function() {
-									return audio.durationformatted;
 								};
 
 								this.getState = function() {
