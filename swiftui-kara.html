@@ -16,35 +16,35 @@
 			<google-youtube id="youtube" videoid="{{audioSrc}}" height="0px" width="0px" chromeless="true"></google-youtube>
 		</template>
 		<content></content>
-  </template>
-	
+	</template>
+
 	<script>
 		(function() {
 			var KARA_FULL_READY = 2;
-			
+
 			var STATE_KARA_NOT_READY = -1;
 			var STATE_KARA_READY = 0;
 			var STATE_KARA_PLAYING = 1;
 			var STATE_KARA_PAUSED = 2;
 			var STATE_KARA_ENDED = 3;
-			
+
 			/* User action and state:
 			/* User action (play, pause) -> kara's public function -> youtube's state changed ->
 			/* kara's state changed -> kara's private function -> kara fires event -> user agent listens event */
-			
+
 			Polymer({
 				state: STATE_KARA_NOT_READY,
-				
+
 				_karaReadyLevel: 0,
-				
+
 				/* Registering and event functions */
 				/* ====================== */
-				
+
 				_karaReadyLevelChanged: function() {
 					if (this._karaReadyLevel == KARA_FULL_READY)
 						this.state = STATE_KARA_READY;
 				},
-				
+
 				stateChanged: function() {
 					if (this.state == STATE_KARA_READY) {
 						this.fire("kara-ready");
@@ -61,7 +61,7 @@
 						this.fire("kara-playing");
 					}
 				},
-				
+
 				registerKaratext: function(childKaratext) {
 					this._childrenKaratext.push(childKaratext);
 					if (this._childrenKaratext.length == this._numberOfKaratext) {
@@ -70,75 +70,136 @@
 						this.parentNode.setAttribute("layout", "");
 						this.parentNode.setAttribute("center", "");
 						this.parentNode.setAttribute("center-justified", "");
-						
+
 						this.async(function() {
 							this._karaReadyLevel++;
 						});
 					}
 				},
-				
+
 				/* ====================== */
-				
-				
-				
+
+
+
 				/* Properties functions */
 				/* ====================== */
+
+				/* seconds */
 				getCurrentPlayTime: function() {
-					return this.$.youtube.currenttime;
+					return this._player.getCurrentPlayTime();
 				},
-				
+
+				/* seconds */
 				getDuration: function() {
-					return this.$.youtube.duration;
+					return this._player.getDuration();
 				},
-				
+
+				/* HH:MM:SS */
 				getFormattedCurrentPlayTime: function() {
-					return this.$.youtube.currenttimeformatted;
+					return this._player.getFormattedCurrentPlayTime();
 				},
-				
+
+				/* HH:MM:SS */
 				getFormattedDuration: function() {
-					return this.$.youtube.durationformatted;
+					return this._player.getFormattedDuration();
 				},
-				
+
 				/* ====================== */
-				
-				
-				
+
+
+
+				/* Player object */
+				/* ====================== */
+
+				_getPlayer: function() {
+					var Player;
+					var thisEl = this;
+
+					switch (this.audioSrcType) {
+						case "youtube":
+							Player = function() {
+								this.audioElmt = thisEl.$.youtube;
+
+								this.playerType = "youtube";
+
+								this.play = function() {
+									thisEl.$.youtube.play();
+								};
+
+								this.pause = function() {
+									thisEl.$.youtube.pause();
+								};
+
+								this.seekTo = function(s) {
+									thisEl.$.youtube.seekTo(s);
+								};
+
+								this.getCurrentPlayTime = function() {
+									return thisEl.$.youtube.currenttime;
+								};
+
+								this.getDuration = function() {
+									return thisEl.$.youtube.duration;
+								};
+
+								this.getFormattedCurrentPlayTime = function() {
+									return thisEl.$.youtube.currenttimeformatted;
+								};
+
+								this.getFormattedDuration = function() {
+									return thisEl.$.youtube.durationformatted;
+								};
+
+								this.getState = function() {
+									return thisEl.$.youtube.state;
+								};
+
+							};
+
+							break;
+					}
+
+					return new Player();
+				},
+
+
 				/* Controlling functions */
 				/* ====================== */
+
 				pause: function() {
-					this.$.youtube.pause();
+					this._player.pause();
 				},
-				
+
 				play: function() {				
-					this.$.youtube.seekTo(this._currentTime / 1000);
-					this.$.youtube.play();
+					this._player.seekTo(this._currentTime / 1000);
+					this._player.play();
 				},
-							
+
 				_endJobs: function() {
 					for (var i = 0; i < this._childrenKaratext.length; i++)
 						this._childrenKaratext[i].reset();
-					
+
 					this._currentTime = 0;
 					this._currentKaratextId = 0;
 				},
-				
+
 				_pauseJobs: function() {
 					var currentId = this._currentKaratextId;
 					var currentTime = this._currentTime;
-					
+
 					/* Cancel children timers */
 					if (this._currentKaratextId >= 1)
 						this._childrenKaratext[currentId - 1].stop();
 					if (this._currentKaratextId >= 2)
 						this._childrenKaratext[currentId - 2].stop();
-					
+
 					/* Find the suitable back-target karatext */
 					currentId -= 2;
 
 					this._currentTime = currentId > 0 ? this._childrenKaratext[currentId - 1].startTime : 0;
 					this._currentKaratextId = currentId >= 0 ? currentId : 0;
 				},
-				
+
 				_playTimer: function() {
 					this._timer = window.setInterval(function() {
 						if (this._currentKaratextId < this._childrenKaratext.length) {
@@ -158,49 +219,53 @@
 						this._currentTime += this._timerInterval;
 					}.bind(this), 100);
 				},
-				
+
 				/* ====================== */
-				
-				
-				
+
+
+
 				/* Polymer lifecycle functions */
 				/* ====================== */
-				
+
 				publish: {
 					flyDuration: 400
 				},
-				
+
 				created: function() {
 					this._childrenKaratext = [];
-					
+
 					this._currentTime = 0;
 					this._timerInterval = 100;
 					this._currentKaratextId = 0;
 				},
-				
+
 				domReady: function() {
 					this._numberOfKaratext = this.querySelectorAll("swiftui-karatext").length;
-					
+
+					this._player = this._getPlayer();
+
 					this.addEventListener("google-youtube-ready", function() {
 						this.async(function() {
 							this._karaReadyLevel++;
 						});
 					});
-					
+
 					this.addEventListener("google-youtube-state-change", function() {
-						if (this.$.youtube.state == 1) {
-							this.state = STATE_KARA_PLAYING;
-						} else if (this.$.youtube.state == 2) {
-							if (Math.abs(this.$.youtube.duration - this.$.youtube.currenttime) > 1)
-								this.state = STATE_KARA_PAUSED;
-						} else if (this.$.youtube.state == 0) {
-							this.state = STATE_KARA_ENDED;
+						switch (this._player.getState()) {
+							case 1:
+								this.state = STATE_KARA_PLAYING; break;
+							case 2:
+								if (Math.abs(this._player.getDuration() - this._player.getCurrentPlayTime()) > 1)
+									this.state = STATE_KARA_PAUSED;
+								break;
+							case 0:
+								this.state = STATE_KARA_ENDED;
 						}
 					});
 				}
-				
+
 				/* ====================== */
-				
+
 			});
 		})();
 	</script>
