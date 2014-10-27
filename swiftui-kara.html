@@ -16,7 +16,7 @@
 			<google-youtube id="youtube" videoid="{{audioSrc}}" height="0px" width="0px" chromeless="true"></google-youtube>
 		</template>
 		<template if="{{audioSrcType=='audio'}}">
-			<audio id="audio" src="{[audioSrc}}"></audio>
+			<audio id="audio" src="{[audioSrc}}" preload="auto"></audio>
 		</template>
 		<content></content>
 	</template>
@@ -121,44 +121,82 @@
 					switch (this.audioSrcType) {
 						case "youtube":
 							Player = function() {
-								this.audioElmt = thisEl.$.youtube;
+								var youtube = this.audioElmt = thisEl.$.youtube;
 
 								this.playerType = "youtube";
 
 								this.play = function() {
-									thisEl.$.youtube.play();
+									youtube.play();
 								};
 
 								this.pause = function() {
-									thisEl.$.youtube.pause();
+									youtube.pause();
 								};
 
 								this.seekTo = function(s) {
-									thisEl.$.youtube.seekTo(s);
+									youtube.seekTo(s);
 								};
 
 								this.getCurrentPlayTime = function() {
-									return thisEl.$.youtube.currenttime;
+									return youtube.currenttime;
 								};
 
 								this.getDuration = function() {
-									return thisEl.$.youtube.duration;
+									return youtube.duration;
 								};
 
 								this.getFormattedCurrentPlayTime = function() {
-									return thisEl.$.youtube.currenttimeformatted;
+									return youtube.currenttimeformatted;
 								};
 
 								this.getFormattedDuration = function() {
-									return thisEl.$.youtube.durationformatted;
+									return youtube.durationformatted;
 								};
 
 								this.getState = function() {
-									return thisEl.$.youtube.state;
+									return youtube.state;
 								};
-
 							};
 
+							break;
+						case "audio":
+							Player = function() {
+								var audio = this.audioElmt = thisEl.$.audio;
+
+								this.playerType = "audio";
+
+								this.play = function() {
+									audio.play();
+								};
+
+								this.pause = function() {
+									audio.pause();
+								};
+
+								this.seekTo = function(s) {
+									audio.seekTo(s);
+								};
+
+								this.getCurrentPlayTime = function() {
+									return audio.currenttime;
+								};
+
+								this.getDuration = function() {
+									return audio.duration;
+								};
+
+								this.getFormattedCurrentPlayTime = function() {
+									return audio.currenttimeformatted;
+								};
+
+								this.getFormattedDuration = function() {
+									return audio.durationformatted;
+								};
+
+								this.getState = function() {
+									return audio.state;
+								};
+							};
 							break;
 					}
 
