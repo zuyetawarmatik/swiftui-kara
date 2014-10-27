@@ -10,12 +10,20 @@ module.exports = function(grunt) {
 			}
 		},
 		'replace': {
-			example: {
-				src: ['/*'],
-				dest: '/',
+			src: {
+				src: ['*.html'],
+				dest: './',
 				replacements: [{
 					from: 'bower_components',
 					to: '..'
+				}]
+			},
+			demo: {
+				src: 'demo/index.html',
+				dest: 'demo/',
+				replacements: [{
+					from: '../swiftui-kara.html',
+					to: '../bower_components/swiftui-kara/swiftui-kara.html'
 				}]
 			}
 		}
