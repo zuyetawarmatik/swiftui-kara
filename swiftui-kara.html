@@ -15,6 +15,9 @@
 		<template if="{{audioSrcType=='youtube'}}">
 			<google-youtube id="youtube" videoid="{{audioSrc}}" height="0px" width="0px" chromeless="true"></google-youtube>
 		</template>
+		<template if="{{audioSrcType=='audio'}}">
+			<audio id="audio" src="{[audioSrc}}"></audio>
+		</template>
 		<content></content>
 	</template>
 
