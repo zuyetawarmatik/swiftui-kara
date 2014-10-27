@@ -16,7 +16,7 @@
 			<google-youtube id="youtube" videoid="{{audioSrc}}" height="0px" width="0px" chromeless="true"></google-youtube>
 		</template>
 		<template if="{{audioSrcType=='audio'}}">
-			<audio id="audio" src="{[audioSrc}}" preload="auto"></audio>
+			<audio id="audio" preload="auto"></audio>
 		</template>
 		<content></content>
 	</template>
@@ -248,6 +248,13 @@
 					this._currentTime = 0;
 					this._timerInterval = 100;
 					this._currentKaratextId = 0;
+				},
+				
+				ready: function() {
+					/* Because we cannot bind input attribute directly to src of <audio>,
+					/* we need to bind it manually here */
+					if (this.audioSrcType == "audio")
+						this.$.audio.src = this.audioSrc;
 				},
 
 				domReady: function() {
