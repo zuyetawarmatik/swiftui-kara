@@ -86,7 +86,7 @@
 				reset: function() {
 					this.style.display = "none";
 					for (var i = 0; i < this._words; i++) {
-						this._filledBackground[i].attr({"width": 0});
+						this._filledBackgrounds[i].attr({"width": 0});
 					}
 				},
 				
@@ -96,8 +96,8 @@
 					this.cancelAsync(this._flyTo2LineTimer);
 					this.cancelAsync(this._flyTo1LineTimer);
 					for (var i = 0; i < this._words; i++) {
-						this._filledBackground[i].stop();
-						this._filledBackground[i].attr({"width": 0});
+						this._filledBackgrounds[i].stop();
+						this._filledBackgrounds[i].attr({"width": 0});
 					}
 					this.cancelAsync(this._endTimer);
 					this.cancelAsync(this._hideTimer);
@@ -166,9 +166,14 @@
 					
 					/* Run words */
 					for (var i = 0; i < this._words; i++) {
-						this._filledBackground[i]
-							.animate({duration: this.duration, ease: "<>", delay: this._realStartTime})
-							.attr({"width": this._karawordSize[i].width});
+						var wordStartTime = getMilliseconds(this._karawords[i].getAttribute("start"));
+						var wordEndTime = getMilliseconds(this._karawords[i].getAttribute("end"));
+						var wordDelay = wordStartTime - this.startTime;
+						var wordDuration = wordEndTime - wordStartTime;
+						
+						this._filledBackgrounds[i]
+							.animate({duration: wordDuration, ease: "<>", delay: this._realStartTime + wordDelay})
+							.attr({"width": this._karawordSizes[i].width});
 					}
 					
 					/* Fly out */
@@ -203,22 +208,22 @@
 				created: function() {
 					if (this.querySelectorAll("swiftui-karaword").length == 0) {
 						var karaword = document.createElement("swiftui-karaword");
-						karaword.setAttribute("start", this.start);
-						karaword.setAttribute("end", this.end);
+						karaword.setAttribute("start", this.getAttribute("start"));
+						karaword.setAttribute("end", this.getAttribute("end"));
 						karaword.textContent = this.textContent;
 						this.appendChild(karaword);
 					}
 				},
 				
 				ready: function() {
-					this._filledBackground = [];
-					this._karawordSize = [];
-					
 					this.startTime = getMilliseconds(this.start);
 					this.endTime = getMilliseconds(this.end);
-					this.duration = this.endTime - this.startTime;
 					
-					this._words = this.querySelectorAll("swiftui-karaword").length;
+					this._filledBackgrounds = [];
+					this._karawordSizes = [];
+					
+					this._karawords = this.querySelectorAll("swiftui-karaword");
+					this._words = this._karawords.length;
 				},
 				
 				domReady: function() {
@@ -245,34 +250,32 @@
 						temp.remove();
 						
 						/* Drawing */
-						var karawords = this.querySelectorAll("swiftui-karaword");
 						for (var i = 0; i < this._words; i++) {
-							var karaword = karawords[i];
+							var karaword = this._karawords[i];
 							var wordContent = karaword.textContent.trim();
 							
 							var wordDx;
 							if (i == 0)
 								wordDx = 0;
 							else
-								wordDx = this._karawordSize[i-1].dx + this._karawordSize[i-1].width + wordSpaceWidth;
+								wordDx = this._karawordSizes[i-1].dx + this._karawordSizes[i-1].width + wordSpaceWidth;
 							
 							/* Drawing words: ground and clipping word */
-							var word = svgCanvas.text(wordContent);
-							word.attr("font-family", null); // A hack to remove SVG.js default font value
-							word.attr("fill", groundTextColor); // Set ground text color by using background-color CSS
-							word.leading(textLeading);
-							word.dx(wordDx);
-							
-							var clippingWord = svgCanvas.text(wordContent);
-							clippingWord.attr("font-family", null);
-							clippingWord.attr("fill", groundTextColor);
-							clippingWord.leading(textLeading);
-							clippingWord.dx(wordDx);
+							function drawWord() {
+								var word = svgCanvas.text(wordContent);
+								word.attr("font-family", null); // A hack to remove SVG.js default font value
+								word.attr("fill", groundTextColor); // Set ground text color by using background-color CSS
+								word.leading(textLeading);
+								word.dx(wordDx);
+								return word;
+							}
+							var word = drawWord();
+							var clippingWord = drawWord();
 							
 							/* Calculate the real bounding size */
 							var wordWidth = Math.round(word.node.getBBox().width);
 							var wordHeight = Math.round(word.node.getBBox().height);
-							this._karawordSize.push({
+							this._karawordSizes.push({
 								dx: wordDx,
 								width: wordWidth,
 								height: wordHeight
@@ -280,18 +283,17 @@
 							
 							/* Color and clip */
 							var rect = svgCanvas.rect(0, wordHeight).fill(foregroundTextColor).dx(wordDx);
-							this._filledBackground.push(rect);
-							this._filledBackground[i].clipWith(clippingWord);
+							this._filledBackgrounds.push(rect);
+							this._filledBackgrounds[i].clipWith(clippingWord);
 						};
 						
 						/* Set size for the svgCanvas */
 						this._textWidth = 0;
-						this._textHeight = this._karawordSize[0].height;
+						this._textHeight = this._karawordSizes[0].height;
 						for (var i = 0; i < this._words; i++) {
-							this._textWidth += this._karawordSize[i].width;
+							this._textWidth += this._karawordSizes[i].width;
 							if (i != 0) this._textWidth += wordSpaceWidth;
 						};
-
 						svgCanvas.size(this._textWidth, this._textHeight);
 
 						/* Hide this before made shown again when playing */
