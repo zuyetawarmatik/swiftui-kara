@@ -121,11 +121,12 @@
 					}
 				},
 				
-				// TODO: remove flyDuration
 				/* This function is used for playing */
-				run: function(flyDuration) {
+				run: function() {
 					this.cancelAsync(this._cancelFallTimer);
 					this.cancelAsync(this._cancelHideTimer);
+					
+					var flyDuration = this.parentNode.flyDuration;
 					
 					/* Show */
 					this._showTimer = this.async(function() {
@@ -172,7 +173,7 @@
 						var wordDuration = wordEndTime - wordStartTime;
 						
 						this._filledBackgrounds[i]
-							.animate({duration: wordDuration, ease: "<>", delay: this._realStartTime + wordDelay})
+							.animate({duration: wordDuration, delay: this._realStartTime + wordDelay})
 							.attr({"width": this._karawordSizes[i].width});
 					}
 					

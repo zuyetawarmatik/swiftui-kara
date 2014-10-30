@@ -222,7 +222,7 @@
 
 							if (prevKaratextStartTime - this._currentTime <= 0) { // currentKaratext's flyTo2LineTime - currentTime
 								currentKaratext.registerTimes(this._currentTime, prevKaratextEndTime);
-								currentKaratext.run(this.flyDuration);
+								currentKaratext.run();
 								this._currentKaratextId++;
 							}
 						}
