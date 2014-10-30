@@ -2,7 +2,7 @@
 <link rel="import" href="bower_components/google-youtube/google-youtube.html">
 <link rel="import" href="swiftui-karatext.html">
 
-<polymer-element name="swiftui-kara" attributes="flyDuration audioSrcType audioSrc">
+<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc">
 	<template>
 		<style>
 			:host {
@@ -239,6 +239,7 @@
 				/* ====================== */
 
 				publish: {
+					effect: "slide",
 					flyDuration: 400
 				},
 

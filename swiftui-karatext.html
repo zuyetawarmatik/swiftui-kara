@@ -82,11 +82,22 @@
 					this._realEndTime = this.endTime - currentTime;
 				},
 				
+				_resetRect: function(rect) {
+					switch (this.parentNode.effect) {
+						case "slide":
+							rect.width(0);
+							break;
+						case "glow":
+							rect.opacity(0);
+							break;
+					}
+				},
+				
 				/* This function is used for stopped */
 				reset: function() {
 					this.style.display = "none";
 					for (var i = 0; i < this._words; i++) {
-						this._filledBackgrounds[i].attr({"width": 0});
+						this._resetRect(this._filledBackgrounds[i]);
 					}
 				},
 				
@@ -97,7 +108,7 @@
 					this.cancelAsync(this._flyTo1LineTimer);
 					for (var i = 0; i < this._words; i++) {
 						this._filledBackgrounds[i].stop();
-						this._filledBackgrounds[i].attr({"width": 0});
+						this._resetRect(this._filledBackgrounds[i]);
 					}
 					this.cancelAsync(this._endTimer);
 					this.cancelAsync(this._hideTimer);
@@ -172,9 +183,19 @@
 						var wordDelay = wordStartTime - this.startTime;
 						var wordDuration = wordEndTime - wordStartTime;
 						
-						this._filledBackgrounds[i]
-							.animate({duration: wordDuration, delay: this._realStartTime + wordDelay})
-							.attr({"width": this._karawordSizes[i].width});
+						switch (this.parentNode.effect) {
+							case "slide":
+								this._filledBackgrounds[i]
+									.animate({duration: wordDuration, delay: this._realStartTime + wordDelay})
+									.attr({"width": this._karawordSizes[i].width});
+								break;
+							
+							case "glow":
+								this._filledBackgrounds[i]
+									.animate({duration: wordDuration, ease: "<>", delay: this._realStartTime + wordDelay})
+									.attr({"opacity": 1});
+								break;
+						}
 					}
 					
 					/* Fly out */
@@ -283,7 +304,8 @@
 							});
 							
 							/* Color and clip */
-							var rect = svgCanvas.rect(0, wordHeight).fill(foregroundTextColor).dx(wordDx);
+							var rect = svgCanvas.rect(wordWidth, wordHeight).fill(foregroundTextColor).dx(wordDx);
+							this._resetRect(rect);
 							this._filledBackgrounds.push(rect);
 							this._filledBackgrounds[i].clipWith(clippingWord);
 						};
