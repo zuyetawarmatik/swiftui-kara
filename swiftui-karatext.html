@@ -181,13 +181,13 @@
 							
 							case "glow":
 								this._karawordSVGGroups[i].rect
-									.animate({duration: wordDuration / 2, ease: "<", delay: this._realStartTime + wordDelay})
+									.animate({duration: wordDuration / 2, delay: this._realStartTime + wordDelay})
 									.attr({"opacity": 1});
 								
 								this._karawordSVGGroups[i]
-									.animate({duration: wordDuration / 2, ease: "<", delay: this._realStartTime + wordDelay})
+									.animate({duration: wordDuration / 2, delay: this._realStartTime + wordDelay})
 									.dy(-glowJumpingHeight).after(function() {
-										this.animate({duration: wordDuration / 2, ease: ">"}).dy(glowJumpingHeight);
+										this.animate({duration: wordDuration / 2}).dy(glowJumpingHeight);
 									});
 								
 								break;
