@@ -261,7 +261,6 @@
 			window.addEventListener("polymer-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
 				controlBtn.controlBtnIcon = controlBtn.querySelector("core-icon");
-				controlBtn.setAttribute("disabled", "");
 				controlBtn.onclick = controlKara;
 				controlBtn.switchState = function(from, to) {
 					this.removeAttribute(from);
@@ -274,6 +273,7 @@
 							this.controlBtnIcon.setAttribute("icon", "av:pause"); break;
 					}
 				};
+				controlBtn.switchState("", "disabled");
 				
 				swiftUIKara = document.querySelector("swiftui-kara");
 				currentTimeSpan = document.querySelector("#current-time");
@@ -300,6 +300,7 @@
 
 			window.addEventListener("kara-paused", function() {
 				controlBtn.switchState("pause", "play");
+				window.clearInterval(timeProgressTimer);
 			});
 			
 			window.addEventListener("kara-ended", function() {
