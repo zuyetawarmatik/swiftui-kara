@@ -22,6 +22,9 @@
 			var firstLineTop, secondLineTop;
 			var wordSpaceWidth;
 			
+			var flyDuration;
+			var glowJumpingHeight;
+			
 			/* Helper functions */
 			/* ====================== */
 			
@@ -145,8 +148,6 @@
 					this.cancelAsync(this._cancelFallTimer);
 					this.cancelAsync(this._cancelHideTimer);
 					
-					var flyDuration = this.parentNode.flyDuration;
-					
 					/* Show */
 					this._showTimer = this.async(function() {
 						this.style.display = "block";
@@ -205,8 +206,8 @@
 								
 								this._karawordSVGGroups[i]
 									.animate({duration: wordDuration, ease: "<", delay: this._realStartTime + wordDelay})
-									.dy(-4).after(function() {
-										this.animate({duration: wordDuration, ease: ">"}).dy(4);
+									.dy(-glowJumpingHeight).after(function() {
+										this.animate({duration: wordDuration, ease: ">"}).dy(glowJumpingHeight);
 									});
 								
 								break;
@@ -352,6 +353,10 @@
 							firstLineTop = (parentHeight - lineSpacing) / 2 - this._textHeight;
 							secondLineTop = firstLineTop + this._textHeight + lineSpacing;
 						}
+						if (glowJumpingHeight === undefined)
+							glowJumpingHeight = this._getFontSizeForSVG() * 0.08;
+						if (flyDuration === undefined)
+							flyDuration = this.parentNode.flyDuration;
 
 						this.parentNode.registerKaratext(this);
 					});
