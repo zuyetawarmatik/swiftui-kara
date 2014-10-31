@@ -1,8 +1,6 @@
-<link rel="import" href="bower_components/polymer/polymer.html">
-<link rel="import" href="bower_components/google-youtube/google-youtube.html">
-<link rel="import" href="swiftui-karatext.html">
+<link rel="import" href="swiftui-kara-import.html">
 
-<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc">
+<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc startFrom startFromKaratext">
 	<template>
 		<style>
 			:host {
@@ -240,16 +238,14 @@
 
 				publish: {
 					effect: "slide",
-					flyDuration: 400
+					flyDuration: 400,
+					startFrom: "0:0:0",
+					startFromKaratext: "0"
 				},
 
 				created: function() {
 					this._childrenKaratext = [];
-
-					this._currentTime = 0;
 					this._timerInterval = 100;
-					this._currentKaratextId = 0;
-					
 					this.state = STATE_KARA_NOT_READY;
 				},
 				
@@ -258,6 +254,10 @@
 					/* we need to bind it manually here */
 					if (this.audioSrcType == "audio")
 						this.$.audio.src = this.audioSrc;
+					
+					// TODO: temp seeking
+					this._currentTime = getMilliseconds(this.startFrom);
+					this._currentKaratextId = this.startFromKaratext;
 				},
 
 				domReady: function() {
