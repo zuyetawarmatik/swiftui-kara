@@ -20,6 +20,7 @@
 			
 			var parentHeight;
 			var firstLineTop, secondLineTop;
+			var wordSpaceWidth;
 			
 			/* Helper functions */
 			/* ====================== */
@@ -82,23 +83,33 @@
 					this._realEndTime = this.endTime - currentTime;
 				},
 				
-				_resetRect: function(rect) {
+				_resetSVGGroup: function(group, isAnimating) {
+					if (isAnimating == true) {
+						group.stop();
+						group.rect.stop();
+					}
+					
 					switch (this.parentNode.effect) {
 						case "slide":
-							rect.width(0);
+							group.rect.width(0);
 							break;
 						case "glow":
-							rect.opacity(0);
+							group.dy(0);
+							group.rect.opacity(0);
 							break;
+					}
+				},
+				
+				_resetAllSVGGroups: function() {
+					for (var i = 0; i < this._words; i++) {
+						this._resetSVGGroup(this._karawordSVGGroups[i], true);
 					}
 				},
 				
 				/* This function is used for stopped */
 				reset: function() {
 					this.style.display = "none";
-					for (var i = 0; i < this._words; i++) {
-						this._resetRect(this._filledBackgrounds[i]);
-					}
+					this._resetAllSVGGroups();
 				},
 				
 				/* This function is used for pausing */
@@ -106,10 +117,7 @@
 					this.cancelAsync(this._showTimer);
 					this.cancelAsync(this._flyTo2LineTimer);
 					this.cancelAsync(this._flyTo1LineTimer);
-					for (var i = 0; i < this._words; i++) {
-						this._filledBackgrounds[i].stop();
-						this._resetRect(this._filledBackgrounds[i]);
-					}
+					this._resetAllSVGGroups();
 					this.cancelAsync(this._endTimer);
 					this.cancelAsync(this._hideTimer);
 					
@@ -185,15 +193,22 @@
 						
 						switch (this.parentNode.effect) {
 							case "slide":
-								this._filledBackgrounds[i]
+								this._karawordSVGGroups[i].rect
 									.animate({duration: wordDuration, delay: this._realStartTime + wordDelay})
 									.attr({"width": this._karawordSizes[i].width});
 								break;
 							
 							case "glow":
-								this._filledBackgrounds[i]
-									.animate({duration: wordDuration, ease: ">", delay: this._realStartTime + wordDelay})
+								this._karawordSVGGroups[i].rect
+									.animate({duration: wordDuration, ease: "<", delay: this._realStartTime + wordDelay})
 									.attr({"opacity": 1});
+								
+								this._karawordSVGGroups[i]
+									.animate({duration: wordDuration, ease: "<", delay: this._realStartTime + wordDelay})
+									.dy(-4).after(function() {
+										this.animate({duration: wordDuration, ease: ">"}).dy(4);
+									});
+								
 								break;
 						}
 					}
@@ -241,7 +256,7 @@
 					this.startTime = getMilliseconds(this.start);
 					this.endTime = getMilliseconds(this.end);
 					
-					this._filledBackgrounds = [];
+					this._karawordSVGGroups = [];
 					this._karawordSizes = [];
 					
 					this._karawords = this.querySelectorAll("swiftui-karaword");
@@ -261,15 +276,17 @@
 						/* SVG canvas */
 						var svgCanvas = SVG(this.$.canvas);
 						
-						/* Calculate a space width */
-						var temp = svgCanvas.text("a b");
-						temp.attr("font-family", null);
-						var tempWidth1 = temp.node.getBBox().width;
-						temp.remove();
-						temp = svgCanvas.text("ab");
-						var tempWidth2 = temp.node.getBBox().width;
-						var wordSpaceWidth = Math.round(tempWidth1 - tempWidth2);
-						temp.remove();
+						/* Calculate a space width, only once */
+						if (wordSpaceWidth === undefined) {
+							var temp = svgCanvas.text("a b");
+							temp.attr("font-family", null);
+							var tempWidth1 = temp.node.getBBox().width;
+							temp.remove();
+							temp = svgCanvas.text("ab");
+							var tempWidth2 = temp.node.getBBox().width;
+							wordSpaceWidth = Math.round(tempWidth1 - tempWidth2);
+							temp.remove();
+						}
 						
 						/* Drawing */
 						for (var i = 0; i < this._words; i++) {
@@ -305,9 +322,15 @@
 							
 							/* Color and clip */
 							var rect = svgCanvas.rect(wordWidth, wordHeight).fill(foregroundTextColor).dx(wordDx);
-							this._resetRect(rect);
-							this._filledBackgrounds.push(rect);
-							this._filledBackgrounds[i].clipWith(clippingWord);
+							rect.clipWith(clippingWord);
+							
+							var wordGroup = svgCanvas.group();
+							wordGroup.add(word);
+							wordGroup.add(rect);
+							wordGroup.rect = rect;
+							this._karawordSVGGroups.push(wordGroup);
+							
+							this._resetSVGGroup(wordGroup);
 						};
 						
 						/* Set size for the svgCanvas */
