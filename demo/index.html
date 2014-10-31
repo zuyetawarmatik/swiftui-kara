@@ -233,7 +233,7 @@
 		</section>
 		
 		<section id="player-wrapper" horizontal layout center>
-			<paper-button id="control-btn" icon="av:play-arrow" disabled horizontal layout center center-justified>
+			<paper-button id="control-btn" icon="av:play-arrow" horizontal layout center center-justified>
 				<core-icon icon="av:play-arrow"></core-icon>
 			</paper-button>
 			<div id="informations" horizontal layout center>
@@ -261,15 +261,7 @@
 			window.addEventListener("polymer-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
 				controlBtn.controlBtnIcon = controlBtn.querySelector("core-icon");
-				swiftUIKara = document.querySelector("swiftui-kara");
-				currentTimeSpan = document.querySelector("#current-time");
-				durationSpan = document.querySelector("#duration");
-				timeProgress = document.querySelector("#time-progress");
-			});
-
-			window.addEventListener("kara-ready", function() {
-				controlBtn.removeAttribute("disabled");
-				controlBtn.setAttribute("play", "");
+				controlBtn.setAttribute("disabled", "");
 				controlBtn.onclick = controlKara;
 				controlBtn.switchState = function(from, to) {
 					this.removeAttribute(from);
@@ -282,13 +274,23 @@
 							this.controlBtnIcon.setAttribute("icon", "av:pause"); break;
 					}
 				};
+				
+				swiftUIKara = document.querySelector("swiftui-kara");
+				currentTimeSpan = document.querySelector("#current-time");
+				durationSpan = document.querySelector("#duration");
+				timeProgress = document.querySelector("#time-progress");
+			});
+
+			window.addEventListener("kara-ready", function() {
+				controlBtn.switchState("disabled", "play");
 			});
 
 			/* Control the progress bar */
 			window.addEventListener("kara-playing", function() {
 				timeProgress.setAttribute("max", swiftUIKara.getDuration());
 				durationSpan.innerHTML = toHHMMSS(swiftUIKara.getDuration());
-
+				controlBtn.switchState("play", "pause");
+				
 				timeProgressTimer = window.setInterval(
 					function() {
 						timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
@@ -296,6 +298,10 @@
 					}, 1000);
 			});
 
+			window.addEventListener("kara-paused", function() {
+				controlBtn.switchState("pause", "play");
+			});
+			
 			window.addEventListener("kara-ended", function() {
 				timeProgress.setAttribute("value", swiftUIKara.getDuration());
 				currentTimeSpan.innerHTML = toHHMMSS(swiftUIKara.getDuration());
@@ -306,10 +312,8 @@
 			function controlKara() {
 				if (!controlBtn.hasAttribute("disabled")) {
 					if (controlBtn.hasAttribute("play")) {
-						controlBtn.switchState("play", "pause");
 						swiftUIKara.play();		
 					} else if (controlBtn.hasAttribute("pause")) {
-						controlBtn.switchState("pause", "play");
 						swiftUIKara.pause();
 					}
 				}

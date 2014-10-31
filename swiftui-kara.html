@@ -36,8 +36,6 @@
 			/* kara's state changed -> kara's private function -> kara fires event -> user agent listens event */
 
 			Polymer({
-				state: STATE_KARA_NOT_READY,
-
 				_karaReadyLevel: 0,
 
 				/* Registering and event functions */
@@ -49,7 +47,9 @@
 				},
 
 				stateChanged: function() {
-					if (this.state == STATE_KARA_READY) {
+					if (this.state == STATE_KARA_NOT_READY) {
+						this.fire("kara-not-ready");
+					} else if (this.state == STATE_KARA_READY) {
 						this.fire("kara-ready");
 					} else if (this.state == STATE_KARA_PAUSED) {
 						window.clearInterval(this._timer);
@@ -249,6 +249,8 @@
 					this._currentTime = 0;
 					this._timerInterval = 100;
 					this._currentKaratextId = 0;
+					
+					this.state = STATE_KARA_NOT_READY;
 				},
 				
 				ready: function() {
