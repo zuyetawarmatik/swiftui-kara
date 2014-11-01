@@ -50,11 +50,11 @@
 					} else if (this.state == STATE_KARA_READY) {
 						this.fire("kara-ready");
 					} else if (this.state == STATE_KARA_PAUSED) {
-						window.clearInterval(this._timer);
+						this._cancelPlayTimer();
 						this._pauseJobs();
 						this.fire("kara-paused");
 					} else if (this.state == STATE_KARA_ENDED) {
-						window.clearInterval(this._timer);
+						this._cancelPlayTimer();
 						this._endJobs();
 						this.fire("kara-ended");
 					} else if (this.state == STATE_KARA_PLAYING) {
@@ -227,6 +227,10 @@
 
 						this._currentTime = ~~(this.getCurrentPlayTime() * 1000);
 					}.bind(this), this._timerInterval);
+				},
+				
+				_cancelPlayTimer: function() {
+					window.clearInterval(this._timer);
 				},
 
 				/* ====================== */
