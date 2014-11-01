@@ -225,8 +225,8 @@
 							}
 						}
 
-						this._currentTime += this._timerInterval;
-					}.bind(this), 100);
+						this._currentTime = ~~(this.getCurrentPlayTime() * 1000);
+					}.bind(this), this._timerInterval);
 				},
 
 				/* ====================== */
