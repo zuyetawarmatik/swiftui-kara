@@ -391,9 +391,9 @@
 				</div>
 				<div id="time-informations" horizontal layout center>
 					<paper-progress id="time-progress"></paper-progress>
-					<span id="current-time">0:00</span>
+					<span id="current-time">-:--</span>
 					<span>&nbsp;/&nbsp;</span>
-					<span id="duration">0:00</span>
+					<span id="duration">-:--</span>
 				</div>
 			</div>
 		</section>
@@ -431,14 +431,12 @@
 
 			/* Control the progress bar */
 			window.addEventListener("kara-playing", function() {
-				timeProgress.setAttribute("max", swiftUIKara.getDuration());
-				durationSpan.innerHTML = toHHMMSS(swiftUIKara.getDuration());
+				displayPlayerTime("duration", swiftUIKara.getDuration());
 				controlBtn.switchState("play", "pause");
 				
 				timeProgressTimer = window.setInterval(
 					function() {
-						timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
-						currentTimeSpan.innerHTML = toHHMMSS(swiftUIKara.getCurrentPlayTime());
+						displayPlayerTime("current", swiftUIKara.getCurrentPlayTime());
 					}, 1000);
 			});
 
@@ -448,8 +446,7 @@
 			});
 			
 			window.addEventListener("kara-ended", function() {
-				timeProgress.setAttribute("value", swiftUIKara.getDuration());
-				currentTimeSpan.innerHTML = toHHMMSS(swiftUIKara.getDuration());
+				displayPlayerTime("current", swiftUIKara.getDuration());
 				controlBtn.switchState("pause", "play");
 				window.clearInterval(timeProgressTimer);
 			});
@@ -463,7 +460,20 @@
 					}
 				}
 			}
-						
+			
+			function displayPlayerTime(type, time) {
+				switch (type) {
+					case "current":
+						timeProgress.setAttribute("value", time);
+						currentTimeSpan.innerHTML = toHHMMSS(time);
+						break;
+					case "duration":
+						timeProgress.setAttribute("max", time);
+						durationSpan.innerHTML = toHHMMSS(time);
+						break;
+				}
+			}
+			
 			/* The function is excerpt from google-youtube */
 			function toHHMMSS(totalSec) {
 				var hours = Math.floor(totalSec / 3600);
