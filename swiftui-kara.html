@@ -211,6 +211,11 @@
 
 				_playTimer: function() {
 					this._timer = window.setInterval(function() {
+
+						/* Current (i): the karatext waiting outside kara frame
+						/* Prev (i-1): the karatext at 2nd line of kara frame
+						/* Prev prev (i-2): the karatext at 1st line of kara frame */
+
 						if (this._currentKaratextId < this._childrenKaratext.length) {
 							var currentKaratext = this._childrenKaratext[this._currentKaratextId];
 							var prevKaratextStartTime = (this._currentKaratextId == 0) ? 
@@ -228,7 +233,7 @@
 						this._currentTime = ~~(this.getCurrentPlayTime() * 1000);
 					}.bind(this), this._timerInterval);
 				},
-				
+
 				_cancelPlayTimer: function() {
 					window.clearInterval(this._timer);
 				},
@@ -252,13 +257,13 @@
 					this._timerInterval = 100;
 					this.state = STATE_KARA_NOT_READY;
 				},
-				
+
 				ready: function() {
 					/* Because we cannot bind input attribute directly to src of <audio>,
 					/* we need to bind it manually here */
 					if (this.audioSrcType == "audio")
 						this.$.audio.src = this.audioSrc;
-					
+
 					// TODO: temp seeking
 					this._currentTime = getMilliseconds(this.startFrom);
 					this._currentKaratextId = this.startFromKaratext;
@@ -270,9 +275,9 @@
 					this._player = this._getPlayer();
 
 					switch (this._player.playerType) {
-						
+
 						case "youtube":
-							
+
 							this.addEventListener("google-youtube-ready", function() {
 								this.async(function() {
 									this._karaReadyLevel++;
@@ -293,32 +298,32 @@
 										break;
 								}
 							});
-							
+
 							break;
-							
+
 						case "audio":
-							
+
 							this.addEventListener("canplay", function() {
 								this.async(function() {
 									this._karaReadyLevel++;
 								});
 							});
-							
+
 							this.addEventListener("playing", function() {
 								this.state = STATE_KARA_PLAYING;
 							});
-							
+
 							this.addEventListener("pause", function() {
 								if (Math.abs(this._player.getDuration() - this._player.getCurrentPlayTime()) > 1)
 									this.state = STATE_KARA_PAUSED;
 							});
-							
+
 							this.addEventListener("ended", function() {
 								this.state = STATE_KARA_ENDED;
 							});
-							
+
 							break;
-							
+
 					}
 				}
 
