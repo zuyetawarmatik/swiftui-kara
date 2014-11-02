@@ -16,7 +16,7 @@
 	
 	<script>
 		(function() {
-			var lineSpacing = 30;
+			var lineSpacing;
 			
 			var parentHeight;
 			var firstLineTop, secondLineTop;
@@ -40,6 +40,10 @@
 				
 				_getFontSizeForSVG: function() {
 					return parseInt(this._getStyles().fontSize, 10);
+				},
+				
+				_getLineSpacing: function() {
+					return parseInt(this._getStyles().lineHeight, 10);
 				},
 				
 				registerTimes: function(currentTime, prevEndTime) {
@@ -327,6 +331,9 @@
 						this.style.display = "none";
 
 						/* Calculate some global vars, only once */
+						if (lineSpacing === undefined) {
+							lineSpacing = this._getLineSpacing();
+						}
 						if (firstLineTop === undefined && this._textHeight > 0) {
 							parentHeight = this.parentNode.clientHeight;
 
