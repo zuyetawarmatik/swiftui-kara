@@ -94,7 +94,8 @@ There are a few reserved CSS rules for SwiftUI Kara (and Karatext) which has a d
 Selector      												| Rules								| Description
 ---           												| --- 								| ---
 `swiftui-kara` or `swiftui-karatext`	| `line-height`				| Space height between the first and second lyrics text line.
-`swiftui-kara` 												| `height`						| Height for `swiftui-kara` should be specified compulsorily.
+`swiftui-kara` 												| `height`						| (Compulsory)
+`swiftui-kara` 												| `width`							| (Compulsory)
 `swiftui-karatext`										| `background-color`	| Color of the ground (overlaid) text.
 `swiftui-karatext`										| `color`							| Color of the clipping (overlaying) text.
 
