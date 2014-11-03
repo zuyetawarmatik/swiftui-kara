@@ -142,7 +142,7 @@ Event         		| Description
 
 ## Development on Forking
 
-* Install prerequisites and local dependencies:
+1. Install prerequisites and local dependencies:
 
 	```sh
 	$ [sudo] npm install -g bower grunt-cli
@@ -152,9 +152,9 @@ Event         		| Description
 	$ bower install && npm install
 	```
 	
-* Development branch should be forked from `dev` branch.
+2. Development branch should be forked from `dev` branch.
 
-* In this project, there is a `pre-release` branch to stage the element before publishing it to `master`.
+3. In this project, there is a `pre-release` branch to stage the element before publishing it to `master`.
 	
 	* If development is deemed to be stable at some stage, merge the latest stable commit from branch `dev` to `pre-release`.
 
