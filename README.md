@@ -169,7 +169,11 @@ Event         		| Description
 
 ## Current Issues
 
-* Not working in mobile browsers due to the fact that it's not allowed to play YouTube by script (i.e. `play()`).
+* Not working in IE.
+
+* Timers will be messed up if switching tab.
+
+* YouTube audio source not working in mobile browsers due to the fact that it's not allowed to play YouTube by script on these devices (i.e. `play()`).
 
 * Not handling audio stream pausing due to transferring error.
 
