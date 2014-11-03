@@ -60,8 +60,15 @@
 			#player-wrapper {
 				position: absolute;
 				height: 120px; bottom: 0;
-				width: 800px;
+				width: 100%;
 				padding: 0 20px;
+				overflow-x: auto;
+			}
+			
+			#player-wrapper-inner {
+				position: absolute;
+				top: 0; bottom: 0;
+				width: 800px;
 			}
 
 			#control-btn {
@@ -78,13 +85,9 @@
 			#control-btn:hover {
 				background: #fff;
 			}
-
-			#informations {
-				margin-left: 20px;
-			}
-
+			
 			#song-informations {
-				width: 380px;
+				margin-left: 20px;
 			}
 
 			#song-informations #names {
@@ -99,7 +102,11 @@
 			#artist, #album {
 				font-size: 12px;
 			}
-
+			
+			#time-informations {
+				margin-left: 20px;
+			}
+			
 			#time-progress {
 				margin-right: 10px;
 			}
@@ -142,6 +149,39 @@
 				margin-right: 5px;
 			}
 			
+			@media (max-device-width: 800px) {
+				swiftui-kara {
+					font-size: 30px;
+					line-height: 20px;
+				}
+				
+				#swiftui-kara-wrapper {
+					height: calc(100% - 200px);
+				}
+				
+				#player-wrapper {
+					height: 200px;
+					padding: 0;
+				}
+				
+				#player-wrapper-inner {
+					width: 100%;
+					flex-direction: column;
+					justify-content: space-around;
+				}
+				
+				#song-informations, #time-informations {
+					align-self: flex-start;
+				}
+			}
+			
+			@media (max-device-width: 480px) {
+				swiftui-kara {
+					font-size: 20px;
+					line-height: 15px;
+				}
+			}
+			
 		</style>
 	</head>
 	<body unresolved>
@@ -153,7 +193,6 @@
 		</section>
 		
 		<section id="swiftui-kara-wrapper">
-<!--			<swiftui-kara effect="glow" audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3" startFrom="0:2:14.5" startFromKaratext="40">-->
 			<swiftui-kara effect="glow" audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3">
 				<swiftui-karatext start="0:0:13" end="0:0:15">.....................</swiftui-karatext>
 				<swiftui-karatext start="0:0:15" end="0:0:16.6">
@@ -518,11 +557,11 @@
 			</swiftui-kara>
 		</section>
 		
-		<section id="player-wrapper" horizontal layout center>
-			<paper-button id="control-btn" icon="av:play-arrow" horizontal layout center center-justified>
-				<core-icon icon="av:play-arrow"></core-icon>
-			</paper-button>
-			<div id="informations" horizontal layout center>
+		<section id="player-wrapper">
+			<div id="player-wrapper-inner" horizontal layout center>
+				<paper-button id="control-btn" icon="av:play-arrow" horizontal layout center center-justified>
+					<core-icon icon="av:play-arrow"></core-icon>
+				</paper-button>
 				<div id="song-informations" horizontal layout center>
 					<img src="cascada.jpg" width="80">
 					<div id="names" vertical layout around-justified>
