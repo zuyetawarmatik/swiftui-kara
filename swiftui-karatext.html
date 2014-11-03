@@ -265,10 +265,10 @@
 						if (wordSpaceWidth === undefined) {
 							var temp = svgCanvas.text("a b");
 							temp.attr("font-family", null);
-							var tempWidth1 = temp.node.getBBox().width;
+							var tempWidth1 = temp.rbox().width;
 							temp.remove();
 							temp = svgCanvas.text("ab");
-							var tempWidth2 = temp.node.getBBox().width;
+							var tempWidth2 = temp.rbox().width;
 							wordSpaceWidth = Math.round(tempWidth1 - tempWidth2);
 							temp.remove();
 						}
@@ -297,8 +297,8 @@
 							var clippingWord = drawWord();
 							
 							/* Calculate the real bounding size */
-							var wordWidth = Math.round(word.node.getBBox().width);
-							var wordHeight = Math.round(word.node.getBBox().height);
+							var wordWidth = Math.round(word.rbox().width);
+							var wordHeight = Math.round(word.rbox().height);
 							this._karawordSizes.push({
 								dx: wordDx,
 								width: wordWidth,
