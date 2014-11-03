@@ -13,134 +13,15 @@
 		<link rel="icon" href="favicon.png" type="image/png">
 		
 		<link rel="stylesheet" type="text/css" href="../bower_components/normalize.css/normalize.css">
-		<link href="http://fonts.googleapis.com/css?family=Raleway:500,700" rel="stylesheet" type="text/css">
-
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway:500,700">
+		<link rel="stylesheet" type="text/css" href="style.css">
+		
 		<script src="../bower_components/platform/platform.js"></script>
 		<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
 		<link rel="import" href="../bower_components/paper-button/paper-button.html">
 		<link rel="import" href="../bower_components/core-icons/av-icons.html">
 		<link rel="import" href="../bower_components/core-icons/social-icons.html">
-		<link rel="import" href="../bower_components/swiftui-kara/swiftui-kara.html">
-
-		<style>
-			html {
-				height: 100%;
-				letter-spacing: 0.2px;
-			}
-
-			body {
-				font-family: "Raleway", sans-serif;
-				color: #eee;
-				height: 100%;
-				overflow: hidden;
-				background: #222;
-			}
-
-			#swiftui-kara-wrapper {
-				margin-top: 40px;
-				height: calc(100% - 120px);
-				width: 100%;
-			}
-
-			swiftui-kara {
-				height: 400px;
-				width: 100%;
-			}
-
-			swiftui-karatext {
-				font-family: "Raleway", sans-serif;
-				font-size: 50px;
-				font-weight: bold;
-				color: #FC5956; /* Clipping text color */
-				background-color: #444; /* Ground text color */
-			}
-
-			#player-wrapper {
-				position: absolute;
-				height: 120px; bottom: 0;
-				width: 800px;
-				padding: 0 20px;
-			}
-
-			#control-btn {
-				background: #2d2d2d;
-				color: #FC5956;
-				min-width: 0;
-				width: 60px;
-				height: 60px;
-				padding: 0;
-				border-radius: 50%;
-				transition: background 0.25s ease;
-			}
-
-			#control-btn:hover {
-				background: #fff;
-			}
-
-			#informations {
-				margin-left: 20px;
-			}
-
-			#song-informations {
-				width: 380px;
-			}
-
-			#song-informations #names {
-				height: 80px;
-				margin-left: 20px;
-			}
-
-			#song, #artist {
-				font-weight: bold;
-			}
-
-			#artist, #album {
-				font-size: 12px;
-			}
-
-			#time-progress {
-				margin-right: 10px;
-			}
-
-			#time-progress::shadow #progressContainer {
-				background: #2d2d2d;
-			}
-
-			#time-progress #progressContainer {
-				background: #2d2d2d;
-			}
-
-			#time-progress::shadow #activeProgress {
-				background: #FC5956;
-			}
-
-			#time-progress #activeProgress { /* For Firefox */
-				background: #FC5956;
-			}
-			
-			#credit-wrapper {
-				position: absolute;
-				height: 40px; top: 0;
-				width: 100%;
-				font-size: 12px;
-				border-bottom: 1px solid #111;
-			}
-			
-			#credit-wrapper a {
-				text-decoration: none;
-				color: #FC5956;
-				transition: color 0.25s ease;
-			}
-			
-			#credit-wrapper a:hover {
-				color: #eee;
-			}
-			
-			#credit-wrapper a core-icon {
-				margin-right: 5px;
-			}
-			
-		</style>
+		<link rel="import" href="../swiftui-kara.html">
 	</head>
 	<body unresolved>
 		<section id="credit-wrapper" horizontal layout center center-justified>
@@ -151,68 +32,377 @@
 		</section>
 		
 		<section id="swiftui-kara-wrapper">
-			<swiftui-kara audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3">
-				<swiftui-karatext start="0:0:8" end="0:0:15">.....................</swiftui-karatext>
-				<swiftui-karatext start="0:0:15" end="0:0:16.7">You'd better watch out!</swiftui-karatext>
-				<swiftui-karatext start="0:0:16.7" end="0:0:18.3">You'd better not cry!</swiftui-karatext>
-				<swiftui-karatext start="0:0:18.3" end="0:0:22">You'd better not pout I'm telling you why,</swiftui-karatext>
-				<swiftui-karatext start="0:0:22" end="0:0:26">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:0:26.5" end="0:0:28.5">(Santa Claus is comin' to town)</swiftui-karatext>
-				<swiftui-karatext start="0:0:29" end="0:0:30.5">He's making a list</swiftui-karatext>
-				<swiftui-karatext start="0:0:30.7" end="0:0:32">and checking it twice.</swiftui-karatext>
-				<swiftui-karatext start="0:0:32.6" end="0:0:36">He's going to find out who's naughty or nice.</swiftui-karatext>
-				<swiftui-karatext start="0:0:36" end="0:0:41">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:0:41.2" end="0:0:43">(Santa Claus is comin' to town)</swiftui-karatext>
+			<swiftui-kara effect="glow" audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3">
+				<swiftui-karatext start="0:0:13" end="0:0:15">.....................</swiftui-karatext>
+				<swiftui-karatext start="0:0:15" end="0:0:16.6">
+					<swiftui-karaword start="0:0:15" end="0:0:15.4">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:0:15.2" end="0:0:15.8">better</swiftui-karaword>
+					<swiftui-karaword start="0:0:15.6" end="0:0:16">watch</swiftui-karaword>
+					<swiftui-karaword start="0:0:15.8" end="0:0:16.2">out!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:16.6" end="0:0:18.3">
+					<swiftui-karaword start="0:0:16.8" end="0:0:17.2">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:0:17" end="0:0:17.4">better</swiftui-karaword>
+					<swiftui-karaword start="0:0:17.2" end="0:0:17.6">not</swiftui-karaword>
+					<swiftui-karaword start="0:0:17.6" end="0:0:18">cry!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:18.3" end="0:0:21.7">
+					<swiftui-karaword start="0:0:18.5" end="0:0:18.7">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:0:18.7" end="0:0:19.1">better</swiftui-karaword>
+					<swiftui-karaword start="0:0:19" end="0:0:19.4">not</swiftui-karaword>
+					<swiftui-karaword start="0:0:19.3" end="0:0:19.9">pout</swiftui-karaword>
+					<swiftui-karaword start="0:0:19.6" end="0:0:20.2">I'm</swiftui-karaword>
+					<swiftui-karaword start="0:0:20" end="0:0:20.4">telling</swiftui-karaword>
+					<swiftui-karaword start="0:0:20.4" end="0:0:20.8">you</swiftui-karaword>
+					<swiftui-karaword start="0:0:20.7" end="0:0:21.2">why,</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:21.7" end="0:0:26">
+					<swiftui-karaword start="0:0:22.1" end="0:0:22.7">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:0:22.7" end="0:0:23.4">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:0:23.3" end="0:0:23.8">is</swiftui-karaword>
+					<swiftui-karaword start="0:0:23.8" end="0:0:24.6">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:0:25.3" end="0:0:25.7">to</swiftui-karaword>
+					<swiftui-karaword start="0:0:25.6" end="0:0:26">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:26" end="0:0:28.5">
+					<swiftui-karaword start="0:0:26.2" end="0:0:26.9">(Santa</swiftui-karaword>
+					<swiftui-karaword start="0:0:26.9" end="0:0:27.5">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:0:27.3" end="0:0:27.7">is comin'</swiftui-karaword>
+					<swiftui-karaword start="0:0:27.6" end="0:0:28">to</swiftui-karaword>
+					<swiftui-karaword start="0:0:27.9" end="0:0:28.4">town)</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:29" end="0:0:30.7">
+					<swiftui-karaword start="0:0:29" end="0:0:29.4">He's</swiftui-karaword>
+					<swiftui-karaword start="0:0:29.3" end="0:0:29.7">making</swiftui-karaword>
+					<swiftui-karaword start="0:0:29.6" end="0:0:30">a</swiftui-karaword>
+					<swiftui-karaword start="0:0:30" end="0:0:30.4">list</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:30.7" end="0:0:32.6">
+					<swiftui-karaword start="0:0:30.8" end="0:0:31.2">and</swiftui-karaword>
+					<swiftui-karaword start="0:0:31.1" end="0:0:31.6">checking</swiftui-karaword>
+					<swiftui-karaword start="0:0:31.4" end="0:0:31.8">it</swiftui-karaword>
+					<swiftui-karaword start="0:0:31.8" end="0:0:32.2">twice.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:32.6" end="0:0:36">
+					<swiftui-karaword start="0:0:32.6" end="0:0:33">He's</swiftui-karaword>
+					<swiftui-karaword start="0:0:32.8" end="0:0:33.5">going to</swiftui-karaword>
+					<swiftui-karaword start="0:0:33.3" end="0:0:34">find out</swiftui-karaword>
+					<swiftui-karaword start="0:0:34.1" end="0:0:34.6">who's</swiftui-karaword>
+					<swiftui-karaword start="0:0:34.4" end="0:0:35.2">naughty</swiftui-karaword>
+					<swiftui-karaword start="0:0:35" end="0:0:35.4">or</swiftui-karaword>
+					<swiftui-karaword start="0:0:35.3" end="0:0:35.7">nice.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:36" end="0:0:40.3">
+					<swiftui-karaword start="0:0:36.2" end="0:0:36.6">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:0:36.8" end="0:0:37.2">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:0:37.5" end="0:0:38.1">is</swiftui-karaword>
+					<swiftui-karaword start="0:0:37.9" end="0:0:38.5">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:0:39.1" end="0:0:39.7">to</swiftui-karaword>
+					<swiftui-karaword start="0:0:39.5" end="0:0:40.3">town.</swiftui-karaword>	
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:40.3" end="0:0:43">
+					<swiftui-karaword start="0:0:40.3" end="0:0:41.4">(Santa</swiftui-karaword>
+					<swiftui-karaword start="0:0:41.3" end="0:0:41.7">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:0:41.4" end="0:0:42">is comin'</swiftui-karaword>
+					<swiftui-karaword start="0:0:41.8" end="0:0:42.4">to</swiftui-karaword>
+					<swiftui-karaword start="0:0:42.2" end="0:0:42.6">town)</swiftui-karaword>
+				</swiftui-karatext>
 
-				<swiftui-karatext start="0:0:43.5" end="0:0:46.5">He sees you when you are sleeping.</swiftui-karatext>
-				<swiftui-karatext start="0:0:46.7" end="0:0:50">He knows when you're awake.</swiftui-karatext>
-				<swiftui-karatext start="0:0:50.5" end="0:0:54">He knows if you've been bad or good.</swiftui-karatext>
-				<swiftui-karatext start="0:0:54" end="0:0:57">So be good for goodness sake!</swiftui-karatext>
-				<swiftui-karatext start="0:0:57.5" end="0:0:59.5">You'd better watch out!</swiftui-karatext>
-				<swiftui-karatext start="0:0:59.5" end="0:1:2">You'd better not cry!</swiftui-karatext>
-				<swiftui-karatext start="0:1:2" end="0:1:5">You'd better not pout I'm telling you why,</swiftui-karatext>
-				<swiftui-karatext start="0:1:5" end="0:1:10">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:1:13" end="0:1:16">(Santa Claus is comin' to town)</swiftui-karatext>
-				<swiftui-karatext start="0:1:16.5" end="0:1:19">(Santa Claus is comin' to town)</swiftui-karatext>
-				<swiftui-karatext start="0:1:20.2" end="0:1:23">(Santa Claus is comin' to town)</swiftui-karatext>
-				<swiftui-karatext start="0:1:23.5" end="0:1:26">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:0:43.5" end="0:0:46.5">
+					<swiftui-karaword start="0:0:43.5" end="0:0:43.7">He</swiftui-karaword>
+					<swiftui-karaword start="0:0:43.6" end="0:0:44.1">sees</swiftui-karaword>
+					<swiftui-karaword start="0:0:43.9" end="0:0:44.5">you</swiftui-karaword>
+					<swiftui-karaword start="0:0:44.3" end="0:0:45.1">when</swiftui-karaword>
+					<swiftui-karaword start="0:0:44.8" end="0:0:45.3">you</swiftui-karaword>
+					<swiftui-karaword start="0:0:45.1" end="0:0:45.6">are</swiftui-karaword>
+					<swiftui-karaword start="0:0:45.4" end="0:0:46.1">sleeping.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:46.7" end="0:0:50">
+					<swiftui-karaword start="0:0:46.8" end="0:0:47.2">He</swiftui-karaword>
+					<swiftui-karaword start="0:0:47" end="0:0:47.9">knows</swiftui-karaword>
+					<swiftui-karaword start="0:0:47.6" end="0:0:48.4">when</swiftui-karaword>
+					<swiftui-karaword start="0:0:48.2" end="0:0:48.8">you're</swiftui-karaword>
+					<swiftui-karaword start="0:0:48.6" end="0:0:49.2">awake.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:50.5" end="0:0:53.5">
+					<swiftui-karaword start="0:0:50.5" end="0:0:50.9">He</swiftui-karaword>
+					<swiftui-karaword start="0:0:50.7" end="0:0:51.3">knows</swiftui-karaword>
+					<swiftui-karaword start="0:0:51.2" end="0:0:51.6">if</swiftui-karaword>
+					<swiftui-karaword start="0:0:51.4" end="0:0:52.3">you've</swiftui-karaword>
+					<swiftui-karaword start="0:0:52.2" end="0:0:52.6">been</swiftui-karaword>
+					<swiftui-karaword start="0:0:52.5" end="0:0:52.9">bad</swiftui-karaword>
+					<swiftui-karaword start="0:0:52.8" end="0:0:53.3">or</swiftui-karaword>
+					<swiftui-karaword start="0:0:53.2" end="0:0:53.5">good.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:53.5" end="0:0:57">
+					<swiftui-karaword start="0:0:53.9" end="0:0:54.3">So</swiftui-karaword>
+					<swiftui-karaword start="0:0:54.2" end="0:0:54.6">be</swiftui-karaword>
+					<swiftui-karaword start="0:0:54.5" end="0:0:54.9">good</swiftui-karaword>
+					<swiftui-karaword start="0:0:54.8" end="0:0:55.2">for</swiftui-karaword>
+					<swiftui-karaword start="0:0:55" end="0:0:55.8">goodness</swiftui-karaword>
+					<swiftui-karaword start="0:0:55.6" end="0:0:56.5">sake!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:57.5" end="0:0:59.4">
+					<swiftui-karaword start="0:0:57.6" end="0:0:58">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:0:57.9" end="0:0:58.6">better</swiftui-karaword>
+					<swiftui-karaword start="0:0:58.4" end="0:0:58.9">watch</swiftui-karaword>
+					<swiftui-karaword start="0:0:58.8" end="0:0:59.2">out!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:0:59.4" end="0:1:1.6">
+					<swiftui-karaword start="0:0:59.4" end="0:1:0">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:0:59.9" end="0:1:0.5">better</swiftui-karaword>
+					<swiftui-karaword start="0:1:0.4" end="0:1:0.7">not</swiftui-karaword>
+					<swiftui-karaword start="0:1:0.6" end="0:1:0.9">cry!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:1.6" end="0:1:5">
+					<swiftui-karaword start="0:1:1.9" end="0:1:2.4">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:1:2.2" end="0:1:2.9">better</swiftui-karaword>
+					<swiftui-karaword start="0:1:2.8" end="0:1:3.2">not</swiftui-karaword>
+					<swiftui-karaword start="0:1:3" end="0:1:3.4">pout</swiftui-karaword>
+					<swiftui-karaword start="0:1:3.3" end="0:1:3.7">I'm</swiftui-karaword>
+					<swiftui-karaword start="0:1:3.6" end="0:1:4">telling</swiftui-karaword>
+					<swiftui-karaword start="0:1:3.8" end="0:1:4.2">you</swiftui-karaword>
+					<swiftui-karaword start="0:1:4" end="0:1:4.4">why,</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:5" end="0:1:10">
+					<swiftui-karaword start="0:1:5.6" end="0:1:6.2">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:1:6.1" end="0:1:7">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:1:6.8" end="0:1:7.2">is</swiftui-karaword>
+					<swiftui-karaword start="0:1:7.4" end="0:1:7.9">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:1:8.4" end="0:1:8.8">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:8.8" end="0:1:9.2">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:13" end="0:1:16">
+					<swiftui-karaword start="0:1:13.6" end="0:1:14">(Santa</swiftui-karaword>
+					<swiftui-karaword start="0:1:14.5" end="0:1:15">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:1:14.9" end="0:1:15.5">is comin'</swiftui-karaword>
+					<swiftui-karaword start="0:1:15.3" end="0:1:15.6">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:15.4" end="0:1:15.8">town)</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:16.5" end="0:1:20">
+					<swiftui-karaword start="0:1:17" end="0:1:17.6">(Santa</swiftui-karaword>
+					<swiftui-karaword start="0:1:18" end="0:1:18.6">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:1:18.5" end="0:1:19">is comin'</swiftui-karaword>
+					<swiftui-karaword start="0:1:18.9" end="0:1:19.4">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:19.3" end="0:1:19.7">town)</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:20.2" end="0:1:23.5">
+					<swiftui-karaword start="0:1:20.7" end="0:1:21.3">(Santa</swiftui-karaword>
+					<swiftui-karaword start="0:1:21.7" end="0:1:22.3">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:1:22.2" end="0:1:22.7">is comin'</swiftui-karaword>
+					<swiftui-karaword start="0:1:22.5" end="0:1:22.9">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:22.7" end="0:1:23.1">town)</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:23.5" end="0:1:26.5">
+					<swiftui-karaword start="0:1:24.1" end="0:1:24.7">(Santa</swiftui-karaword>
+					<swiftui-karaword start="0:1:25.3" end="0:1:25.7">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:1:25.5" end="0:1:26">is comin'</swiftui-karaword>
+					<swiftui-karaword start="0:1:25.8" end="0:1:26.2">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:26" end="0:1:26.4">town)</swiftui-karaword>
+				</swiftui-karatext>
 
-				<swiftui-karatext start="0:1:26" end="0:1:28">You'd better watch out!</swiftui-karatext>
-				<swiftui-karatext start="0:1:28" end="0:1:30">You'd better not cry!</swiftui-karatext>
-				<swiftui-karatext start="0:1:30" end="0:1:34">You'd better not pout I'm telling you why,</swiftui-karatext>
-				<swiftui-karatext start="0:1:34" end="0:1:39">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:1:39" end="0:1:40.7">He is coming to town.</swiftui-karatext>
-				<swiftui-karatext start="0:1:40.7" end="0:1:43">He's making a list</swiftui-karatext>
-				<swiftui-karatext start="0:1:43" end="0:1:45">and checking it twice.</swiftui-karatext>
-				<swiftui-karatext start="0:1:45" end="0:1:48.5">He's going to find out who's naughty or nice.</swiftui-karatext>
-				<swiftui-karatext start="0:1:48.5" end="0:1:54">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:1:54" end="0:1:55.5">(Santa Claus is comin' to town)</swiftui-karatext>
+				<swiftui-karatext start="0:1:26.5" end="0:1:28">
+					<swiftui-karaword start="0:1:26.5" end="0:1:27">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:1:26.8" end="0:1:27.4">better</swiftui-karaword>
+					<swiftui-karaword start="0:1:27.2" end="0:1:27.6">watch</swiftui-karaword>
+					<swiftui-karaword start="0:1:27.4" end="0:1:27.8">out!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:28" end="0:1:30">
+					<swiftui-karaword start="0:1:28.3" end="0:1:29">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:1:28.8" end="0:1:29.4">better</swiftui-karaword>
+					<swiftui-karaword start="0:1:29.2" end="0:1:29.6">not</swiftui-karaword>
+					<swiftui-karaword start="0:1:29.4" end="0:1:29.8">cry!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:30" end="0:1:34">
+					<swiftui-karaword start="0:1:30.9" end="0:1:31.5">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:1:31.4" end="0:1:31.9">better</swiftui-karaword>
+					<swiftui-karaword start="0:1:31.8" end="0:1:32.3">not</swiftui-karaword>
+					<swiftui-karaword start="0:1:32.2" end="0:1:32.7">pout</swiftui-karaword>
+					<swiftui-karaword start="0:1:32.6" end="0:1:33">I'm</swiftui-karaword>
+					<swiftui-karaword start="0:1:32.8" end="0:1:33.5">telling</swiftui-karaword>
+					<swiftui-karaword start="0:1:33.3" end="0:1:33.7">you</swiftui-karaword>
+					<swiftui-karaword start="0:1:33.5" end="0:1:34">why,</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:34.5" end="0:1:39">
+					<swiftui-karaword start="0:1:34.5" end="0:1:35.1">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:1:35.2" end="0:1:36">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:1:36" end="0:1:36.6">is</swiftui-karaword>
+					<swiftui-karaword start="0:1:36.6" end="0:1:37.5">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:1:37.4" end="0:1:37.9">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:37.8" end="0:1:38.5">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:39" end="0:1:41.4">
+					<swiftui-karaword start="0:1:39.2" end="0:1:39.8">He's</swiftui-karaword>
+					<swiftui-karaword start="0:1:39.6" end="0:1:40.2">coming</swiftui-karaword>
+					<swiftui-karaword start="0:1:40.1" end="0:1:40.5">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:40.4" end="0:1:41">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:41.4" end="0:1:43.5">
+					<swiftui-karaword start="0:1:41.7" end="0:1:42.3">He's</swiftui-karaword>
+					<swiftui-karaword start="0:1:42.2" end="0:1:42.8">making</swiftui-karaword>
+					<swiftui-karaword start="0:1:42.7" end="0:1:43">a</swiftui-karaword>
+					<swiftui-karaword start="0:1:42.9" end="0:1:43.4">list</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:43.5" end="0:1:45.8">
+					<swiftui-karaword start="0:1:43.8" end="0:1:44.3">and</swiftui-karaword>
+					<swiftui-karaword start="0:1:44.2" end="0:1:44.7">checking</swiftui-karaword>
+					<swiftui-karaword start="0:1:44.5" end="0:1:44.8">it</swiftui-karaword>
+					<swiftui-karaword start="0:1:44.7" end="0:1:45.3">twice.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:45.8" end="0:1:49.4">
+					<swiftui-karaword start="0:1:45.8" end="0:1:46.2">He's</swiftui-karaword>
+					<swiftui-karaword start="0:1:46" end="0:1:46.4">going to</swiftui-karaword>
+					<swiftui-karaword start="0:1:46.2" end="0:1:47.2">find out</swiftui-karaword>
+					<swiftui-karaword start="0:1:47.1" end="0:1:47.7">who's</swiftui-karaword>
+					<swiftui-karaword start="0:1:47.5" end="0:1:48.1">naughty</swiftui-karaword>
+					<swiftui-karaword start="0:1:47.9" end="0:1:48.4">or</swiftui-karaword>
+					<swiftui-karaword start="0:1:48.2" end="0:1:48.8">nice.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:49.4" end="0:1:53.8">
+					<swiftui-karaword start="0:1:49.4" end="0:1:50">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:1:49.9" end="0:1:50.8">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:1:50.7" end="0:1:51.1">is</swiftui-karaword>
+					<swiftui-karaword start="0:1:51" end="0:1:52">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:1:51.9" end="0:1:52.6">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:52.5" end="0:1:53.5">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:53.8" end="0:1:56.2">
+					<swiftui-karaword start="0:1:53.8" end="0:1:54.4">(Santa</swiftui-karaword>
+					<swiftui-karaword start="0:1:54.3" end="0:1:54.9">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:1:54.7" end="0:1:55.4">is comin'</swiftui-karaword>
+					<swiftui-karaword start="0:1:55.2" end="0:1:55.6">to</swiftui-karaword>
+					<swiftui-karaword start="0:1:55.4" end="0:1:55.8">town)</swiftui-karaword>
+				</swiftui-karatext>
 
-				<swiftui-karatext start="0:1:55.5" end="0:1:59">He sees you when you are sleeping.</swiftui-karatext>
-				<swiftui-karatext start="0:1:59" end="0:2:2.5">He knows when you're awake.</swiftui-karatext>
-				<swiftui-karatext start="0:2:2.5" end="0:2:6.2">He knows if you've been bad or good.</swiftui-karatext>
-				<swiftui-karatext start="0:2:6.2" end="0:2:9.5">So be good for goodness sake!</swiftui-karatext>
-				<swiftui-karatext start="0:2:9.5" end="0:2:12">You'd better watch out!</swiftui-karatext>
-				<swiftui-karatext start="0:2:12" end="0:2:14">You'd better not cry!</swiftui-karatext>
-				<swiftui-karatext start="0:2:14" end="0:2:18">You'd better not pout I'm telling you why,</swiftui-karatext>
-				<swiftui-karatext start="0:2:18" end="0:2:22">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:2:22" end="0:2:25">(Santa Claus is comin' to town)</swiftui-karatext>
-				<swiftui-karatext start="0:2:25" end="0:2:28.5">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:2:28.5" end="0:2:32">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:2:32.5" end="0:2:35.5">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:2:36" end="0:2:39">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:2:39" end="0:2:44">Santa Claus is comin' to town.</swiftui-karatext>
-				<swiftui-karatext start="0:2:46.5" end="0:2:52">Santa Claus is comin' to town.</swiftui-karatext>
+				<swiftui-karatext start="0:1:56.2" end="0:1:59.5">
+					<swiftui-karaword start="0:1:56.3" end="0:1:56.7">He</swiftui-karaword>
+					<swiftui-karaword start="0:1:56.6" end="0:1:56.9">sees</swiftui-karaword>
+					<swiftui-karaword start="0:1:56.8" end="0:1:57.5">you</swiftui-karaword>
+					<swiftui-karaword start="0:1:57.4" end="0:1:57.9">when</swiftui-karaword>
+					<swiftui-karaword start="0:1:57.8" end="0:1:58.3">you</swiftui-karaword>
+					<swiftui-karaword start="0:1:58.2" end="0:1:58.6">are</swiftui-karaword>
+					<swiftui-karaword start="0:1:58.4" end="0:1:58.9">sleeping.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:1:59.5" end="0:2:3">
+					<swiftui-karaword start="0:1:59.7" end="0:2:0.3">He</swiftui-karaword>
+					<swiftui-karaword start="0:2:0.2" end="0:2:1">knows</swiftui-karaword>
+					<swiftui-karaword start="0:2:0.8" end="0:2:1.2">when</swiftui-karaword>
+					<swiftui-karaword start="0:2:1.1" end="0:2:1.7">you're</swiftui-karaword>
+					<swiftui-karaword start="0:2:1.6" end="0:2:2.3">awake.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:3" end="0:2:7">
+					<swiftui-karaword start="0:2:3.6" end="0:2:4">He</swiftui-karaword>
+					<swiftui-karaword start="0:2:3.8" end="0:2:4.4">knows</swiftui-karaword>
+					<swiftui-karaword start="0:2:4.3" end="0:2:4.7">if</swiftui-karaword>
+					<swiftui-karaword start="0:2:4.5" end="0:2:5.6">you've</swiftui-karaword>
+					<swiftui-karaword start="0:2:5.4" end="0:2:6">been</swiftui-karaword>
+					<swiftui-karaword start="0:2:5.8" end="0:2:6.3">bad</swiftui-karaword>
+					<swiftui-karaword start="0:2:6.1" end="0:2:6.5">or</swiftui-karaword>
+					<swiftui-karaword start="0:2:6.3" end="0:2:6.8">good.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:7" end="0:2:10.3">
+					<swiftui-karaword start="0:2:7" end="0:2:7.4">So</swiftui-karaword>
+					<swiftui-karaword start="0:2:7.3" end="0:2:7.8">be</swiftui-karaword>
+					<swiftui-karaword start="0:2:7.7" end="0:2:8.1">good</swiftui-karaword>
+					<swiftui-karaword start="0:2:8" end="0:2:8.6">for</swiftui-karaword>
+					<swiftui-karaword start="0:2:8.4" end="0:2:9">goodness</swiftui-karaword>
+					<swiftui-karaword start="0:2:8.9" end="0:2:9.3">sake!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:10.3" end="0:2:12.8">
+					<swiftui-karaword start="0:2:10.6" end="0:2:11.2">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:2:11" end="0:2:11.6">better</swiftui-karaword>
+					<swiftui-karaword start="0:2:11.5" end="0:2:12.1">watch</swiftui-karaword>
+					<swiftui-karaword start="0:2:12" end="0:2:12.4">out!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:12.8" end="0:2:14.5">
+					<swiftui-karaword start="0:2:13" end="0:2:13.4">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:2:13.3" end="0:2:13.7">better</swiftui-karaword>
+					<swiftui-karaword start="0:2:13.5" end="0:2:13.9">not</swiftui-karaword>
+					<swiftui-karaword start="0:2:13.7" end="0:2:14.3">cry!</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:14.5" end="0:2:18.5">
+					<swiftui-karaword start="0:2:14.7" end="0:2:15.1">You'd</swiftui-karaword>
+					<swiftui-karaword start="0:2:15" end="0:2:15.5">better</swiftui-karaword>
+					<swiftui-karaword start="0:2:15.3" end="0:2:15.7">not</swiftui-karaword>
+					<swiftui-karaword start="0:2:15.6" end="0:2:16.3">pout</swiftui-karaword>
+					<swiftui-karaword start="0:2:16.2" end="0:2:16.6">I'm</swiftui-karaword>
+					<swiftui-karaword start="0:2:16.5" end="0:2:17">telling</swiftui-karaword>
+					<swiftui-karaword start="0:2:16.9" end="0:2:17.4">you</swiftui-karaword>
+					<swiftui-karaword start="0:2:17.3" end="0:2:17.9">why,</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:18.5" end="0:2:22.6">
+					<swiftui-karaword start="0:2:18.7" end="0:2:19.3">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:2:19.3" end="0:2:19.7">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:2:19.6" end="0:2:20.2">is</swiftui-karaword>
+					<swiftui-karaword start="0:2:20.1" end="0:2:21">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:2:21.2" end="0:2:21.9">to</swiftui-karaword>
+					<swiftui-karaword start="0:2:21.7" end="0:2:22.3">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:22.6" end="0:2:26">
+					<swiftui-karaword start="0:2:22.8" end="0:2:23.4">(Santa</swiftui-karaword>
+					<swiftui-karaword start="0:2:23.4" end="0:2:23.8">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:2:23.7" end="0:2:24.4">is comin'</swiftui-karaword>
+					<swiftui-karaword start="0:2:24.3" end="0:2:24.6">to</swiftui-karaword>
+					<swiftui-karaword start="0:2:24.5" end="0:2:25.3">town)</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:26.2" end="0:2:29.5">
+					<swiftui-karaword start="0:2:26.6" end="0:2:27.2">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:2:27.1" end="0:2:27.7">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:2:27.6" end="0:2:28">is</swiftui-karaword>
+					<swiftui-karaword start="0:2:27.8" end="0:2:28.3">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:2:28.1" end="0:2:28.4">to</swiftui-karaword>
+					<swiftui-karaword start="0:2:28.3" end="0:2:28.8">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:29.5" end="0:2:33.3">
+					<swiftui-karaword start="0:2:29.7" end="0:2:30.3">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:2:30.2" end="0:2:31">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:2:30.9" end="0:2:31.3">is</swiftui-karaword>
+					<swiftui-karaword start="0:2:31.2" end="0:2:31.7">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:2:31.6" end="0:2:32">to</swiftui-karaword>
+					<swiftui-karaword start="0:2:31.9" end="0:2:32.5">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:33.3" end="0:2:37">
+					<swiftui-karaword start="0:2:33.5" end="0:2:34.5">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:2:34.3" end="0:2:34.8">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:2:34.7" end="0:2:35.1">is</swiftui-karaword>
+					<swiftui-karaword start="0:2:34.9" end="0:2:35.3">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:2:35.2" end="0:2:35.6">to</swiftui-karaword>
+					<swiftui-karaword start="0:2:35.5" end="0:2:36.5">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:37" end="0:2:40">
+					<swiftui-karaword start="0:2:37.2" end="0:2:37.9">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:2:37.8" end="0:2:38.4">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:2:38.2" end="0:2:38.5">is</swiftui-karaword>
+					<swiftui-karaword start="0:2:38.5" end="0:2:38.9">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:2:38.8" end="0:2:39.2">to</swiftui-karaword>
+					<swiftui-karaword start="0:2:39.1" end="0:2:39.5">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:40" end="0:2:45">
+					<swiftui-karaword start="0:2:40.3" end="0:2:41">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:2:40.9" end="0:2:41.7">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:2:41.5" end="0:2:42">is</swiftui-karaword>
+					<swiftui-karaword start="0:2:41.9" end="0:2:42.7">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:2:43.1" end="0:2:43.7">to</swiftui-karaword>
+					<swiftui-karaword start="0:2:43.6" end="0:2:44.5">town.</swiftui-karaword>
+				</swiftui-karatext>
+				<swiftui-karatext start="0:2:46.5" end="0:2:53">
+					<swiftui-karaword start="0:2:47.3" end="0:2:47.9">Santa</swiftui-karaword>
+					<swiftui-karaword start="0:2:48.1" end="0:2:48.8">Claus</swiftui-karaword>
+					<swiftui-karaword start="0:2:48.8" end="0:2:49.4">is</swiftui-karaword>
+					<swiftui-karaword start="0:2:49.3" end="0:2:50.3">comin'</swiftui-karaword>
+					<swiftui-karaword start="0:2:50.4" end="0:2:51">to</swiftui-karaword>
+					<swiftui-karaword start="0:2:50.9" end="0:2:51.7">town.</swiftui-karaword>
+				</swiftui-karatext>
 			</swiftui-kara>
 		</section>
 		
-		<section id="player-wrapper" horizontal layout center>
-			<paper-button id="control-btn" icon="av:play-arrow" disabled horizontal layout center center-justified>
-				<core-icon icon="av:play-arrow"></core-icon>
-			</paper-button>
-			<div id="informations" horizontal layout center>
+		<section id="player-wrapper">
+			<div id="player-wrapper-inner" horizontal layout center>
+				<paper-button id="control-btn" icon="av:play-arrow" horizontal layout center center-justified>
+					<core-icon icon="av:play-arrow"></core-icon>
+				</paper-button>
 				<div id="song-informations" horizontal layout center>
-					<img src="cascada.jpg" width="80">
+					<img src="cascada.jpg">
 					<div id="names" vertical layout around-justified>
 						<div id="song">Santa Claus Is Coming To Town</div>
 						<div id="album">It's Christmas Time</div>
@@ -221,9 +411,9 @@
 				</div>
 				<div id="time-informations" horizontal layout center>
 					<paper-progress id="time-progress"></paper-progress>
-					<span id="current-time">0:00</span>
+					<span id="current-time">-:--</span>
 					<span>&nbsp;/&nbsp;</span>
-					<span id="duration">0:00</span>
+					<span id="duration">-:--</span>
 				</div>
 			</div>
 		</section>
@@ -235,15 +425,6 @@
 			window.addEventListener("polymer-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
 				controlBtn.controlBtnIcon = controlBtn.querySelector("core-icon");
-				swiftUIKara = document.querySelector("swiftui-kara");
-				currentTimeSpan = document.querySelector("#current-time");
-				durationSpan = document.querySelector("#duration");
-				timeProgress = document.querySelector("#time-progress");
-			});
-
-			window.addEventListener("kara-ready", function() {
-				controlBtn.removeAttribute("disabled");
-				controlBtn.setAttribute("play", "");
 				controlBtn.onclick = controlKara;
 				controlBtn.switchState = function(from, to) {
 					this.removeAttribute(from);
@@ -256,23 +437,36 @@
 							this.controlBtnIcon.setAttribute("icon", "av:pause"); break;
 					}
 				};
+				controlBtn.switchState("", "disabled");
+				
+				swiftUIKara = document.querySelector("swiftui-kara");
+				currentTimeSpan = document.querySelector("#current-time");
+				durationSpan = document.querySelector("#duration");
+				timeProgress = document.querySelector("#time-progress");
+			});
+
+			window.addEventListener("kara-ready", function() {
+				controlBtn.switchState("disabled", "play");
 			});
 
 			/* Control the progress bar */
 			window.addEventListener("kara-playing", function() {
-				timeProgress.setAttribute("max", swiftUIKara.getDuration());
-				durationSpan.innerHTML = toHHMMSS(swiftUIKara.getDuration());
-
+				displayPlayerTime("duration", swiftUIKara.getDuration());
+				controlBtn.switchState("play", "pause");
+				
 				timeProgressTimer = window.setInterval(
 					function() {
-						timeProgress.setAttribute("value", swiftUIKara.getCurrentPlayTime());
-						currentTimeSpan.innerHTML = toHHMMSS(swiftUIKara.getCurrentPlayTime());
+						displayPlayerTime("current", swiftUIKara.getCurrentPlayTime());
 					}, 1000);
 			});
 
+			window.addEventListener("kara-paused", function() {
+				controlBtn.switchState("pause", "play");
+				window.clearInterval(timeProgressTimer);
+			});
+			
 			window.addEventListener("kara-ended", function() {
-				timeProgress.setAttribute("value", swiftUIKara.getDuration());
-				currentTimeSpan.innerHTML = toHHMMSS(swiftUIKara.getDuration());
+				displayPlayerTime("current", swiftUIKara.getDuration());
 				controlBtn.switchState("pause", "play");
 				window.clearInterval(timeProgressTimer);
 			});
@@ -280,15 +474,26 @@
 			function controlKara() {
 				if (!controlBtn.hasAttribute("disabled")) {
 					if (controlBtn.hasAttribute("play")) {
-						controlBtn.switchState("play", "pause");
 						swiftUIKara.play();		
 					} else if (controlBtn.hasAttribute("pause")) {
-						controlBtn.switchState("pause", "play");
 						swiftUIKara.pause();
 					}
 				}
 			}
-						
+			
+			function displayPlayerTime(type, time) {
+				switch (type) {
+					case "current":
+						timeProgress.setAttribute("value", time);
+						currentTimeSpan.innerHTML = toHHMMSS(time);
+						break;
+					case "duration":
+						timeProgress.setAttribute("max", time);
+						durationSpan.innerHTML = toHHMMSS(time);
+						break;
+				}
+			}
+			
 			/* The function is excerpt from google-youtube */
 			function toHHMMSS(totalSec) {
 				var hours = Math.floor(totalSec / 3600);

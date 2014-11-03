@@ -1,6 +1,6 @@
 # SwiftUI Kara and Karatext
 
-Swift UI Kara and Karatext is a set of Polymer web components which are used to display and synchronize lyrics while playing an audio track at background. Currently the source of audio is created by using [google-youtube](https://github.com/GoogleWebComponents/google-youtube) Polymer component.
+SwiftUI Kara and Karatext is a set of Polymer web components which are used to display and synchronize lyrics while playing an audio track at background. The source of audio can be a YouTube stream (using [google-youtube](https://github.com/GoogleWebComponents/google-youtube) Polymer component) or an `<audio>` tag.
 
 Text rendering and highlighting effect is done by using [SVG.js](http://svgjs.com/).
 
@@ -18,6 +18,17 @@ $ bower install swiftui-kara --save
 
 ## Usage
 
+1. Import Web Components' polyfill:
+
+	```html
+	<script src="bower_components/platform/platform.js"></script>
+	```
+	
+2. Import SwiftUI Kara element sets:
+
+	```html
+	<link rel="import" href="bower_components/swiftui-kara/swiftui-kara.html">
+	```
 
 ## Options
 
