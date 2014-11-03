@@ -1,6 +1,7 @@
 html {
 	height: 100%;
 	letter-spacing: 0.2px;
+	font-size: 10px;
 }
 
 body {
@@ -12,19 +13,19 @@ body {
 }
 
 #swiftui-kara-wrapper {
-	margin-top: 40px;
-	height: calc(100% - 120px);
+	margin-top: 4rem;
+	height: calc(100% - 12rem);
 	width: 100%;
 }
 
 swiftui-kara {
-	height: 400px;
+	height: 40rem;
 	width: 100%;
 
 	font-family: "Raleway", sans-serif;
-	font-size: 50px;
+	font-size: 5rem;
 	font-weight: bold;
-	line-height: 30px;
+	line-height: 3rem;
 }
 
 swiftui-karatext {
@@ -34,24 +35,28 @@ swiftui-karatext {
 
 #player-wrapper {
 	position: absolute;
-	height: 120px; bottom: 0;
+	height: 12rem; bottom: 0;
 	width: 100%;
-	padding: 0 20px;
 	overflow-x: auto;
+	font-size: 1.6rem;
 }
 
 #player-wrapper-inner {
 	position: absolute;
 	top: 0; bottom: 0;
-	width: 800px;
+	width: 80rem;
+}
+
+#control-btn, #song-informations, #time-informations {
+	margin-left: 2rem;
 }
 
 #control-btn {
 	background: #2d2d2d;
 	color: #FC5956;
 	min-width: 0;
-	width: 60px;
-	height: 60px;
+	width: 6rem;
+	height: 6rem;
 	padding: 0;
 	border-radius: 50%;
 	transition: background 0.25s ease;
@@ -61,13 +66,14 @@ swiftui-karatext {
 	background: #fff;
 }
 
-#song-informations {
-	margin-left: 20px;
+#song-informations img {
+	width: 8rem;
+	height: 8rem;
 }
 
 #song-informations #names {
-	height: 80px;
-	margin-left: 20px;
+	height: 8rem;
+	margin-left: 2rem;
 }
 
 #song, #artist {
@@ -75,15 +81,11 @@ swiftui-karatext {
 }
 
 #artist, #album {
-	font-size: 12px;
-}
-
-#time-informations {
-	margin-left: 20px;
+	font-size: 1.2rem;
 }
 
 #time-progress {
-	margin-right: 10px;
+	margin-right: 1rem;
 }
 
 #time-progress::shadow #progressContainer {
@@ -104,9 +106,9 @@ swiftui-karatext {
 
 #credit-wrapper {
 	position: absolute;
-	height: 40px; top: 0;
+	height: 4rem; top: 0;
 	width: 100%;
-	font-size: 12px;
+	font-size: 1.2rem;
 	border-bottom: 1px solid #111;
 }
 
@@ -121,24 +123,27 @@ swiftui-karatext {
 }
 
 #credit-wrapper a core-icon {
-	margin-right: 5px;
+	margin-right: 0.5rem;
 }
 
 @media (max-device-width: 800px) {
-	swiftui-kara {
-		font-size: 30px;
-		line-height: 20px;
+	html {
+		font-size: 8px;
 	}
-
+	
+	swiftui-kara {
+		font-size: 4rem;
+		line-height: 2.5rem;
+	}
+	
 	#swiftui-kara-wrapper {
-		height: calc(100% - 200px);
+		height: calc(100% - 20rem);
 	}
 
 	#player-wrapper {
-		height: 200px;
-		padding: 0;
+		height: 20rem;
 	}
-
+	
 	#player-wrapper-inner {
 		width: 100%;
 		flex-direction: column;
@@ -150,9 +155,14 @@ swiftui-karatext {
 	}
 }
 
+
 @media (max-device-width: 480px) {
+	html {
+		font-size: 6px;
+	}
+	
 	swiftui-kara {
-		font-size: 20px;
-		line-height: 15px;
+		font-size: 3rem;
+		line-height: 2rem;
 	}
 }
