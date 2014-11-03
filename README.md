@@ -29,6 +29,38 @@ $ bower install swiftui-kara --save
 	```html
 	<link rel="import" href="bower_components/swiftui-kara/swiftui-kara.html">
 	```
+	
+3. Start using it:
+	
+	```html
+	<swiftui-kara effect="glow" audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3">
+		<swiftui-karatext start="0:0:15" end="0:0:16.6">
+			<swiftui-karaword start="0:0:15" end="0:0:15.4">You'd</swiftui-karaword>
+			<swiftui-karaword start="0:0:15.2" end="0:0:15.8">better</swiftui-karaword>
+			<swiftui-karaword start="0:0:15.6" end="0:0:16">watch</swiftui-karaword>
+			<swiftui-karaword start="0:0:15.8" end="0:0:16.2">out!</swiftui-karaword>
+		</swiftui-karatext>
+		<swiftui-karatext start="0:0:16.6" end="0:0:18.3">
+			<swiftui-karaword start="0:0:16.8" end="0:0:17.2">You'd</swiftui-karaword>
+			<swiftui-karaword start="0:0:17" end="0:0:17.4">better</swiftui-karaword>
+			<swiftui-karaword start="0:0:17.2" end="0:0:17.6">not</swiftui-karaword>
+			<swiftui-karaword start="0:0:17.6" end="0:0:18">cry!</swiftui-karaword>
+		</swiftui-karatext>
+		...
+	</swiftui-kara>
+	```
+	
+## Styles
+
+SwiftUI Kara selectors are easily styled by using ordinary CSS, such as font (family, style, weight...), sizing and positioning.
+
+There are a few reserved CSS rules for SwiftUI Kara (and Karatext) which has a different meaning from its original one:
+
+Selector      											| Rules								| Description
+---           											| --- 								| ---
+`swiftui-kara`, `swiftui-karatext`	| `line-height`				| Space height between the first and second lyrics text line.
+`swiftui-karatext`									| `background-color`	| Color of the ground (overlaid) text.
+`swiftui-karatext`									| `color`							| Color of the clipping (overlaying) text.
 
 ## Options
 
