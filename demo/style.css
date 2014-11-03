@@ -15,7 +15,6 @@ body {
 #swiftui-kara-wrapper {
 	margin-top: 4rem;
 	height: calc(100% - 12rem);
-	width: 100%;
 }
 
 swiftui-kara {

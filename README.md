@@ -65,6 +65,25 @@ $ bower install swiftui-kara --save
 		...
 	</swiftui-kara>
 	```
+
+4. Doing some styling before enjoying it:
+
+	```css
+	swiftui-kara {
+		height: 40rem;
+		width: 100%;
+
+		font-family: "Raleway", sans-serif;
+		font-size: 5rem;
+		font-weight: bold;
+		line-height: 3rem;
+	}
+
+	swiftui-karatext {
+		color: #FC5956; /* Clipping text color */
+		background-color: #444; /* Ground text color */
+	}
+	```
 	
 ## Styles
 
@@ -75,6 +94,7 @@ There are a few reserved CSS rules for SwiftUI Kara (and Karatext) which has a d
 Selector      												| Rules								| Description
 ---           												| --- 								| ---
 `swiftui-kara` or `swiftui-karatext`	| `line-height`				| Space height between the first and second lyrics text line.
+`swiftui-kara` 												| `height`						| Height for `swiftui-kara` should be specified compulsorily.
 `swiftui-karatext`										| `background-color`	| Color of the ground (overlaid) text.
 `swiftui-karatext`										| `color`							| Color of the clipping (overlaying) text.
 
@@ -82,19 +102,20 @@ Selector      												| Rules								| Description
 
 ### SwiftUI Kara
 
-1. SwiftUI Kara
-
 Attribute    				| Options     					| Default      		| Description
 --- 								| ---         					| ---          		| ---
 `audioSrcType`			| *audio*, *youtube*    | *audio*       	| Audio source type. YouTube source cannot be played in mobile browser.
 `audioSrc`					|     									| 				       	| Audio source string. For audio source, it's URL of the audio file; for YouTube source, it's video's ID.
-`effect`						| *slide*, *glow*    		| *slide*       	| Effect when running the lyrics. Note: Slide effect should be used best when lyrics texts are not wrapped inside karaword, such as `<swiftui-karatext>Lorem ipsum</swiftui-karatext`; on the other hand, Glow effect should be used best when lyrics texts are wrapped inside karaword, for example `<swiftui-karatext><swiftui-karaword>Lorem</swiftui-karaword><swiftui-karaword>ipsum</swiftui-karaword></swiftui-karatext>`.
+`effect`						| *slide*, *glow*    		| *slide*       	| Effect when running the lyrics. **Note:** Slide effect should be used best when lyrics texts are not wrapped inside karaword, such as `<swiftui-karatext>Lorem ipsum</swiftui-karatext`; on the other hand, Glow effect should be used best when lyrics texts are wrapped inside karaword, for example `<swiftui-karatext><swiftui-karaword>Lorem</swiftui-karaword><swiftui-karaword>ipsum</swiftui-karaword></swiftui-karatext>`.
+`flyDuration`				| 											| *400*       		| Fly duration in ms: fly-in, fly from line to line and fly-out.
 
 ## Methods
 
 
+
 ## Events
 
+## Notes on Usage
 
 ## Current Issues
 
@@ -103,8 +124,6 @@ Attribute    				| Options     					| Default      		| Description
 ## Feature in Next Versions
 
 * One-line style.
-* Word-highlighting mode.
-* Different effects.
 
 ## License
 
