@@ -49,6 +49,9 @@
 						this.fire("kara-not-ready");
 					} else if (this.state == STATE_KARA_READY) {
 						this.fire("kara-ready");
+					} else if (this.state == STATE_KARA_PLAYING) {
+						this._playTimer();
+						this.fire("kara-playing");
 					} else if (this.state == STATE_KARA_PAUSED) {
 						this._cancelPlayTimer();
 						this._pauseJobs();
@@ -57,9 +60,6 @@
 						this._cancelPlayTimer();
 						this._endJobs();
 						this.fire("kara-ended");
-					} else if (this.state == STATE_KARA_PLAYING) {
-						this._playTimer();
-						this.fire("kara-playing");
 					}
 				},
 
@@ -248,6 +248,7 @@
 				publish: {
 					effect: "slide",
 					flyDuration: 400,
+					audioSrcType: "audio",
 					startFrom: "0:0:0",
 					startFromKaratext: "0"
 				},
