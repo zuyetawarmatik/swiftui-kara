@@ -110,13 +110,18 @@ Attribute    				| Options     					| Default      		| Description
 `effect`						| *slide*, *glow*    		| *slide*       	| Effect when running the lyrics. **Note:** Slide effect should be used best when lyrics texts are not wrapped inside karaword, such as `<swiftui-karatext>Lorem ipsum</swiftui-karatext`; on the other hand, Glow effect should be used best when lyrics texts are wrapped inside karaword, for example `<swiftui-karatext><swiftui-karaword>Lorem</swiftui-karaword><swiftui-karaword>ipsum</swiftui-karaword></swiftui-karatext>`.
 `flyDuration`				| 											| *400*       		| Fly duration in ms: fly-in, fly from line to line and fly-out.
 
+### SwiftUI Karatext / Karaword
+
+Attribute    				| Default      		| Description
+--- 								| ---          		| ---
+`start`							| *0:0:0*       	| In H:M:S.s format, accurate to 1/10 seconds, for example `0:1:2.5`.
+`end`								| *0:0:0*			    | Same as `start`; moreover, `end` value should be after `start` value in timing term.
+
 ## Methods
 
 
 
 ## Events
-
-## Notes on Usage
 
 ## Current Issues
 
