@@ -156,16 +156,16 @@ Event         		| Description
 
 * In this project, there is a `pre-release` branch to stage the element before publishing it to `master`.
 	
-** If development is deemed to be stable at some stage, merge the latest stable commit from branch `dev` to `pre-release`.
-	
-** On `pre-release` branch, run:
-	
-	```sh
-	$ grunt build
-	```
-to stage the assets.
-	
-** If it's fully tested on `pre-release`, merge `pre-release` to `master`.
+	* If development is deemed to be stable at some stage, merge the latest stable commit from branch `dev` to `pre-release`.
+
+	* On `pre-release` branch, run:
+
+		```sh
+		$ grunt build
+		```
+	to stage the assets.
+
+	* If it's fully tested on `pre-release`, merge `pre-release` to `master`.
 
 ## Current Issues
 
