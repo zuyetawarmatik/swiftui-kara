@@ -23,15 +23,15 @@ $ bower install swiftui-kara --save
 	```html
 	<script src="bower_components/platform/platform.js"></script>
 	```
-	
+
 2. Import SwiftUI Kara element sets:
 
 	```html
 	<link rel="import" href="bower_components/swiftui-kara/swiftui-kara.html">
 	```
-	
+
 3. Start using it:
-	
+
 	```html
 	<swiftui-kara effect="glow" audioSrcType="audio"
 								audioSrc="santa-claus-is-coming-to-town.mp3">
@@ -50,9 +50,9 @@ $ bower install swiftui-kara --save
 		...
 	</swiftui-kara>
 	```
-	
+
 	It's certainly OK if you don't use `<swiftui-karaword>` inside a `<swiftui-karatext>`:
-	
+
 	```html
 	<swiftui-kara effect="slide" audioSrcType="audio"
 								audioSrc="santa-claus-is-coming-to-town.mp3">
@@ -84,7 +84,7 @@ $ bower install swiftui-kara --save
 		background-color: #444; /* Ground text color */
 	}
 	```
-	
+
 ## Styles
 
 SwiftUI Kara selectors are easily styled by using ordinary CSS, such as font (family, style, weight...), sizing and positioning.
@@ -130,9 +130,48 @@ Method        						| Parameters   | Returns     									| Description
 
 ## Events
 
+### SwiftUI Kara
+
+Event         		| Description
+---           		| ---
+`kara-not-ready` 	| When the kara changes the state to "not ready" (future feature).
+`kara-ready` 			| When the kara is ready to be played.
+`kara-playing` 		| When the kara has started playing music.
+`kara-paused` 		| When the kara is paused.
+`kara-ended` 			| When the kara has finished playing music.
+
+## Development on Forking
+
+* Install prerequisites and local dependencies:
+
+	```sh
+	$ [sudo] npm install -g bower grunt-cli
+	```
+
+	```sh
+	$ bower install && npm install
+	```
+	
+* Development branch should be forked from `dev` branch.
+
+* In this project, there is a `pre-release` branch to stage the element before publishing it to `master`.
+	
+	** If development is deemed to be stable at some stage, merge the latest stable commit from branch `dev` to `pre-release`.
+	
+	** On `pre-release` branch, run:
+	
+		```sh
+		$ grunt build
+		```
+		to stage the assets.
+	
+	** If it's fully tested on `pre-release`, merge `pre-release` to `master`.
+
 ## Current Issues
 
-* Not working in mobile browsers due to the fact that they do not allow playing YouTube by script (i.e. `play()`)
+* Not working in mobile browsers due to the fact that it's not allowed to play YouTube by script (i.e. `play()`).
+
+* Not handling audio stream pausing due to transferring error.
 
 ## Feature in Next Versions
 
