@@ -1,7 +1,8 @@
 {
 	"name": "swiftui-kara",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "SwiftUI Kara and Karatext",
+	"keywords": ["swiftui", "kara", "karatext", "karaoke", "lyrics", "polymer", "web-components"],
 	"authors": [
 		"Zuyet Awarmatik <francesc.zuyet@gmail.com>"
 	],
