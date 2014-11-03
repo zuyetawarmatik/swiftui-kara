@@ -119,7 +119,14 @@ Attribute    				| Default      		| Description
 
 ## Methods
 
+### SwiftUI Kara
 
+Method        						| Parameters   | Returns     									| Description
+---          							| ---          | ---        								 	| ---
+`play()`   								|         		 |             									| Play the music and start running the lyrics.
+`pause()`   							|         		 |             									| Pause the music and the lyrics. If resuming after paused, the music will seek back one-lyrics-line time before the paused point.
+`getCurrentPlayTime()`   	|         		 | Current time of the playing 	| Return current time of the playing in seconds.
+`getDuration()`   				|         		 | Duration of the playing 			| Return duration of the playing in seconds.
 
 ## Events
 
