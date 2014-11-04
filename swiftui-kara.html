@@ -1,6 +1,6 @@
 <link rel="import" href="swiftui-kara-import.html">
 
-<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc startFrom startFromKaratext">
+<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc startFrom">
 	<template>
 		<style>
 			:host {
@@ -48,6 +48,7 @@
 					if (this.state == STATE_KARA_NOT_READY) {
 						this.fire("kara-not-ready");
 					} else if (this.state == STATE_KARA_READY) {
+						this._resetTime();
 						this.fire("kara-ready");
 					} else if (this.state == STATE_KARA_PLAYING) {
 						this._playTimer();
@@ -65,13 +66,15 @@
 
 				registerKaratext: function(childKaratext) {
 					this._childrenKaratext.push(childKaratext);
+					
+					/* Finish registering all children */
 					if (this._childrenKaratext.length == this._numberOfKaratext) {
 						/* Set parent to center center flex layout */
 						this.parentNode.setAttribute("horizontal", "");
 						this.parentNode.setAttribute("layout", "");
 						this.parentNode.setAttribute("center", "");
 						this.parentNode.setAttribute("center-justified", "");
-
+						
 						this.async(function() {
 							this._karaReadyLevel++;
 						});
@@ -179,22 +182,38 @@
 					this._player.pause();
 				},
 
-				play: function() {				
+				play: function() {
 					this._player.seekTo(this._currentTime / 1000);
 					this._player.play();
 				},
 
+				_resetTime: function() {
+					this._seekTo(getMilliseconds(this.startFrom));
+				},
+				
+				_seekTo: function(time) {
+					this._currentTime = 0;
+					this._currentKaratextId = 0;
+					
+					for (var i = 0; i < this._numberOfKaratext; i++) {
+						if (getMilliseconds(this._childrenKaratext[i].start) >= time) {
+							this._currentTime = time;
+							this._currentKaratextId = i;
+							return;
+						}
+					}
+					console.error("Seeking time error");
+				},
+				
 				_endJobs: function() {
 					for (var i = 0; i < this._childrenKaratext.length; i++)
 						this._childrenKaratext[i].reset();
 
-					this._currentTime = 0;
-					this._currentKaratextId = 0;
+					this._resetTime();
 				},
 
 				_pauseJobs: function() {
 					var currentId = this._currentKaratextId;
-					var currentTime = this._currentTime;
 
 					/* Cancel children timers */
 					if (this._currentKaratextId >= 1)
@@ -202,11 +221,7 @@
 					if (this._currentKaratextId >= 2)
 						this._childrenKaratext[currentId - 2].stop();
 
-					/* Find the suitable back-target karatext */
-					currentId -= 2;
-
-					this._currentTime = currentId > 0 ? this._childrenKaratext[currentId - 1].startTime : 0;
-					this._currentKaratextId = currentId >= 0 ? currentId : 0;
+					this._seekTo(this._currentTime);
 				},
 
 				_playTimer: function() {
@@ -249,8 +264,7 @@
 					effect: "slide",
 					flyDuration: 400,
 					audioSrcType: "audio",
-					startFrom: "0:0:0",
-					startFromKaratext: "0"
+					startFrom: "0:0:0"
 				},
 
 				created: function() {
@@ -265,16 +279,11 @@
 					if (this.audioSrcType == "audio")
 						this.$.audio.src = this.audioSrc;
 
-					// TODO: temp seeking
-					this._currentTime = getMilliseconds(this.startFrom);
-					this._currentKaratextId = this.startFromKaratext;
+					this._numberOfKaratext = this.querySelectorAll("swiftui-karatext").length;
+					this._player = this._getPlayer();
 				},
 
 				domReady: function() {
-					this._numberOfKaratext = this.querySelectorAll("swiftui-karatext").length;
-
-					this._player = this._getPlayer();
-
 					switch (this._player.playerType) {
 
 						case "youtube":
