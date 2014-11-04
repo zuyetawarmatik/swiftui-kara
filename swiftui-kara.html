@@ -186,10 +186,6 @@
 					this._player.seekTo(this._currentTime / 1000);
 					this._player.play();
 				},
-
-				_resetTime: function() {
-					this._seekTo(getMilliseconds(this.startFrom));
-				},
 				
 				_seekTo: function(time) {
 					this._currentTime = 0;
@@ -205,11 +201,8 @@
 					console.error("Seeking time error");
 				},
 				
-				_endJobs: function() {
-					for (var i = 0; i < this._childrenKaratext.length; i++)
-						this._childrenKaratext[i].reset();
-
-					this._resetTime();
+				_resetTime: function() {
+					this._seekTo(getMilliseconds(this.startFrom));
 				},
 
 				_pauseJobs: function() {
@@ -222,6 +215,13 @@
 						this._childrenKaratext[currentId - 2].stop();
 
 					this._seekTo(this._currentTime);
+				},
+				
+				_endJobs: function() {
+					for (var i = 0; i < this._childrenKaratext.length; i++)
+						this._childrenKaratext[i].reset();
+
+					this._resetTime();
 				},
 
 				_playTimer: function() {
