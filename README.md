@@ -107,7 +107,7 @@ Attribute    				| Options     					| Default      		| Description
 --- 								| ---         					| ---          		| ---
 `audioSrcType`			| *audio*, *youtube*    | *audio*       	| Audio source type. YouTube source cannot be played in mobile browser.
 `audioSrc`					|     									| 				       	| Audio source string. For audio source, it's URL of the audio file; for YouTube source, it's video's ID.
-`startFrom`					| 				     					| *0:0:0*      		| The default starting time of the play.
+`startAt`						| 				     					| *0:0:0*      		| The default starting time of the play.
 `effect`						| *slide*, *glow*    		| *slide*       	| Effect when running the lyrics. **Note:** Slide effect should be used best when lyrics texts are not wrapped inside karaword, such as `<swiftui-karatext>Lorem ipsum</swiftui-karatext`; on the other hand, Glow effect should be used best when lyrics texts are wrapped inside karaword, for example `<swiftui-karatext><swiftui-karaword>Lorem</swiftui-karaword><swiftui-karaword>ipsum</swiftui-karaword></swiftui-karatext>`.
 `flyDuration`				| 											| *400*       		| Fly duration in ms: fly-in, fly from line to line and fly-out.
 
@@ -176,7 +176,7 @@ Event         		| Description
 
 * Not handling audio stream pausing due to transferring error.
 
-## Feature in Next Versions
+## Features in Next Versions
 
 * One-line style.
 

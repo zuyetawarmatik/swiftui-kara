@@ -1,6 +1,6 @@
 <link rel="import" href="swiftui-kara-import.html">
 
-<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc startFrom">
+<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc startAt">
 	<template>
 		<style>
 			:host {
@@ -202,7 +202,7 @@
 				},
 				
 				_resetTime: function() {
-					this._seekTo(getMilliseconds(this.startFrom));
+					this._seekTo(getMilliseconds(this.startAt));
 				},
 
 				_pauseJobs: function() {
@@ -264,7 +264,7 @@
 					effect: "slide",
 					flyDuration: 400,
 					audioSrcType: "audio",
-					startFrom: "0:0:0"
+					startAt: "0:0:0"
 				},
 
 				created: function() {
