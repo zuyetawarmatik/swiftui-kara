@@ -108,6 +108,7 @@ Attribute    				| Options     					| Default      		| Description
 `audioSrcType`			| *audio*, *youtube*    | *audio*       	| Audio source type. YouTube source cannot be played in mobile browser.
 `audioSrc`					|     									| 				       	| Audio source string. For audio source, it's URL of the audio file; for YouTube source, it's video's ID.
 `startAt`						| 				     					| *0:0:0*      		| The default starting time of the play.
+`endAt`							| 				     					| Play's duration | The default ending time of the play.
 `effect`						| *slide*, *glow*    		| *slide*       	| Effect when running the lyrics. **Note:** Slide effect should be used best when lyrics texts are not wrapped inside karaword, such as `<swiftui-karatext>Lorem ipsum</swiftui-karatext`; on the other hand, Glow effect should be used best when lyrics texts are wrapped inside karaword, for example `<swiftui-karatext><swiftui-karaword>Lorem</swiftui-karaword><swiftui-karaword>ipsum</swiftui-karaword></swiftui-karatext>`.
 `flyDuration`				| 											| *400*       		| Fly duration in ms: fly-in, fly from line to line and fly-out.
 
@@ -126,8 +127,10 @@ Method        						| Parameters   | Returns     									| Description
 ---          							| ---          | ---        								 	| ---
 `play()`   								|         		 |             									| Play (or resume) the music and the lyrics.
 `pause()`   							|         		 |             									| Pause the music and the lyrics. If resuming after paused, the music will seek back one-lyrics-line time before the paused point.
-`getCurrentPlayTime()`   	|         		 | Current time of the playing 	| Return current time of the playing in seconds.
-`getDuration()`   				|         		 | Duration of the playing 			| Return duration of the playing in seconds.
+`getCurrentPlayTimeInS()`, `getCurrentPlayTimeInMS()` |         		 | Current time of the play |
+`getDurationInS()`, `getDurationInMS()` |         		 | Duration of the play |
+`getStartAtTimeInS`				|         		 | Starting time of the play  	|
+`getEndAtTimeInS`					|         		 | Ending time of the play  		|
 
 ## Events
 
@@ -137,9 +140,9 @@ Event         		| Description
 ---           		| ---
 `kara-not-ready` 	| When the kara changes the state to "not ready" (future feature).
 `kara-ready` 			| When the kara is ready to be played.
-`kara-playing` 		| When the kara has started playing music.
+`kara-playing` 		| When the kara has started playing music at `startAt` time.
 `kara-paused` 		| When the kara is paused.
-`kara-ended` 			| When the kara has finished playing music.
+`kara-ended` 			| When the kara has finished playing music at `endAt` time.
 
 ## Development on Forking
 
