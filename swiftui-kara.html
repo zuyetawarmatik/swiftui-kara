@@ -94,9 +94,16 @@
 					return this._player.getCurrentPlayTimeInS();
 				},
 
-				/* seconds */
 				getDurationInS: function() {
 					return this._player.getDurationInS();
+				},
+				
+				getStartAtTimeInS: function() {
+					return this.startAtTime / 1000;
+				},
+				
+				getEndAtTimeInS: function() {
+					return this.endAtTime / 1000;
 				},
 				
 				/* milliseconds */
@@ -104,7 +111,6 @@
 					return ~~(this.getCurrentPlayTimeInS() * 1000);
 				},
 
-				/* milliseconds */
 				getDurationInMS: function() {
 					return ~~(this.getDurationInS() * 1000);
 				},
@@ -230,7 +236,7 @@
 					}
 				},
 				
-				_seekTo: function(ms) {
+				_seekToMS: function(ms) {
 					if (ms > this.getDurationInMS()) {
 						console.error("Error seeking");
 						return;
@@ -245,7 +251,7 @@
 				},
 				
 				_seekReset: function() {
-					this._seekTo(this.startAtTime);
+					this._seekToMS(this.startAtTime);
 				},
 
 				_pauseJobs: function() {
@@ -257,7 +263,7 @@
 					if (this._currentKaratextId >= 2)
 						this._childrenKaratext[currentId - 2].stop();
 
-					this._seekTo(this._currentTime);
+					this._seekToMS(this._currentTime);
 				},
 				
 				_endJobs: function() {

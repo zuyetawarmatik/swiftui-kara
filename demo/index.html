@@ -466,7 +466,7 @@
 			});
 			
 			window.addEventListener("kara-ended", function() {
-				displayPlayerTime("current", swiftUIKara.endAtTime / 1000);
+				displayPlayerTime("current", swiftUIKara.getEndAtTimeInS());
 				controlBtn.switchState("pause", "play");
 				window.clearInterval(timeProgressTimer);
 			});
