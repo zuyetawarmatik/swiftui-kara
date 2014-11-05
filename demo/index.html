@@ -32,7 +32,7 @@
 		</section>
 		
 		<section id="swiftui-kara-wrapper">
-			<swiftui-kara effect="glow" audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3" startAt="0:1:0" endAt="0:2:0">
+			<swiftui-kara effect="glow" audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3" startAt="0:3:0" endAt="0:1:0">
 				<swiftui-karatext start="0:0:13" end="0:0:15">.....................</swiftui-karatext>
 				<swiftui-karatext start="0:0:15" end="0:0:16.6">
 					<swiftui-karaword start="0:0:15" end="0:0:15.4">You'd</swiftui-karaword>
@@ -451,12 +451,12 @@
 
 			/* Control the progress bar */
 			window.addEventListener("kara-playing", function() {
-				displayPlayerTime("duration", swiftUIKara.getDuration());
+				displayPlayerTime("duration", swiftUIKara.getDurationInS());
 				controlBtn.switchState("play", "pause");
 				
 				timeProgressTimer = window.setInterval(
 					function() {
-						displayPlayerTime("current", swiftUIKara.getCurrentPlayTime());
+						displayPlayerTime("current", swiftUIKara.getCurrentPlayTimeInS());
 					}, 1000);
 			});
 
@@ -466,7 +466,7 @@
 			});
 			
 			window.addEventListener("kara-ended", function() {
-				displayPlayerTime("current", swiftUIKara.getDuration());
+				displayPlayerTime("current", swiftUIKara.endAtTime / 1000);
 				controlBtn.switchState("pause", "play");
 				window.clearInterval(timeProgressTimer);
 			});

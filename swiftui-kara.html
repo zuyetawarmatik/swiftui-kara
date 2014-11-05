@@ -90,23 +90,23 @@
 				/* ====================== */
 
 				/* seconds */
-				getCurrentPlayTime: function() {
-					return this._player.getCurrentPlayTime();
+				getCurrentPlayTimeInS: function() {
+					return this._player.getCurrentPlayTimeInS();
 				},
 
 				/* seconds */
-				getDuration: function() {
-					return this._player.getDuration();
+				getDurationInS: function() {
+					return this._player.getDurationInS();
 				},
 				
 				/* milliseconds */
 				getCurrentPlayTimeInMS: function() {
-					return ~~(this.getCurrentPlayTime() * 1000);
+					return ~~(this.getCurrentPlayTimeInS() * 1000);
 				},
 
 				/* milliseconds */
 				getDurationInMS: function() {
-					return ~~(this.getDuration() * 1000);
+					return ~~(this.getDurationInS() * 1000);
 				},
 
 				/* ====================== */
@@ -135,15 +135,15 @@
 									youtube.pause();
 								};
 
-								this.seekTo = function(s) {
+								this.seekToS = function(s) {
 									youtube.seekTo(s);
 								};
 
-								this.getCurrentPlayTime = function() {
+								this.getCurrentPlayTimeInS = function() {
 									return youtube.currenttime;
 								};
 
-								this.getDuration = function() {
+								this.getDurationInS = function() {
 									return youtube.duration;
 								};
 
@@ -167,15 +167,15 @@
 									audio.pause();
 								};
 
-								this.seekTo = function(s) {
+								this.seekToS = function(s) {
 									audio.currentTime = s;
 								};
 
-								this.getCurrentPlayTime = function() {
+								this.getCurrentPlayTimeInS = function() {
 									return audio.currentTime;
 								};
 
-								this.getDuration = function() {
+								this.getDurationInS = function() {
 									return audio.duration;
 								};
 							};
@@ -194,7 +194,7 @@
 				},
 
 				play: function() {
-					this._player.seekTo(this._currentTime / 1000); /* Player's seekTo requires time in seconds */
+					this._player.seekToS(this._currentTime / 1000);
 					this._player.play();
 				},
 				
@@ -226,7 +226,7 @@
 					if (this.startAtTime > this.endAtTime) {
 						this.startAtTime = 0;
 						this.endAtTime = this.getDurationInMS();
-						console.error("Error calculating times");
+						console.error("Error calculating times: startAt should be smaller than endAt");
 					}
 				},
 				
@@ -269,7 +269,10 @@
 
 				_playTimer: function() {
 					this._timer = window.setInterval(function() {
-
+						
+						if (this._currentTime >= this.endAtTime)
+							this.pause();
+						
 						/* Current (i): the karatext waiting outside kara frame
 						/* Prev (i-1): the karatext at 2nd line of kara frame
 						/* Prev prev (i-2): the karatext at 1st line of kara frame */
@@ -344,8 +347,10 @@
 										this.state = STATE_KARA_PLAYING;
 										break;
 									case 2:
-										if (Math.abs(this._player.getDuration() - this._player.getCurrentPlayTime()) > 1)
+										if (Math.abs(this.endAtTime - this._currentTime) > 1000)
 											this.state = STATE_KARA_PAUSED;
+										else
+											this.state = STATE_KARA_ENDED;
 										break;
 									case 0:
 										this.state = STATE_KARA_ENDED;
@@ -368,8 +373,10 @@
 							});
 
 							this.addEventListener("pause", function() {
-								if (Math.abs(this._player.getDuration() - this._player.getCurrentPlayTime()) > 1)
+								if (Math.abs(this.endAtTime - this._currentTime) > 1000)
 									this.state = STATE_KARA_PAUSED;
+								else
+									this.state = STATE_KARA_ENDED;
 							});
 
 							this.addEventListener("ended", function() {
