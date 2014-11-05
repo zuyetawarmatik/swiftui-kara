@@ -1,6 +1,6 @@
 <link rel="import" href="swiftui-kara-import.html">
 
-<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc startAt">
+<polymer-element name="swiftui-kara" attributes="effect flyDuration audioSrcType audioSrc startAt endAt">
 	<template>
 		<style>
 			:host {
@@ -48,6 +48,8 @@
 					if (this.state == STATE_KARA_NOT_READY) {
 						this.fire("kara-not-ready");
 					} else if (this.state == STATE_KARA_READY) {
+						this._calculateStartAtTime();
+						this._calculateEndAtTime();
 						this._resetTime();
 						this.fire("kara-ready");
 					} else if (this.state == STATE_KARA_PLAYING) {
@@ -96,6 +98,16 @@
 				/* seconds */
 				getDuration: function() {
 					return this._player.getDuration();
+				},
+				
+				/* milliseconds */
+				getCurrentPlayTimeInMS: function() {
+					return ~~(this.getCurrentPlayTime() * 1000);
+				},
+
+				/* milliseconds */
+				getDurationInMS: function() {
+					return ~~(this.getDuration() * 1000);
 				},
 
 				/* ====================== */
@@ -183,26 +195,50 @@
 				},
 
 				play: function() {
-					this._player.seekTo(this._currentTime / 1000);
+					this._player.seekTo(this._currentTime / 1000); /* Player's seekTo requires time in seconds */
 					this._player.play();
 				},
 				
-				_seekTo: function(time) {
-					this._currentTime = 0;
-					this._currentKaratextId = 0;
-					
-					for (var i = 0; i < this._numberOfKaratext; i++) {
-						if (getMilliseconds(this._childrenKaratext[i].start) >= time) {
-							this._currentTime = time;
-							this._currentKaratextId = i;
+				_calculateStartAtTime: function() {
+					if (this.startAt != "0:0:0") {
+						var startAtInMS = getMilliseconds(this.startAt);
+						if (startAtInMS <= this.getDurationInMS()) {
+							this.startAtTime = startAtInMS;
 							return;
 						}
 					}
-					console.error("Seeking time error");
+					this.startAtTime = 0;
+				},
+				
+				_calculateEndAtTime: function() {
+					if (this.endAt != "0:0:0") {
+						var endAtInMS = getMilliseconds(this.endAt);
+						if (endAtInMS <= this.getDurationInMS()) {
+							this.endAtTime = endAtInMS;
+							return;
+						}
+					}
+					this.endAtTime = this.getDurationInMS();
+				},
+				
+				_seekTo: function(ms) {
+					if (ms > this.getDurationInMS()) {
+						this._currentTime = 0;
+						this._currentKaratextId = 0;
+						console.error("Error seeking time");
+						return;
+					}
+					
+					this._currentTime = ms;
+					
+					for (var i = 0; i < this._numberOfKaratext; i++) {
+						this._currentKaratextId = i;
+						if (this._childrenKaratext[i].startTime >= ms) return;
+					}
 				},
 				
 				_resetTime: function() {
-					this._seekTo(getMilliseconds(this.startAt));
+					this._seekTo(this.startAtTime);
 				},
 
 				_pauseJobs: function() {
@@ -245,7 +281,7 @@
 							}
 						}
 
-						this._currentTime = ~~(this.getCurrentPlayTime() * 1000);
+						this._currentTime = this.getCurrentPlayTimeInMS();
 					}.bind(this), this._timerInterval);
 				},
 
@@ -264,7 +300,8 @@
 					effect: "slide",
 					flyDuration: 400,
 					audioSrcType: "audio",
-					startAt: "0:0:0"
+					startAt: "0:0:0",
+					endAt: "0:0:0"
 				},
 
 				created: function() {
@@ -278,7 +315,7 @@
 					/* we need to bind it manually here */
 					if (this.audioSrcType == "audio")
 						this.$.audio.src = this.audioSrc;
-
+					
 					this._numberOfKaratext = this.querySelectorAll("swiftui-karatext").length;
 					this._player = this._getPlayer();
 				},
