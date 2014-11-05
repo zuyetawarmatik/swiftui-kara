@@ -65,7 +65,7 @@
 					/* == */
 					
 					this._flyTo2LineTime = 0; // = prevStartTime - currentTime
-					this._flyTo1LineTime = prevEndTime - currentTime;
+					this._flyTo1LineTime = prevEndTime - currentTime > 0 ? prevEndTime - currentTime : 0;
 					this._realStartTime = this.startTime - currentTime;
 					this._realEndTime = this.endTime - currentTime;
 				},

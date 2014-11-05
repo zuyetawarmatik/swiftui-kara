@@ -451,12 +451,12 @@
 
 			/* Control the progress bar */
 			window.addEventListener("kara-playing", function() {
-				displayPlayerTime("duration", swiftUIKara.getDuration());
+				displayPlayerTime("duration", swiftUIKara.getDurationInS());
 				controlBtn.switchState("play", "pause");
 				
 				timeProgressTimer = window.setInterval(
 					function() {
-						displayPlayerTime("current", swiftUIKara.getCurrentPlayTime());
+						displayPlayerTime("current", swiftUIKara.getCurrentPlayTimeInS());
 					}, 1000);
 			});
 
@@ -466,7 +466,7 @@
 			});
 			
 			window.addEventListener("kara-ended", function() {
-				displayPlayerTime("current", swiftUIKara.getDuration());
+				displayPlayerTime("current", swiftUIKara.getEndAtTimeInS());
 				controlBtn.switchState("pause", "play");
 				window.clearInterval(timeProgressTimer);
 			});

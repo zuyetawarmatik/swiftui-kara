@@ -13,3 +13,7 @@ function getMilliseconds(timestampStr) {
 	else (timestampStrSplit.length == 2)
 		return milli + parseInt(timestampStrSplit[1] * 100);
 }
+
+function getSeconds(timestampStr) {
+	return getMilliseconds(timestampStr) / 1000;
+}
