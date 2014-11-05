@@ -48,9 +48,8 @@
 					if (this.state == STATE_KARA_NOT_READY) {
 						this.fire("kara-not-ready");
 					} else if (this.state == STATE_KARA_READY) {
-						this._calculateStartAtTime();
-						this._calculateEndAtTime();
-						this._resetTime();
+						this._calculateTime();
+						this._seekReset();
 						this.fire("kara-ready");
 					} else if (this.state == STATE_KARA_PLAYING) {
 						this._playTimer();
@@ -221,11 +220,19 @@
 					this.endAtTime = this.getDurationInMS();
 				},
 				
+				_calculateTime: function() {
+					this._calculateStartAtTime();
+					this._calculateEndAtTime();
+					if (this.startAtTime > this.endAtTime) {
+						this.startAtTime = 0;
+						this.endAtTime = this.getDurationInMS();
+						console.error("Error calculating times");
+					}
+				},
+				
 				_seekTo: function(ms) {
 					if (ms > this.getDurationInMS()) {
-						this._currentTime = 0;
-						this._currentKaratextId = 0;
-						console.error("Error seeking time");
+						console.error("Error seeking");
 						return;
 					}
 					
@@ -237,7 +244,7 @@
 					}
 				},
 				
-				_resetTime: function() {
+				_seekReset: function() {
 					this._seekTo(this.startAtTime);
 				},
 
@@ -257,7 +264,7 @@
 					for (var i = 0; i < this._childrenKaratext.length; i++)
 						this._childrenKaratext[i].reset();
 
-					this._resetTime();
+					this._seekReset();
 				},
 
 				_playTimer: function() {
