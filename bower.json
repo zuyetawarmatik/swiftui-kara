@@ -1,8 +1,16 @@
 {
 	"name": "swiftui-kara",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "SwiftUI Kara and Karatext",
-	"keywords": ["swiftui", "kara", "karatext", "karaoke", "lyrics", "polymer", "web-components"],
+	"keywords": [
+		"swiftui",
+		"kara",
+		"karatext",
+		"karaoke",
+		"lyrics",
+		"polymer",
+		"web-components"
+	],
 	"authors": [
 		"Zuyet Awarmatik <francesc.zuyet@gmail.com>"
 	],
@@ -14,16 +22,15 @@
 		"bower_components"
 	],
 	"dependencies": {
-		"polymer": "Polymer/polymer#~0.4.2",
+		"polymer": "Polymer/polymer#~0.5.1",
 		"svg.js": "~1.0.1",
-		"google-youtube": "~0.0.9",
+		"google-youtube": "~1.0.1",
 		"web-animations-js": "web-animations/web-animations-js"
 	},
 	"devDependencies": {
 		"normalize.css": "~3.0.2",
-		"core-icons": "Polymer/core-icons#~0.4.2",
-		"paper-button": "Polymer/paper-button#~0.4.2",
-		"paper-progress": "Polymer/paper-progress#~0.4.2",
-		"swiftui-kara": "*"
+		"core-icons": "Polymer/core-icons#~0.5.1",
+		"paper-button": "Polymer/paper-button#~0.5.1",
+		"paper-progress": "Polymer/paper-progress#~0.5.1"
 	}
 }

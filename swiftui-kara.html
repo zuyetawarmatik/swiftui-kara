@@ -11,7 +11,7 @@
 			}
 		</style>
 		<template if="{{audioSrcType=='youtube'}}">
-			<google-youtube id="youtube" videoid="{{audioSrc}}" height="0px" width="0px" chromeless="true"></google-youtube>
+			<google-youtube id="youtube" height="0px" width="0px" chromeless="true"></google-youtube>
 		</template>
 		<template if="{{audioSrcType=='audio'}}">
 			<audio id="audio" preload="auto"></audio>
@@ -150,6 +150,10 @@
 								};
 
 								this.getDurationInS = function() {
+									/* This is a dirty fix to comply with google-youtube:
+									/* google-youtube only exposes duration when its state = 1 (playing) */
+									if (youtube.state != 1)
+										return youtube.player.getDuration();
 									return youtube.duration;
 								};
 
@@ -278,7 +282,6 @@
 
 				_playTimer: function() {
 					this._timer = window.setInterval(function() {
-						
 						if (this._currentTime >= this.endAtTime)
 							this.pause();
 						
@@ -330,10 +333,10 @@
 				},
 
 				ready: function() {
-					/* Because we cannot bind input attribute directly to src of <audio>,
-					/* we need to bind it manually here */
 					if (this.audioSrcType == "audio")
 						this.$.audio.src = this.audioSrc;
+					else if (this.audioSrcType == "youtube")
+						this.$.youtube.videoid = this.audioSrc;
 					
 					this._numberOfKaratext = this.querySelectorAll("swiftui-karatext").length;
 					this._player = this._getPlayer();
