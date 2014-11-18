@@ -196,12 +196,15 @@
 				/* ====================== */
 
 				pause: function() {
-					this._player.pause();
+					if (this.state == STATE_KARA_PLAYING)
+						this._player.pause();
 				},
 
 				play: function() {
-					this._player.seekToS(this._currentTime / 1000);
-					this._player.play();
+					if (this.state == STATE_KARA_READY || this.state == STATE_KARA_PAUSED || this.state == STATE_KARA_ENDED) {
+						this._player.seekToS(this._currentTime / 1000);
+						this._player.play();
+					}
 				},
 				
 				_calculateStartAtTime: function() {
