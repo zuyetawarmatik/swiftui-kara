@@ -17,7 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 		
 		<script src="../bower_components/webcomponentsjs/webcomponents.min.js"></script>
-		<link rel="import" href="../bower_components/paper-progress/paper-progress.html">
+		<link rel="import" href="../bower_components/paper-slider/paper-slider.html">
 		<link rel="import" href="../bower_components/paper-button/paper-button.html">
 		<link rel="import" href="../bower_components/core-icons/av-icons.html">
 		<link rel="import" href="../bower_components/core-icons/social-icons.html">
@@ -411,7 +411,7 @@
 					</div>
 				</div>
 				<div id="time-informations" horizontal layout center>
-					<paper-progress id="time-progress"></paper-progress>
+					<paper-slider id="time-slider"></paper-slider>
 					<span id="current-time">-:--</span>
 					<span>&nbsp;/&nbsp;</span>
 					<span id="duration">-:--</span>
@@ -420,8 +420,8 @@
 		</section>
 
 		<script>
-			var swiftUIKara, controlBtn, currentTimeSpan, durationSpan, timeProgress;
-			var timeProgressTimer;
+			var swiftUIKara, controlBtn, currentTimeSpan, durationSpan, timeSlider;
+			var timeSliderTimer;
 
 			window.addEventListener("polymer-ready", function() {
 				controlBtn = document.querySelector("#control-btn");
@@ -443,19 +443,19 @@
 				swiftUIKara = document.querySelector("swiftui-kara");
 				currentTimeSpan = document.querySelector("#current-time");
 				durationSpan = document.querySelector("#duration");
-				timeProgress = document.querySelector("#time-progress");
+				timeSlider = document.querySelector("#time-slider");
 			});
 
 			window.addEventListener("kara-ready", function() {
 				controlBtn.switchState("disabled", "play");
 			});
 
-			/* Control the progress bar */
+			/* Control the slider bar */
 			window.addEventListener("kara-playing", function() {
 				displayPlayerTime("duration", swiftUIKara.getDurationInS());
 				controlBtn.switchState("play", "pause");
 				
-				timeProgressTimer = window.setInterval(
+				timeSliderTimer = window.setInterval(
 					function() {
 						displayPlayerTime("current", swiftUIKara.getCurrentPlayTimeInS());
 					}, 1000);
@@ -463,13 +463,13 @@
 
 			window.addEventListener("kara-paused", function() {
 				controlBtn.switchState("pause", "play");
-				window.clearInterval(timeProgressTimer);
+				window.clearInterval(timeSliderTimer);
 			});
 			
 			window.addEventListener("kara-ended", function() {
 				displayPlayerTime("current", swiftUIKara.getEndAtTimeInS());
 				controlBtn.switchState("pause", "play");
-				window.clearInterval(timeProgressTimer);
+				window.clearInterval(timeSliderTimer);
 			});
 
 			function controlKara() {
@@ -485,11 +485,11 @@
 			function displayPlayerTime(type, time) {
 				switch (type) {
 					case "current":
-						timeProgress.setAttribute("value", time);
+						timeSlider.setAttribute("value", time);
 						currentTimeSpan.innerHTML = toHHMMSS(time);
 						break;
 					case "duration":
-						timeProgress.setAttribute("max", time);
+						timeSlider.setAttribute("max", time);
 						durationSpan.innerHTML = toHHMMSS(time);
 						break;
 				}

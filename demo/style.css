@@ -83,24 +83,34 @@ swiftui-karatext {
 	font-size: 1.2rem;
 }
 
-#time-progress {
+#time-slider {
 	margin-right: 1rem;
 }
 
-#time-progress::shadow #progressContainer {
+#time-slider::shadow #sliderBar::shadow #progressContainer {
 	background: #2d2d2d;
 }
 
-#time-progress #progressContainer {
+#time-slider #sliderBar #progressContainer { /* For Firefox */
 	background: #2d2d2d;
 }
 
-#time-progress::shadow #activeProgress {
+#time-slider::shadow #sliderBar::shadow #activeProgress {
 	background: #FC5956;
 }
 
-#time-progress #activeProgress { /* For Firefox */
+#time-slider #sliderBar #activeProgress { /* For Firefox */
 	background: #FC5956;
+}
+
+#time-slider::shadow #sliderKnobInner {
+	background: #FC5956;
+	border: none;
+}
+
+#time-slider #sliderKnobInner { /* For Firefox */
+	background: #FC5956;
+	border: none;
 }
 
 #credit-wrapper {
