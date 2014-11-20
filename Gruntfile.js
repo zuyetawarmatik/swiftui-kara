@@ -17,14 +17,6 @@ module.exports = function(grunt) {
 					from: 'bower_components',
 					to: '..'
 				}]
-			},
-			demo: {
-				src: 'demo/index.html',
-				dest: 'demo/',
-				replacements: [{
-					from: '../swiftui-kara.html',
-					to: '../bower_components/swiftui-kara/swiftui-kara.html'
-				}]
 			}
 		}
 	});
