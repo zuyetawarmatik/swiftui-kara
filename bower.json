@@ -1,6 +1,6 @@
 {
 	"name": "swiftui-kara",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "SwiftUI Kara and Karatext",
 	"keywords": [
 		"swiftui",
@@ -31,7 +31,6 @@
 		"normalize.css": "~3.0.2",
 		"core-icons": "Polymer/core-icons#~0.5.1",
 		"paper-button": "Polymer/paper-button#~0.5.1",
-		"paper-slider": "Polymer/paper-slider#~0.5.1",
-		"swiftui-kara": "*"
+		"paper-slider": "Polymer/paper-slider#~0.5.1"
 	}
 }
