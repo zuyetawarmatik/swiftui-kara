@@ -103,24 +103,24 @@
 				},
 				
 				getStartAtTimeInS: function() {
-					return this.startAtTime / 1000;
+					return this.startAtTime.toS();
 				},
 				
 				getEndAtTimeInS: function() {
-					return this.endAtTime / 1000;
+					return this.endAtTime.toS();
 				},
 				
 				/* milliseconds */
 				_getCurrentPlayTimeInMS: function() {
-					return ~~(this.getCurrentPlayTimeInS() * 1000);
+					return this.getCurrentPlayTimeInS().toMS();
 				},
 
 				_getOriginalDurationInMS: function() {
-					return ~~(this.getOriginalDurationInS() * 1000);
+					return this.getOriginalDurationInS().toMS();
 				},
 				
 				_getEndAtTimeInMS: function() {
-					return ~~(this.getEndAtTimeInS() * 1000);
+					return this.getEndAtTimeInS().toMS();
 				},
 
 				/* ====================== */
@@ -220,7 +220,7 @@
 
 				play: function() {
 					if (this.state == STATE_KARA_READY || this.state == STATE_KARA_PAUSED || this.state == STATE_KARA_ENDED) {
-						this._player.seekToS(this._currentTime / 1000);
+						this._player.seekToS(this._currentTime.toS());
 						this._player.play();
 					}
 				},
@@ -233,10 +233,10 @@
 							this._player.pause();
 					
 						this._clearLyrics();
-						this._seekLyricsToMS(~~(s * 1000));
+						this._seekLyricsToMS(s.toMS());
 						
 						if (oldState == STATE_KARA_PLAYING) {
-							this._player.seekToS(this._currentTime / 1000);
+							this._player.seekToS(this._currentTime.toS());
 							this._player.play();
 						}
 					}

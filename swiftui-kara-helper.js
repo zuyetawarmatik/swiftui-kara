@@ -17,3 +17,11 @@ function getMilliseconds(timestampStr) {
 function getSeconds(timestampStr) {
 	return getMilliseconds(timestampStr) / 1000;
 }
+
+Number.prototype.toS = function() {
+	return this.valueOf() / 1000;
+}
+
+Number.prototype.toMS = function() {
+	return ~~(this.valueOf() * 1000);
+}
