@@ -94,8 +94,12 @@
 					return this._player.getCurrentPlayTimeInS();
 				},
 
-				getDurationInS: function() {
+				getOriginalDurationInS: function() {
 					return this._player.getDurationInS();
+				},
+				
+				getDurationInS: function() {
+					return this.getEndAtTimeInS() - this.getStartAtTimeInS();
 				},
 				
 				getStartAtTimeInS: function() {
@@ -111,8 +115,8 @@
 					return ~~(this.getCurrentPlayTimeInS() * 1000);
 				},
 
-				getDurationInMS: function() {
-					return ~~(this.getDurationInS() * 1000);
+				getOriginalDurationInMS: function() {
+					return ~~(this.getOriginalDurationInS() * 1000);
 				},
 
 				/* ====================== */
@@ -237,7 +241,7 @@
 				_calculateStartAtTime: function() {
 					if (this.startAt != "0:0:0") {
 						var startAtInMS = getMilliseconds(this.startAt);
-						if (startAtInMS <= this.getDurationInMS()) {
+						if (startAtInMS <= this.getOriginalDurationInMS()) {
 							this.startAtTime = startAtInMS;
 							return;
 						}
@@ -248,12 +252,12 @@
 				_calculateEndAtTime: function() {
 					if (this.endAt != "0:0:0") {
 						var endAtInMS = getMilliseconds(this.endAt);
-						if (endAtInMS <= this.getDurationInMS()) {
+						if (endAtInMS <= this.getOriginalDurationInMS()) {
 							this.endAtTime = endAtInMS;
 							return;
 						}
 					}
-					this.endAtTime = this.getDurationInMS();
+					this.endAtTime = this.getOriginalDurationInMS();
 				},
 				
 				_calculateTime: function() {
@@ -261,14 +265,14 @@
 					this._calculateEndAtTime();
 					if (this.startAtTime > this.endAtTime) {
 						this.startAtTime = 0;
-						this.endAtTime = this.getDurationInMS();
+						this.endAtTime = this.getOriginalDurationInMS();
 						console.error("Error calculating times: startAt should be smaller than endAt");
 					}
 				},
 				
 				/* This function only affects lyrics' clock but not player's clock */
 				_seekLyricsToMS: function(ms) {
-					if (ms > this.getDurationInMS()) {
+					if (ms > this.getOriginalDurationInMS()) {
 						console.error("Error seeking");
 						return;
 					}
