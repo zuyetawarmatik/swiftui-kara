@@ -414,13 +414,13 @@
 					<paper-slider id="time-slider"></paper-slider>
 					<span id="current-time">-:--</span>
 					<span>&nbsp;/&nbsp;</span>
-					<span id="duration">-:--</span>
+					<span id="end-time">-:--</span>
 				</div>
 			</div>
 		</section>
 
 		<script>
-			var swiftUIKara, controlBtn, currentTimeSpan, durationSpan, timeSlider;
+			var swiftUIKara, controlBtn, currentTimeSpan, endTimeSpan, timeSlider;
 			var timeSliderTimer;
 
 			window.addEventListener("polymer-ready", function() {
@@ -449,7 +449,7 @@
 				
 				swiftUIKara = document.querySelector("swiftui-kara");
 				currentTimeSpan = document.querySelector("#current-time");
-				durationSpan = document.querySelector("#duration");
+				endTimeSpan = document.querySelector("#end-time");
 			});
 
 			window.addEventListener("change", function(evt) {
@@ -463,10 +463,11 @@
 			window.addEventListener("kara-ready", function() {
 				controlBtn.switchState("disabled", "play");
 				timeSlider.switchState("disabled", "play");
+				displayPlayerTime("start", swiftUIKara.getStartAtTimeInS());
+				displayPlayerTime("end", swiftUIKara.getEndAtTimeInS());
 			});
 
 			window.addEventListener("kara-playing", function() {
-				displayPlayerTime("duration", swiftUIKara.getDurationInS());
 				controlBtn.switchState("play", "pause");
 				
 				timeSliderTimer = window.setInterval(
@@ -502,9 +503,13 @@
 						timeSlider.setAttribute("value", time);
 						currentTimeSpan.innerHTML = toHHMMSS(time);
 						break;
-					case "duration":
+					case "start":
+						timeSlider.setAttribute("min", time);
+						currentTimeSpan.innerHTML = toHHMMSS(time);
+						break;
+					case "end":
 						timeSlider.setAttribute("max", time);
-						durationSpan.innerHTML = toHHMMSS(time);
+						endTimeSpan.innerHTML = toHHMMSS(time);
 						break;
 				}
 			}
