@@ -125,12 +125,14 @@ Attribute    				| Default      		| Description
 
 Method        						| Parameters   | Returns     									| Description
 ---          							| ---          | ---        								 	| ---
-`play()`   								|         		 |             									| Play (or resume) the music and the lyrics.
-`pause()`   							|         		 |             									| Pause the music and the lyrics. If resuming after paused, the music will seek back one-lyrics-line time before the paused point.
-`getCurrentPlayTimeInS()`, `getCurrentPlayTimeInMS()` |         		 | Current time of the play |
-`getDurationInS()`, `getDurationInMS()` |         		 | Duration of the play |
-`getStartAtTimeInS`				|         		 | Starting time of the play  	|
-`getEndAtTimeInS`					|         		 | Ending time of the play  		|
+`play()`   								|         		 |             									| Play (or resume) the music and lyrics.
+`pause()`   							|         		 |             									| Pause the music and lyrics. If resuming after paused, the music will seek back one-lyrics-line time before the paused point.
+`seek()`   								|	`s`       	 |             									| Seek the music and lyrics to s-th second.
+`getCurrentPlayTimeInS()`	|         		 | Current time of the play 		|
+`getOriginalDurationInS()`|         		 | Duration of the play, not bounded by startAt and endAt |
+`getDurationInS()`				|         		 | Duration of the play (endAt - startAt) |
+`getStartAtTimeInS()`			|         		 | Starting time of the play  	|
+`getEndAtTimeInS()`				|         		 | Ending time of the play  		|
 
 ## Events
 

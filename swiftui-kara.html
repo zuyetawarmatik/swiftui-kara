@@ -289,15 +289,6 @@
 					}
 				},
 				
-				_seekLyricsToStart: function() {
-					this._seekLyricsToMS(this.startAtTime);
-				},
-
-				_clearLyrics: function() {
-					for (var i = 0; i < this._childrenKaratext.length; i++)
-						this._childrenKaratext[i].reset();
-				},
-				
 				_pauseLyrics: function() {
 					var currentId = this._currentKaratextId;
 
@@ -308,6 +299,15 @@
 						this._childrenKaratext[currentId - 2].stop();
 
 					this._seekLyricsToMS(this._currentTime);
+				},
+
+				_clearLyrics: function() {
+					for (var i = 0; i < this._childrenKaratext.length; i++)
+						this._childrenKaratext[i].reset();
+				},
+											
+				_seekLyricsToStart: function() {
+					this._seekLyricsToMS(this.startAtTime);
 				},
 				
 				_endLyrics: function() {
