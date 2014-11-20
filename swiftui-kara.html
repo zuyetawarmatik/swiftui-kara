@@ -233,7 +233,7 @@
 							this._player.pause();
 					
 						this._clearLyrics();
-						this._seekLyricsToMS(s * 1000);
+						this._seekLyricsToMS(~~(s * 1000));
 						
 						if (oldState == STATE_KARA_PLAYING) {
 							this._player.seekToS(this._currentTime / 1000);

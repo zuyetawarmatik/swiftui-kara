@@ -126,7 +126,7 @@ Attribute    				| Default      		| Description
 Method        						| Parameters   | Returns     									| Description
 ---          							| ---          | ---        								 	| ---
 `play()`   								|         		 |             									| Play (or resume) the music and lyrics.
-`pause()`   							|         		 |             									| Pause the music and lyrics. If resuming after paused, the music will seek back one-lyrics-line time before the paused point.
+`pause()`   							|         		 |             									| Pause the music and lyrics.
 `seek()`   								|	`s`       	 |             									| Seek the music and lyrics to s-th second.
 `getCurrentPlayTimeInS()`	|         		 | Current time of the play 		|
 `getOriginalDurationInS()`|         		 | Duration of the play, not bounded by startAt and endAt |
