@@ -416,11 +416,15 @@
 					<span>&nbsp;/&nbsp;</span>
 					<span id="end-time">-:--</span>
 				</div>
+				<div id="volume-informations" horizontal layout center>
+					<core-icon icon="av:volume-up" id="volume"></core-icon>
+					<paper-slider id="volume-slider" pin max="100"></paper-slider>
+				</div>
 			</div>
 		</section>
 
 		<script>
-			var swiftUIKara, controlBtn, currentTimeSpan, endTimeSpan, timeSlider;
+			var swiftUIKara, controlBtn, currentTimeSpan, endTimeSpan, timeSlider, volumeIcon, volumeSlider;
 			var timeSliderTimer;
 
 			window.addEventListener("polymer-ready", function() {
@@ -450,13 +454,27 @@
 				swiftUIKara = document.querySelector("swiftui-kara");
 				currentTimeSpan = document.querySelector("#current-time");
 				endTimeSpan = document.querySelector("#end-time");
+				volumeSlider = document.querySelector("#volume-slider");
+				volumeIcon = document.querySelector("#volume");
 			});
 
 			window.addEventListener("change", function(evt) {
 				var target = evt.target;
-				if (evt.target.id == "time-slider") {
-					swiftUIKara.seek(target.value);
-					displayPlayerTime("current", target.value);
+				var value = target.value;
+				switch (target.id) {
+					case "time-slider":
+						swiftUIKara.seek(value);
+						displayPlayerTime("current", value);
+						break;
+					case "volume-slider":
+						swiftUIKara.setVolume(value);
+						if (value >= 50)
+							volumeIcon.icon="av:volume-up";
+						else if (value < 50 && value > 0)
+							volumeIcon.icon="av:volume-down";
+						else if (value == 0)
+							volumeIcon.icon="av:volume-off";
+						break;
 				}
 			});
 			
@@ -465,6 +483,7 @@
 				timeSlider.switchState("disabled", "play");
 				displayPlayerTime("start", swiftUIKara.getStartAtTimeInS());
 				displayPlayerTime("end", swiftUIKara.getEndAtTimeInS());
+				volumeSlider.value = swiftUIKara.getVolume();
 			});
 
 			window.addEventListener("kara-playing", function() {
