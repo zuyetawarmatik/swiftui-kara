@@ -32,8 +32,8 @@
 		</section>
 		
 		<section id="swiftui-kara-wrapper">
-<!--			<swiftui-kara effect="glow" audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3">-->
-			<swiftui-kara effect="glow" audioSrcType="youtube" audioSrc="m2-kJau6dVs">
+			<swiftui-kara effect="glow" audioSrcType="audio" audioSrc="santa-claus-is-coming-to-town.mp3">
+<!--			<swiftui-kara effect="glow" audioSrcType="youtube" audioSrc="m2-kJau6dVs">-->
 				<swiftui-karatext start="0:0:13" end="0:0:15">.....................</swiftui-karatext>
 				<swiftui-karatext start="0:0:15" end="0:0:16.6">
 					<swiftui-karaword start="0:0:15" end="0:0:15.4">You'd</swiftui-karaword>
@@ -417,14 +417,14 @@
 					<span id="end-time">-:--</span>
 				</div>
 				<div id="volume-informations" horizontal layout center>
-					<core-icon icon="av:volume-up"></core-icon>
+					<core-icon icon="av:volume-up" id="volume"></core-icon>
 					<paper-slider id="volume-slider" pin max="100"></paper-slider>
 				</div>
 			</div>
 		</section>
 
 		<script>
-			var swiftUIKara, controlBtn, currentTimeSpan, endTimeSpan, timeSlider, volumeSlider;
+			var swiftUIKara, controlBtn, currentTimeSpan, endTimeSpan, timeSlider, volumeIcon, volumeSlider;
 			var timeSliderTimer;
 
 			window.addEventListener("polymer-ready", function() {
@@ -455,17 +455,25 @@
 				currentTimeSpan = document.querySelector("#current-time");
 				endTimeSpan = document.querySelector("#end-time");
 				volumeSlider = document.querySelector("#volume-slider");
+				volumeIcon = document.querySelector("#volume");
 			});
 
 			window.addEventListener("change", function(evt) {
 				var target = evt.target;
+				var value = target.value;
 				switch (target.id) {
 					case "time-slider":
-						swiftUIKara.seek(target.value);
-						displayPlayerTime("current", target.value);
+						swiftUIKara.seek(value);
+						displayPlayerTime("current", value);
 						break;
 					case "volume-slider":
-						swiftUIKara.setVolume(target.value);
+						swiftUIKara.setVolume(value);
+						if (value >= 50)
+							volumeIcon.icon="av:volume-up";
+						else if (value < 50 && value > 0)
+							volumeIcon.icon="av:volume-down";
+						else if (value == 0)
+							volumeIcon.icon="av:volume-off";
 						break;
 				}
 			});

@@ -186,7 +186,7 @@ swiftui-karatext {
 	}
 
 	#player-wrapper {
-		height: 20rem;
+		height: 25rem;
 	}
 	
 	#player-wrapper-inner {
@@ -195,7 +195,7 @@ swiftui-karatext {
 		justify-content: space-around;
 	}
 
-	#song-informations, #time-informations {
+	#song-informations, #time-informations, #volume-informations {
 		align-self: flex-start;
 	}
 }
