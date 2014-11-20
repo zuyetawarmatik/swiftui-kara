@@ -111,12 +111,16 @@
 				},
 				
 				/* milliseconds */
-				getCurrentPlayTimeInMS: function() {
+				_getCurrentPlayTimeInMS: function() {
 					return ~~(this.getCurrentPlayTimeInS() * 1000);
 				},
 
-				getOriginalDurationInMS: function() {
+				_getOriginalDurationInMS: function() {
 					return ~~(this.getOriginalDurationInS() * 1000);
+				},
+				
+				_getEndAtTimeInMS: function() {
+					return ~~(this.getEndAtTimeInS() * 1000);
 				},
 
 				/* ====================== */
@@ -241,7 +245,7 @@
 				_calculateStartAtTime: function() {
 					if (this.startAt != "0:0:0") {
 						var startAtInMS = getMilliseconds(this.startAt);
-						if (startAtInMS <= this.getOriginalDurationInMS()) {
+						if (startAtInMS <= this._getOriginalDurationInMS()) {
 							this.startAtTime = startAtInMS;
 							return;
 						}
@@ -252,12 +256,12 @@
 				_calculateEndAtTime: function() {
 					if (this.endAt != "0:0:0") {
 						var endAtInMS = getMilliseconds(this.endAt);
-						if (endAtInMS <= this.getOriginalDurationInMS()) {
+						if (endAtInMS <= this._getOriginalDurationInMS()) {
 							this.endAtTime = endAtInMS;
 							return;
 						}
 					}
-					this.endAtTime = this.getOriginalDurationInMS();
+					this.endAtTime = this._getOriginalDurationInMS();
 				},
 				
 				_calculateTime: function() {
@@ -265,14 +269,14 @@
 					this._calculateEndAtTime();
 					if (this.startAtTime > this.endAtTime) {
 						this.startAtTime = 0;
-						this.endAtTime = this.getOriginalDurationInMS();
+						this.endAtTime = this._getOriginalDurationInMS();
 						console.error("Error calculating times: startAt should be smaller than endAt");
 					}
 				},
 				
 				/* This function only affects lyrics' clock but not player's clock */
 				_seekLyricsToMS: function(ms) {
-					if (ms > this.getOriginalDurationInMS()) {
+					if (ms > this._getEndAtTimeInMS()) {
 						console.error("Error seeking");
 						return;
 					}
@@ -334,7 +338,7 @@
 							}
 						}
 
-						this._currentTime = this.getCurrentPlayTimeInMS();
+						this._currentTime = this._getCurrentPlayTimeInMS();
 					}.bind(this), this._timerInterval);
 				},
 
