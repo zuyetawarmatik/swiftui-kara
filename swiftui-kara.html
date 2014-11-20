@@ -49,18 +49,18 @@
 						this.fire("kara-not-ready");
 					} else if (this.state == STATE_KARA_READY) {
 						this._calculateTime();
-						this._seekReset();
+						this._resetLyrics();
 						this.fire("kara-ready");
 					} else if (this.state == STATE_KARA_PLAYING) {
-						this._playTimer();
+						this._playLyricsTimer();
 						this.fire("kara-playing");
 					} else if (this.state == STATE_KARA_PAUSED) {
-						this._cancelPlayTimer();
-						this._pauseJobs();
+						this._cancelPlayLyricsTimer();
+						this._pauseLyrics();
 						this.fire("kara-paused");
 					} else if (this.state == STATE_KARA_ENDED) {
-						this._cancelPlayTimer();
-						this._endJobs();
+						this._cancelPlayLyricsTimer();
+						this._endLyrics();
 						this.fire("kara-ended");
 					}
 				},
@@ -198,6 +198,12 @@
 
 				/* Controlling functions */
 				/* ====================== */
+				
+				/* Such public functions, pause() and play() are in fact
+				/* acting only on the player, but not the lyrics.
+				/* After the player is paused or played, it will trigger an event
+				/* which causes the lyrics to pause or play using private functions
+				/* such as _pauseLyrics() or _playLyricsTimer() */
 
 				pause: function() {
 					if (this.state == STATE_KARA_PLAYING)
@@ -208,6 +214,20 @@
 					if (this.state == STATE_KARA_READY || this.state == STATE_KARA_PAUSED || this.state == STATE_KARA_ENDED) {
 						this._player.seekToS(this._currentTime / 1000);
 						this._player.play();
+					}
+				},
+				
+				seek: function(s) {
+					if (this.state != STATE_KARA_NOT_READY) {
+						var oldState = this.state;
+						
+						if (oldState == STATE_KARA_PLAYING)
+							this._player.pause();
+						
+						this._seekLyricsToMS(s * 1000);
+						
+						if (oldState == STATE_KARA_PLAYING)
+							this._player.play();
 					}
 				},
 				
@@ -243,7 +263,8 @@
 					}
 				},
 				
-				_seekToMS: function(ms) {
+				/* This function only affects lyrics' clock but not player's clock */
+				_seekLyricsToMS: function(ms) {
 					if (ms > this.getDurationInMS()) {
 						console.error("Error seeking");
 						return;
@@ -257,11 +278,11 @@
 					}
 				},
 				
-				_seekReset: function() {
-					this._seekToMS(this.startAtTime);
+				_resetLyrics: function() {
+					this._seekLyricsToMS(this.startAtTime);
 				},
 
-				_pauseJobs: function() {
+				_pauseLyrics: function() {
 					var currentId = this._currentKaratextId;
 
 					/* Cancel children timers */
@@ -270,17 +291,17 @@
 					if (this._currentKaratextId >= 2)
 						this._childrenKaratext[currentId - 2].stop();
 
-					this._seekToMS(this._currentTime);
+					this._seekLyricsToMS(this._currentTime);
 				},
 				
-				_endJobs: function() {
+				_endLyrics: function() {
 					for (var i = 0; i < this._childrenKaratext.length; i++)
 						this._childrenKaratext[i].reset();
 
-					this._seekReset();
+					this._resetLyrics();
 				},
 
-				_playTimer: function() {
+				_playLyricsTimer: function() {
 					this._timer = window.setInterval(function() {
 						if (this._currentTime >= this.endAtTime)
 							this.pause();
@@ -307,7 +328,7 @@
 					}.bind(this), this._timerInterval);
 				},
 
-				_cancelPlayTimer: function() {
+				_cancelPlayLyricsTimer: function() {
 					window.clearInterval(this._timer);
 				},
 

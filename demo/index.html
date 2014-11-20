@@ -452,12 +452,17 @@
 				durationSpan = document.querySelector("#duration");
 			});
 
+			window.addEventListener("change", function(evt) {
+				if (evt.target.id == "time-slider") {
+					
+				}
+			});
+			
 			window.addEventListener("kara-ready", function() {
 				controlBtn.switchState("disabled", "play");
 				timeSlider.switchState("disabled", "play");
 			});
 
-			/* Control the slider bar */
 			window.addEventListener("kara-playing", function() {
 				displayPlayerTime("duration", swiftUIKara.getDurationInS());
 				controlBtn.switchState("play", "pause");

@@ -18,10 +18,10 @@ $ bower install swiftui-kara --save
 
 ## Usage
 
-1. Import Web Components' polyfill:
+1. Import Web Components' polyfill (as of version 0.1.0):
 
 	```html
-	<script src="bower_components/platform/platform.js"></script>
+	<script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
 	```
 
 2. Import SwiftUI Kara element sets:
