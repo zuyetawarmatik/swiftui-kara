@@ -440,14 +440,21 @@
 				};
 				controlBtn.switchState("", "disabled");
 				
+				timeSlider = document.querySelector("#time-slider");
+				timeSlider.switchState = function(from, to) {
+					this.removeAttribute(from);
+					this.setAttribute(to, "");
+				};
+				timeSlider.switchState("", "disabled");
+				
 				swiftUIKara = document.querySelector("swiftui-kara");
 				currentTimeSpan = document.querySelector("#current-time");
 				durationSpan = document.querySelector("#duration");
-				timeSlider = document.querySelector("#time-slider");
 			});
 
 			window.addEventListener("kara-ready", function() {
 				controlBtn.switchState("disabled", "play");
+				timeSlider.switchState("disabled", "play");
 			});
 
 			/* Control the slider bar */
