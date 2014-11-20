@@ -49,7 +49,7 @@
 						this.fire("kara-not-ready");
 					} else if (this.state == STATE_KARA_READY) {
 						this._calculateTime();
-						this._resetLyrics();
+						this._seekLyricsToStart();
 						this.fire("kara-ready");
 					} else if (this.state == STATE_KARA_PLAYING) {
 						this._playLyricsTimer();
@@ -220,14 +220,17 @@
 				seek: function(s) {
 					if (this.state != STATE_KARA_NOT_READY) {
 						var oldState = this.state;
-						
+
 						if (oldState == STATE_KARA_PLAYING)
 							this._player.pause();
-						
+					
+						this._clearLyrics();
 						this._seekLyricsToMS(s * 1000);
 						
-						if (oldState == STATE_KARA_PLAYING)
+						if (oldState == STATE_KARA_PLAYING) {
+							this._player.seekToS(this._currentTime / 1000);
 							this._player.play();
+						}
 					}
 				},
 				
@@ -278,10 +281,15 @@
 					}
 				},
 				
-				_resetLyrics: function() {
+				_seekLyricsToStart: function() {
 					this._seekLyricsToMS(this.startAtTime);
 				},
 
+				_clearLyrics: function() {
+					for (var i = 0; i < this._childrenKaratext.length; i++)
+						this._childrenKaratext[i].reset();
+				},
+				
 				_pauseLyrics: function() {
 					var currentId = this._currentKaratextId;
 
@@ -295,10 +303,8 @@
 				},
 				
 				_endLyrics: function() {
-					for (var i = 0; i < this._childrenKaratext.length; i++)
-						this._childrenKaratext[i].reset();
-
-					this._resetLyrics();
+					this._clearLyrics();
+					this._seekLyricsToStart();
 				},
 
 				_playLyricsTimer: function() {

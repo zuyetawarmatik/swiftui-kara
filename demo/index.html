@@ -453,8 +453,10 @@
 			});
 
 			window.addEventListener("change", function(evt) {
+				var target = evt.target;
 				if (evt.target.id == "time-slider") {
-					
+					swiftUIKara.seek(target.value);
+					displayPlayerTime("current", target.value);
 				}
 			});
 			
