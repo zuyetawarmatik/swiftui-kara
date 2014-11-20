@@ -89,6 +89,10 @@
 				/* Properties functions */
 				/* ====================== */
 
+				getVolume: function() {
+					return this._player.getVolume();
+				},
+				
 				/* seconds */
 				getCurrentPlayTimeInS: function() {
 					return this._player.getCurrentPlayTimeInS();
@@ -165,6 +169,14 @@
 									return youtube.duration;
 								};
 
+								this.getVolume = function() {
+									return youtube.player.getVolume();
+								};
+								
+								this.setVolume = function(volume) {
+									youtube.setVolume(volume);
+								};
+								
 								this.getState = function() {
 									return youtube.state;
 								};
@@ -196,6 +208,14 @@
 								this.getDurationInS = function() {
 									return audio.duration;
 								};
+								
+								this.getVolume = function() {
+									return ~~(audio.volume * 100);
+								};
+								
+								this.setVolume = function(volume) {
+									audio.volume = volume / 100;
+								};
 							};
 							break;
 					}
@@ -213,6 +233,10 @@
 				/* which causes the lyrics to pause or play using private functions
 				/* such as _pauseLyrics() or _playLyricsTimer() */
 
+				setVolume: function(volume) {
+					this._player.setVolume(volume);
+				},
+				
 				pause: function() {
 					if (this.state == STATE_KARA_PLAYING)
 						this._player.pause();

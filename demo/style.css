@@ -43,10 +43,10 @@ swiftui-karatext {
 #player-wrapper-inner {
 	position: absolute;
 	top: 0; bottom: 0;
-	width: 80rem;
+	width: 120rem;
 }
 
-#control-btn, #song-informations, #time-informations {
+#control-btn, #song-informations, #time-informations, #volume-informations {
 	margin-left: 2rem;
 }
 
@@ -109,6 +109,42 @@ swiftui-karatext {
 }
 
 #time-slider #sliderKnobInner { /* For Firefox */
+	background: #FC5956;
+	border: none;
+}
+
+#volume-slider::shadow #sliderBar::shadow #progressContainer {
+	background: #2d2d2d;
+}
+
+#volume-slider #sliderBar #progressContainer { /* For Firefox */
+	background: #2d2d2d;
+}
+
+#volume-slider::shadow #sliderBar::shadow #activeProgress {
+	background: #FC5956;
+}
+
+#volume-slider #sliderBar #activeProgress { /* For Firefox */
+	background: #FC5956;
+}
+
+#volume-slider::shadow #sliderKnobInner {
+	background: #FC5956;
+	border: none;
+}
+
+#volume-slider #sliderKnobInner { /* For Firefox */
+	background: #FC5956;
+	border: none;
+}
+
+#volume-slider::shadow #sliderKnobInner::before {
+	background: #FC5956;
+	border: none;
+}
+
+#volume-slider #sliderKnobInner::before { /* For Firefox */
 	background: #FC5956;
 	border: none;
 }
