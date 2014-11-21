@@ -21,8 +21,12 @@
 
 	<script>
 		(function() {
-			var KARA_FULL_READY = 2;
-
+			var STATE_LYRICS_NOT_READY = -1;
+			var STATE_LYRICS_READY = 0;
+			
+			var STATE_PLAYER_NOT_READY = -1;
+			var STATE_PLAYER_READY = 0;
+			
 			var STATE_KARA_NOT_READY = -1;
 			var STATE_KARA_READY = 0;
 			var STATE_KARA_PLAYING = 1;
@@ -30,20 +34,28 @@
 			var STATE_KARA_ENDED = 3;
 
 			/* User action and state:
-			/* User action (play, pause) -> kara's public function -> youtube's state changed ->
+			/* User action (play, pause) -> kara's public function -> player's state changed ->
 			/* kara's state changed -> kara's private function -> kara fires event -> user agent listens event */
 
 			Polymer({
-				_karaReadyLevel: 0,
+				_lyricsState: STATE_LYRICS_NOT_READY,
+				_playerState: STATE_PLAYER_NOT_READY,
 
 				/* Registering and event functions */
 				/* ====================== */
 
-				_karaReadyLevelChanged: function() {
-					if (this._karaReadyLevel == KARA_FULL_READY)
-						this.state = STATE_KARA_READY;
+				observe: {
+					_lyricsState: '_readyCheck',
+					_playerState: '_readyCheck'
 				},
 
+				_readyCheck: function() {
+					if (this._lyricsState == STATE_LYRICS_READY && this._playerState == STATE_PLAYER_READY)
+						this.state = STATE_KARA_READY;
+					else
+						this.state = STATE_KARA_NOT_READY;
+				},
+				
 				stateChanged: function() {
 					if (this.state == STATE_KARA_NOT_READY) {
 						this.fire("kara-not-ready");
@@ -76,9 +88,7 @@
 						this.parentNode.setAttribute("center", "");
 						this.parentNode.setAttribute("center-justified", "");
 						
-						this.async(function() {
-							this._karaReadyLevel++;
-						});
+						this._lyricsState = STATE_LYRICS_READY;
 					}
 				},
 
@@ -407,9 +417,7 @@
 						case "youtube":
 
 							this.addEventListener("google-youtube-ready", function() {
-								this.async(function() {
-									this._karaReadyLevel++;
-								});
+								this._playerState = STATE_PLAYER_READY;
 							});
 
 							this.addEventListener("google-youtube-state-change", function() {
@@ -434,9 +442,7 @@
 						case "audio":
 
 							this.addEventListener("canplay", function() {
-								this.async(function() {
-									this._karaReadyLevel++;
-								});
+								this._playerState = STATE_PLAYER_READY;
 							});
 
 							this.addEventListener("playing", function() {
