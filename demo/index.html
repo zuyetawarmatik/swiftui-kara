@@ -399,7 +399,7 @@
 		
 		<section id="player-wrapper">
 			<div id="player-wrapper-inner" horizontal layout center>
-				<paper-button id="control-btn" icon="av:play-arrow" horizontal layout center center-justified>
+				<paper-button id="control-btn" icon="av:play-arrow" horizontal layout center center-justified play disabled>
 					<core-icon icon="av:play-arrow"></core-icon>
 				</paper-button>
 				<div id="song-informations" horizontal layout center>
@@ -411,7 +411,7 @@
 					</div>
 				</div>
 				<div id="time-informations" horizontal layout center>
-					<paper-slider id="time-slider"></paper-slider>
+					<paper-slider id="time-slider" disabled></paper-slider>
 					<span id="current-time">-:--</span>
 					<span>&nbsp;/&nbsp;</span>
 					<span id="end-time">-:--</span>
@@ -442,20 +442,25 @@
 							this.controlBtnIcon.setAttribute("icon", "av:pause"); break;
 					}
 				};
-				controlBtn.switchState("", "disabled");
-				
-				timeSlider = document.querySelector("#time-slider");
-				timeSlider.switchState = function(from, to) {
-					this.removeAttribute(from);
-					this.setAttribute(to, "");
-				};
-				timeSlider.switchState("", "disabled");
+				controlBtn.setDisabled = function(disabled) {
+					if (disabled)
+						this.setAttribute("disabled", "");
+					else
+						this.removeAttribute("disabled");
+				}
 				
 				swiftUIKara = document.querySelector("swiftui-kara");
 				currentTimeSpan = document.querySelector("#current-time");
 				endTimeSpan = document.querySelector("#end-time");
 				volumeSlider = document.querySelector("#volume-slider");
 				volumeIcon = document.querySelector("#volume");
+				timeSlider = document.querySelector("#time-slider");
+				timeSlider.setDisabled = function(disabled) {
+					if (disabled)
+						this.setAttribute("disabled", "");
+					else
+						this.removeAttribute("disabled");
+				}
 			});
 
 			window.addEventListener("change", function(evt) {
@@ -478,12 +483,20 @@
 				}
 			});
 			
-			window.addEventListener("kara-ready", function() {
-				controlBtn.switchState("disabled", "play");
-				timeSlider.switchState("disabled", "play");
+			window.addEventListener("kara-not-ready", function() {
+				controlBtn.setDisabled(true);
+				timeSlider.setDisabled(true);
+			});
+			
+			window.addEventListener("kara-first-ready", function() {
 				displayPlayerTime("start", swiftUIKara.getStartAtTimeInS());
 				displayPlayerTime("end", swiftUIKara.getEndAtTimeInS());
 				volumeSlider.value = swiftUIKara.getVolume();
+			});
+			
+			window.addEventListener("kara-ready", function() {
+				controlBtn.setDisabled(false);
+				timeSlider.setDisabled(false);
 			});
 
 			window.addEventListener("kara-playing", function() {

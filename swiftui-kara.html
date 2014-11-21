@@ -38,6 +38,8 @@
 			/* kara's state changed -> kara's private function -> kara fires event -> user agent listens event */
 
 			Polymer({
+				_timePrepared: false,
+				
 				_lyricsState: STATE_LYRICS_NOT_READY,
 				_playerState: STATE_PLAYER_NOT_READY,
 
@@ -60,8 +62,12 @@
 					if (this.state == STATE_KARA_NOT_READY) {
 						this.fire("kara-not-ready");
 					} else if (this.state == STATE_KARA_READY) {
-						this._calculateTime();
-						this._seekLyricsToStart();
+						if (!this._timePrepared) {
+							this._calculateTime();
+							this._seekLyricsToStart();
+							this._timePrepared = true;
+							this.fire("kara-first-ready");
+						}
 						this.fire("kara-ready");
 					} else if (this.state == STATE_KARA_PLAYING) {
 						this._playLyricsTimer();
@@ -444,6 +450,14 @@
 							this.addEventListener("canplay", function() {
 								this._playerState = STATE_PLAYER_READY;
 							});
+							
+							this.addEventListener("seeking", function() {
+								this._playerState = STATE_PLAYER_NOT_READY;
+							});
+							
+							this.addEventListener("seeked", function() {
+								this._playerState = STATE_PLAYER_READY;
+							});
 
 							this.addEventListener("playing", function() {
 								this.state = STATE_KARA_PLAYING;
@@ -459,7 +473,7 @@
 							this.addEventListener("ended", function() {
 								this.state = STATE_KARA_ENDED;
 							});
-
+							
 							break;
 
 					}
