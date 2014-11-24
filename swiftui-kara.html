@@ -477,6 +477,12 @@
 							break;
 
 					}
+					
+					var thisEl = this;
+					document.addEventListener("visibilitychange", function() {
+						if (!document["hidden"]) 
+							thisEl._clearLyrics();
+					});
 				}
 
 				/* ====================== */
