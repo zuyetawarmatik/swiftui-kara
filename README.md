@@ -128,11 +128,13 @@ Method        						| Parameters   | Returns     									| Description
 `play()`   								|         		 |             									| Play (or resume) the music and lyrics.
 `pause()`   							|         		 |             									| Pause the music and lyrics.
 `seek()`   								|	`s`       	 |             									| Seek the music and lyrics to s-th second.
+`setVolume()`							| `volume`     | 															| Set volume of the play.
 `getCurrentPlayTimeInS()`	|         		 | Current time of the play 		|
 `getOriginalDurationInS()`|         		 | Duration of the play, not bounded by startAt and endAt |
 `getDurationInS()`				|         		 | Duration of the play (endAt - startAt) |
 `getStartAtTimeInS()`			|         		 | Starting time of the play  	|
 `getEndAtTimeInS()`				|         		 | Ending time of the play  		|
+`getVolume()`							|         		 | Volume of the play  					|
 
 ## Events
 
@@ -140,8 +142,9 @@ Method        						| Parameters   | Returns     									| Description
 
 Event         		| Description
 ---           		| ---
-`kara-not-ready` 	| When the kara changes the state to "not ready" (future feature).
-`kara-ready` 			| When the kara is ready to be played.
+`kara-not-ready` 	| When the kara is in setting-up process, or buffering (seeking).
+`kara-first-ready`| When the kara is initialized. Best used for getting starting, ending time or duration.
+`kara-ready` 			| When the kara is ready to be played or resumed.
 `kara-playing` 		| When the kara has started playing music at `startAt` time.
 `kara-paused` 		| When the kara is paused.
 `kara-ended` 			| When the kara has finished playing music at `endAt` time.
