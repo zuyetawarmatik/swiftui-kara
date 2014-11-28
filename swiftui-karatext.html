@@ -112,8 +112,8 @@
 						this._cancelFallTimer = this.async(function() {
 							document.timeline.play(new Animation(this,
 								[
-									{opacity: 1, top: this._getStyles().top},
-									{opacity: 0, top: numberToPx(parentHeight)}
+									{opacity: 1},
+									{opacity: 0}
 								],
 								{
 									duration: 200,
@@ -129,6 +129,11 @@
 				
 				/* This function is used for playing */
 				run: function() {
+					
+					function translateY(y) {
+						return "translate(0, " + numberToPx(y) + ")";
+					}
+					
 					this.cancelAsync(this._cancelFallTimer);
 					this.cancelAsync(this._cancelHideTimer);
 					
@@ -145,8 +150,8 @@
 					this._flyTo2LineTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
-								{opacity: 0, top: numberToPx(parentHeight)},
-								{opacity: 1, top: numberToPx(secondLineTop)}
+								{opacity: 0, transform: translateY(parentHeight)},
+								{opacity: 1, transform: translateY(secondLineTop)}
 							],
 							{
 								duration: flyDuration,
@@ -159,8 +164,8 @@
 					this._flyTo1LineTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
-								{top: numberToPx(secondLineTop)},
-								{top: numberToPx(firstLineTop)}
+								{transform: translateY(secondLineTop)},
+								{transform: translateY(firstLineTop)}
 							],
 							{
 								duration: flyDuration,
@@ -202,8 +207,8 @@
 					this._endTimer = this.async(function() {
 						document.timeline.play(new Animation(this,
 							[
-								{opacity: 1, top: numberToPx(firstLineTop)},
-								{opacity: 0, top: numberToPx(-this._textHeight)}
+								{opacity: 1, transform: translateY(firstLineTop)},
+								{opacity: 0, transform: translateY(-this._textHeight)}
 							],
 							{
 								duration: flyDuration,
